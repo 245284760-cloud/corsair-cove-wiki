@@ -15,7 +15,7 @@ const safetyRules = [
   { label: 'fabricated Codes heading', pattern: /^#{1,6}\s+.*\bcodes?\b/im },
   { label: 'price claim', pattern: /\$\s*\d|\bUSD\b/i },
   { label: 'discount claim', pattern: /\b(?:save|saving|discount)\s+\d+(?:\.\d+)?%|\b\d+(?:\.\d+)?%\s*(?:off|discount|savings?)\b/i },
-  { label: 'review-percentage claim', pattern: /\b\d+(?:\.\d+)?%\s*(?:positive|negative)\s+reviews?\b|\b\d+(?:\.\d+)?%\s+of\s+reviews?\s+(?:are|is)\s+(?:positive|negative)\b|\b(?:positive|negative)\s+review\s+(?:rate|score)\s*(?:of|is)?\s*\d+(?:\.\d+)?%/i },
+  { label: 'review-percentage claim', pattern: /\b\d+(?:\.\d+)?%\s*(?:positive|negative)\s+reviews?\b|\b\d+(?:\.\d+)?%\s+reviews?\s+(?:positive|negative)\b|\b\d+(?:\.\d+)?%\s+of\s+reviews?\s+(?:are|is)\s+(?:positive|negative)\b|\b(?:positive|negative)\s+review\s+(?:rate|score)\s*(?:of|is)?\s*\d+(?:\.\d+)?%/i },
 ] as const
 
 function runtimeFiles(): RuntimeFile[] {
@@ -48,7 +48,9 @@ describe('production content safety', () => {
     expect(matchedLabels('Save 20% on Corsair Cove today.')).toContain('discount claim')
     expect(matchedLabels('Players receive 20% savings this week.')).toContain('discount claim')
     expect(matchedLabels('85% of reviews are positive.')).toContain('review-percentage claim')
+    expect(matchedLabels('85% reviews positive.')).toContain('review-percentage claim')
     expect(matchedLabels('Corsair Cove includes 50+ goods, 4 Principle Paths, and 62 Steam achievements.')).toEqual([])
+    expect(matchedLabels('Build reliable supply lines with workers, piers, and connected production.')).toEqual([])
   })
 
   it('keeps prohibited routes, game references, cheat terms, and volatile claims out of runtime content', () => {

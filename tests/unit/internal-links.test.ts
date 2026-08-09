@@ -9,6 +9,7 @@ type RuntimeFile = { path: string; source: string }
 const RUNTIME_SOURCE_DIRECTORY = 'src'
 const EXCLUDED_RUNTIME_DIRECTORIES = new Set(['docs', 'research', 'test', 'tests'])
 const RUNTIME_EXTENSIONS = new Set(['.json', '.mdx', '.ts', '.tsx'])
+const TAILWIND_VARIANT = /^(?:sm|md|lg|xl|2xl|dark|hover|focus|active|disabled|first|last|odd|even|group-hover|peer-checked):/
 const APPROVED_EXTERNAL_HOSTS = new Set([
   'store.steampowered.com',
   'www.xbox.com',
@@ -52,12 +53,22 @@ function normalizeInternalPath(link: string): string | null {
   return path === '/' ? path : `${path}/`
 }
 
+function isAbsoluteUri(link: string): boolean {
+  if (TAILWIND_VARIANT.test(link)) return false
+
+  try {
+    return Boolean(new URL(link).protocol)
+  } catch {
+    return false
+  }
+}
+
 function discoveredLinks(files: RuntimeFile[] = runtimeFiles()): Array<{ path: string; link: string }> {
   const quotedPath = /(['"`])(\/?[^'"`\s)]+)\1/g
 
   return files.flatMap(({ path, source }) => Array.from(source.matchAll(quotedPath)).flatMap((match) => {
     const link = match[2]
-    if (!link.startsWith('/') && !/^[a-z][a-z\d+.-]*:\/\/[^/\s]+/i.test(link) && !link.startsWith('#')) return []
+    if (!link.startsWith('/') && !isAbsoluteUri(link) && !link.startsWith('#')) return []
 
     return [{ path, link }]
   }))
@@ -91,6 +102,27 @@ describe('published internal links', () => {
     expect(discoveredLinks([{ path: 'src/components/example.tsx', source: '"md:hidden" "https://" "https://example.com/guide"' }])).toEqual([
       { path: 'src/components/example.tsx', link: 'https://example.com/guide' },
     ])
+  })
+
+  it('discovers every absolute URI scheme so unapproved links cannot be silently ignored', () => {
+    const path = 'src/i18n/en.json'
+    const links = ['mailto:user@example.com', 'javascript:alert', 'ftp:file.txt', 'ftp://example.com/file']
+
+    expect(discoveredLinks([{ path, source: links.map((link) => `"${link}"`).join(' ') }])).toEqual(
+      links.map((link) => ({ path, link })),
+    )
+
+    links.forEach((link) => {
+      expect(inspectLink({ path, link })).toEqual({
+        normalized: null,
+        violation: `${path}: ${link}: Unapproved external URL: ${link}`,
+      })
+    })
+  })
+
+  it('keeps approved HTTPS hosts and public internal routes valid', () => {
+    expect(inspectLink({ path: 'src/content/guides/index.ts', link: 'https://store.steampowered.com/app/1368140/Corsair_Cove/' })).toEqual({ normalized: null })
+    expect(inspectLink({ path: 'src/app/not-found.tsx', link: '/guides' })).toEqual({ normalized: '/guides/' })
   })
 
   it('reports invalid internal routes with their original file and matched value', () => {
