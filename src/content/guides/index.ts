@@ -101,7 +101,7 @@ const parsedConnectionsMeta = guideMetadataSchema.parse({
   description: 'Connect high Corsair Cove buildings with Roads, Rope Bridges, Cliff Paths, and Ladders.',
   primaryKeyword: 'corsair cove how to connect high buildings to tower',
   category: 'Construction',
-  directAnswer: 'This is not a tower-only mechanic: every building needs a connection to the network. Use its green connection arrows to add Roads, Rope Bridges, Cliff Paths, or Ladders; an unconnected building cannot begin construction or operation.',
+  directAnswer: 'This is not a tower-only mechanic: only certain key connection hubs show green connection arrows and need a route to the network; some buildings do not require a connection. At an eligible hub, use Roads, Rope Bridges, Cliff Paths, or Ladders to complete its required route before construction or operation.',
   verifiedOn: '2026-08-08',
   applicableVersion: 'v1.1.2.241844',
   toc: [

@@ -12,14 +12,15 @@ const approvedSources = [
 ]
 
 describe('the compiled high-building connections guide', () => {
-  it('re-exports the registry metadata and rejects the fabricated tower-only mechanic', () => {
+  it('re-exports the registry metadata and scopes connection requirements to eligible hubs', () => {
     expect(guideMeta).toBe(getGuideMeta('connect-high-buildings'))
 
     render(createElement(ArticleLayout, { meta: guideMeta }, createElement(ConnectionsContent)))
 
     const directAnswer = screen.getByLabelText('Direct answer').textContent ?? ''
     expect(directAnswer).toMatch(/not a tower-only mechanic/i)
-    expect(directAnswer).toMatch(/green connection arrows/i)
+    expect(directAnswer).toMatch(/only certain key connection hubs.*green connection arrows/i)
+    expect(directAnswer).toMatch(/some buildings do not require a connection/i)
     expect(directAnswer).toMatch(/Roads.*Rope Bridges.*Cliff Paths.*Ladders/i)
   })
 
@@ -27,8 +28,10 @@ describe('the compiled high-building connections guide', () => {
     const { container } = render(createElement(ArticleLayout, { meta: guideMeta }, createElement(ConnectionsContent)))
     const renderedText = container.textContent ?? ''
 
+    expect(renderedText).toMatch(/only certain key connection hubs.*green connection arrows/i)
+    expect(renderedText).toMatch(/some buildings do not require a connection/i)
     expect(renderedText).toMatch(/automatic connection can fail on steep terrain/i)
-    expect(renderedText).toMatch(/unconnected building cannot begin construction or operation/i)
+    expect(renderedText).toMatch(/eligible connection hub cannot begin construction or operation/i)
     expect(renderedText).toMatch(/green.*yellow.*red.*transport efficiency/i)
     expect(renderedText).toMatch(/no approved gameplay screenshot exists yet/i)
     expect(renderedText).toMatch(/full-release UI evidence overrides future textual mismatch/i)
