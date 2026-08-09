@@ -14,7 +14,7 @@ const approvedSources = [
 
 describe('the compiled beginner tips guide', () => {
   it('re-exports the registry metadata and renders the verified troubleshooting answer', () => {
-    expect(guideMeta).toStrictEqual(getGuideMeta('tips'))
+    expect(guideMeta).toBe(getGuideMeta('tips'))
 
     const { container } = render(createElement(ArticleLayout, { meta: guideMeta }, createElement(TipsContent)))
 

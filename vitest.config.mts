@@ -11,7 +11,7 @@ export default defineConfig({
     alias: [
       {
         find: /^@\/content\/guides$/,
-        replacement: fileURLToPath(new URL('./src/content/guides.ts', import.meta.url)),
+        replacement: fileURLToPath(new URL('./src/content/guides/index.ts', import.meta.url)),
       },
     ],
   },

@@ -3,15 +3,15 @@ import Link from 'next/link'
 import type { ComponentPropsWithoutRef } from 'react'
 
 function MdxLink({ href, ...props }: ComponentPropsWithoutRef<'a'>) {
-  if (href?.startsWith('/')) {
+  if (href?.startsWith('/') && !href.startsWith('//')) {
     return <Link href={href} {...props} />
   }
 
   if (href?.startsWith('https://')) {
-    return <a href={href} rel="noopener noreferrer" target="_blank" {...props} />
+    return <a {...props} href={href} target="_blank" rel="noopener noreferrer" />
   }
 
-  return <a href={href} {...props} />
+  throw new Error(`Unsupported MDX link: ${href ?? '(missing href)'}`)
 }
 
 function MdxTable({ children, ...props }: ComponentPropsWithoutRef<'table'>) {

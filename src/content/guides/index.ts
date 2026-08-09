@@ -106,7 +106,7 @@ const parsedConnectionsMeta = guideMetadataSchema.parse({
 })
 
 type ParsedGuideEntry = {
-  meta: GuideMetadata
+  meta: ReadonlyGuideMetadata
 }
 
 export type GuideEntry = DeepReadonly<ParsedGuideEntry>
@@ -143,7 +143,11 @@ export const shipMeta: ReadonlyGuideMetadata = freezeRecursively(parsedShipMeta)
 export const connectionsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedConnectionsMeta)
 
 export function createGuideRegistry(entries: readonly GuideRegistryInput[]): GuideRegistry {
-  const parsedGuideEntries = entries.map(({ meta }) => ({ meta: guideMetadataSchema.parse(meta) }))
+  const parsedGuideEntries = entries.map(({ meta }) => {
+    guideMetadataSchema.parse(meta)
+
+    return { meta }
+  })
 
   assertUniqueGuideEntries(parsedGuideEntries)
 
