@@ -1,0 +1,48 @@
+{
+  "name": "corsair-cove-wiki",
+  "version": "0.1.0",
+  "private": true,
+  "engines": { "node": ">=20.9.0" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check": "npm run lint && npm test && npm run build && npm run test:e2e"
+  },
+  "dependencies": {
+    "next": "16.3.0",
+    "next-themes": "0.4.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@mdx-js/loader": "3.1.1",
+    "@mdx-js/react": "3.1.1",
+    "@mdx-js/rollup": "3.1.1",
+    "@next/mdx": "16.3.0",
+    "@playwright/test": "1.62.1",
+    "@tailwindcss/postcss": "4.3.3",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/react": "16.3.2",
+    "@types/mdx": "2.0.14",
+    "@types/node": "26.2.0",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
+    "eslint": "10.8.1",
+    "eslint-config-next": "16.3.0",
+    "jsdom": "30.0.1",
+    "postcss": "8.5.6",
+    "rehype-slug": "6.0.0",
+    "remark-gfm": "4.0.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2",
+    "vite-tsconfig-paths": "6.1.1",
+    "vitest": "4.1.10"
+  }
+}
