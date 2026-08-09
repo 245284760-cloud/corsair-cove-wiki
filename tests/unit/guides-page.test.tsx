@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import GuidesPage, { metadata } from '@/app/guides/page'
-import { guideEntries, guideGroups, GUIDE_SLUGS } from '@/content/guides'
+import { connectionsMeta, guideEntries, guideGroups, GUIDE_SLUGS } from '@/content/guides'
 
 describe('guides page', () => {
   it('renders one guide hub heading and exactly four published guide destinations', () => {
@@ -30,6 +30,14 @@ describe('guides page', () => {
     expect(metadata.title).toBe('Corsair Cove Guides – Tips, Drifters, Ships & Building')
     expect(metadata.description).toBe(
       'Verified Corsair Cove guides for beginner tips, Drifters, shipbuilding, and connecting high buildings.',
+    )
+  })
+
+  it('publishes the high-building connection guide at its explicit destination', () => {
+    render(<GuidesPage />)
+
+    expect(screen.getByRole('link', { name: connectionsMeta.title }).getAttribute('href')).toBe(
+      '/connect-high-buildings/',
     )
   })
 })

@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { existsSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import {
   createGuideRegistry,
   driftersMeta,
@@ -7,6 +9,13 @@ import {
   guideEntries,
   tipsMeta,
 } from '@/content/guides'
+
+const metadataExportBySlug = {
+  tips: 'tipsMeta',
+  'how-to-get-more-drifters': 'driftersMeta',
+  'how-to-build-ship': 'shipMeta',
+  'connect-high-buildings': 'connectionsMeta',
+} as const
 
 describe('published guide registry', () => {
   it('contains exactly the four published guide slugs in editorial order', () => {
@@ -17,6 +26,24 @@ describe('published guide registry', () => {
       'connect-high-buildings',
     ])
     expect(guideEntries.map(({ meta }) => meta.href)).not.toContain('/mods/')
+  })
+
+  it('keeps every registry guide backed by an explicit MDX file and article route', () => {
+    for (const slug of GUIDE_SLUGS) {
+      const contentPath = join(process.cwd(), 'src', 'content', 'guides', `${slug}.mdx`)
+      const routePath = join(process.cwd(), 'src', 'app', slug, 'page.tsx')
+
+      expect(existsSync(contentPath), `missing guide content for ${slug}`).toBe(true)
+      expect(existsSync(routePath), `missing guide route for ${slug}`).toBe(true)
+      expect(readFileSync(contentPath, 'utf8')).toContain(
+        `export { ${metadataExportBySlug[slug]} as guideMeta } from '@/content/guides'`,
+      )
+
+      for (const relatedHref of getGuideMeta(slug).related) {
+        const relatedSlug = relatedHref.slice(1, -1)
+        expect(getGuideMeta(relatedSlug).slug).toBe(relatedSlug)
+      }
+    }
   })
 
   it('returns parsed metadata for a published guide and rejects an unknown slug', () => {

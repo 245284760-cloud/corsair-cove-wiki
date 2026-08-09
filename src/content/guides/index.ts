@@ -101,12 +101,15 @@ const parsedConnectionsMeta = guideMetadataSchema.parse({
   description: 'Connect high Corsair Cove buildings with Roads, Rope Bridges, Cliff Paths, and Ladders.',
   primaryKeyword: 'corsair cove how to connect high buildings to tower',
   category: 'Construction',
-  directAnswer: 'Every building needs a connection to the network. Use its green connection arrows to add Roads, Rope Bridges, Cliff Paths, or Ladders; a disconnected finished building stops working.',
+  directAnswer: 'This is not a tower-only mechanic: every building needs a connection to the network. Use its green connection arrows to add Roads, Rope Bridges, Cliff Paths, or Ladders; an unconnected building cannot begin construction or operation.',
   verifiedOn: '2026-08-08',
   applicableVersion: 'v1.1.2.241844',
   toc: [
-    { id: 'connection-points', label: 'Find connection points', level: 2 },
-    { id: 'vertical-connection-pieces', label: 'Choose vertical connection pieces', level: 2 },
+    { id: 'find-the-building-connection-node', label: 'Find the Building Connection Node', level: 2 },
+    { id: 'choose-the-correct-connection-piece', label: 'Choose the Correct Connection Piece', level: 2 },
+    { id: 'wait-for-construction-to-finish', label: 'Wait for Construction to Finish', level: 2 },
+    { id: 'diagnose-a-slow-route', label: 'Diagnose a Slow Route', level: 2 },
+    { id: 'evidence-limit', label: 'Evidence Limit', level: 2 },
   ],
   sources: [
     { label: 'Official Wiki — Buildings', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Buildings' },
