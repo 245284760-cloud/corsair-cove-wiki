@@ -23,6 +23,9 @@
       }
     ],
     "paths": {
+      "@/content/guides": [
+        "./src/content/guides.ts"
+      ],
       "@/*": [
         "./src/*"
       ]
