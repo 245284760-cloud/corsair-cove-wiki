@@ -8,9 +8,15 @@ export const GUIDE_SLUGS = [
 ] as const
 
 export type GuideSlug = (typeof GUIDE_SLUGS)[number]
-export type GuideGroup = 'Start Here' | 'Population' | 'Ships' | 'Construction'
+export type DeepReadonly<T> = T extends readonly (infer Item)[]
+  ? readonly DeepReadonly<Item>[]
+  : T extends object
+    ? { readonly [Key in keyof T]: DeepReadonly<T[Key]> }
+    : T
+export type ReadonlyGuideMetadata = DeepReadonly<GuideMetadata>
+export type GuideGroup = GuideMetadata['category']
 
-export const tipsMeta = guideMetadataSchema.parse({
+const parsedTipsMeta = guideMetadataSchema.parse({
   slug: 'tips',
   href: '/tips/',
   title: 'Corsair Cove Tips for Fetchers, Routes, and Early Settlements',
@@ -31,7 +37,7 @@ export const tipsMeta = guideMetadataSchema.parse({
   related: ['/how-to-get-more-drifters/', '/how-to-build-ship/', '/connect-high-buildings/'],
 })
 
-export const driftersMeta = guideMetadataSchema.parse({
+const parsedDriftersMeta = guideMetadataSchema.parse({
   slug: 'how-to-get-more-drifters',
   href: '/how-to-get-more-drifters/',
   title: 'How to Get More Drifters in Corsair Cove',
@@ -52,7 +58,7 @@ export const driftersMeta = guideMetadataSchema.parse({
   related: ['/tips/', '/how-to-build-ship/', '/connect-high-buildings/'],
 })
 
-export const shipMeta = guideMetadataSchema.parse({
+const parsedShipMeta = guideMetadataSchema.parse({
   slug: 'how-to-build-ship',
   href: '/how-to-build-ship/',
   title: 'How to Build a Ship in Corsair Cove',
@@ -73,7 +79,7 @@ export const shipMeta = guideMetadataSchema.parse({
   related: ['/tips/', '/how-to-get-more-drifters/', '/connect-high-buildings/'],
 })
 
-export const connectionsMeta = guideMetadataSchema.parse({
+const parsedConnectionsMeta = guideMetadataSchema.parse({
   slug: 'connect-high-buildings',
   href: '/connect-high-buildings/',
   title: 'How to Connect High Buildings in Corsair Cove',
@@ -94,10 +100,15 @@ export const connectionsMeta = guideMetadataSchema.parse({
   related: ['/tips/', '/how-to-get-more-drifters/', '/how-to-build-ship/'],
 })
 
-type MutableGuideEntry = {
-  group: GuideGroup
+type ParsedGuideEntry = {
   meta: GuideMetadata
 }
+
+export type GuideEntry = DeepReadonly<ParsedGuideEntry>
+export type GuideRegistry = readonly GuideEntry[]
+export type GuideRegistryInput = Readonly<{
+  meta: GuideMetadata | ReadonlyGuideMetadata
+}>
 
 function freezeRecursively<T>(value: T): T {
   if (value && typeof value === 'object') {
@@ -108,7 +119,7 @@ function freezeRecursively<T>(value: T): T {
   return value
 }
 
-function assertUniqueGuideEntries(entries: readonly MutableGuideEntry[]) {
+function assertUniqueGuideEntries(entries: readonly ParsedGuideEntry[]) {
   const slugs = new Set(entries.map(({ meta }) => meta.slug))
   const hrefs = new Set(entries.map(({ meta }) => meta.href))
 
@@ -121,18 +132,31 @@ function assertUniqueGuideEntries(entries: readonly MutableGuideEntry[]) {
   }
 }
 
-const parsedGuideEntries: MutableGuideEntry[] = [
-  { group: 'Start Here', meta: tipsMeta },
-  { group: 'Population', meta: driftersMeta },
-  { group: 'Ships', meta: shipMeta },
-  { group: 'Construction', meta: connectionsMeta },
-]
+export const tipsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedTipsMeta)
+export const driftersMeta: ReadonlyGuideMetadata = freezeRecursively(parsedDriftersMeta)
+export const shipMeta: ReadonlyGuideMetadata = freezeRecursively(parsedShipMeta)
+export const connectionsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedConnectionsMeta)
 
-assertUniqueGuideEntries(parsedGuideEntries)
+export function createGuideRegistry(entries: readonly GuideRegistryInput[]): GuideRegistry {
+  const parsedGuideEntries = entries.map(({ meta }) => ({ meta: guideMetadataSchema.parse(meta) }))
 
-export const guideEntries = freezeRecursively(parsedGuideEntries)
+  assertUniqueGuideEntries(parsedGuideEntries)
 
-export function getGuideMeta(slug: string): GuideMetadata {
+  return freezeRecursively(parsedGuideEntries) as GuideRegistry
+}
+
+export const guideEntries = createGuideRegistry([
+  { meta: tipsMeta },
+  { meta: driftersMeta },
+  { meta: shipMeta },
+  { meta: connectionsMeta },
+])
+
+export const guideGroups = freezeRecursively(
+  Array.from(new Set(guideEntries.map(({ meta }) => meta.category))),
+) as readonly GuideGroup[]
+
+export function getGuideMeta(slug: string): ReadonlyGuideMetadata {
   const entry = guideEntries.find(({ meta }) => meta.slug === slug)
 
   if (!entry) {

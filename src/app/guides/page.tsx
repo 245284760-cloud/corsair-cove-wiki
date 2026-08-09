@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/site/breadcrumbs'
 import { GuideCard } from '@/components/site/guide-card'
-import { guideEntries, type GuideGroup } from '@/content/guides'
+import { guideEntries, guideGroups } from '@/content/guides'
 import { createPageMetadata } from '@/lib/metadata'
-
-const guideGroups: readonly GuideGroup[] = ['Start Here', 'Population', 'Ships', 'Construction']
 
 export const metadata: Metadata = createPageMetadata(
   '/guides/',
@@ -24,7 +22,7 @@ export default function GuidesPage() {
       </header>
       <div className="mt-12 space-y-12">
         {guideGroups.map((group) => {
-          const entries = guideEntries.filter((entry) => entry.group === group)
+          const entries = guideEntries.filter(({ meta }) => meta.category === group)
 
           return (
             <section aria-labelledby={`${group.toLowerCase().replaceAll(' ', '-')}-heading`} key={group}>
