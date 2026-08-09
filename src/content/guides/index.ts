@@ -79,12 +79,17 @@ const parsedShipMeta = guideMetadataSchema.parse({
   verifiedOn: '2026-08-08',
   applicableVersion: 'v1.1.2.241844',
   toc: [
-    { id: 'shipbuilding-checklist', label: 'Shipbuilding checklist', level: 2 },
-    { id: 'pier-and-crew-requirements', label: 'Pier, materials, and Crew requirements', level: 2 },
+    { id: 'unlock-the-ship-and-pier', label: 'Unlock the Ship and Pier', level: 2 },
+    { id: 'build-and-connect-the-correct-pier', label: 'Build and Connect the Correct Pier', level: 2 },
+    { id: 'supply-the-listed-materials', label: 'Supply the Listed Materials', level: 2 },
+    { id: 'check-crew-availability', label: 'Check Crew Availability', level: 2 },
+    { id: 'diagnose-a-disabled-build-button', label: 'Diagnose a Disabled Build Button', level: 2 },
   ],
   sources: [
     { label: 'Official Wiki — Ships', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Ships' },
     { label: 'Official Wiki — Buildings', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Buildings' },
+    { label: 'Official Wiki - Compass', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Compass' },
+    { label: "Hooded Horse Beginner's Guide", url: 'https://steamcommunity.com/sharedfiles/filedetails/?id=3725819251' },
   ],
   related: ['/tips/', '/how-to-get-more-drifters/', '/connect-high-buildings/'],
 })
