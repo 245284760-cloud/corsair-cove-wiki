@@ -1,6 +1,8 @@
-import type { HomeContent } from '@/lib/content-schema'
-
-type GuideCardContent = HomeContent['home']['start']['cards'][number]
+type GuideCardContent = {
+  description: string
+  href: string
+  title: string
+}
 
 export function GuideCard({ card }: Readonly<{ card: GuideCardContent }>) {
   return (
