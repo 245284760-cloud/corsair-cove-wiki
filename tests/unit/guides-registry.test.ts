@@ -41,6 +41,14 @@ describe('published guide registry', () => {
     ])).toThrow('Published guide hrefs must be unique')
   })
 
+  it('normalizes non-canonical metadata before publishing it in a registry', () => {
+    const unnormalizedMeta = { ...tipsMeta, title: '  Trimmed Corsair Cove Tips  ' }
+    const registry = createGuideRegistry([{ meta: unnormalizedMeta }])
+
+    expect(registry[0].meta).not.toBe(unnormalizedMeta)
+    expect(registry[0].meta.title).toBe('Trimmed Corsair Cove Tips')
+  })
+
   it('exposes a deeply frozen registry at runtime', () => {
     const registry = createGuideRegistry([{ meta: tipsMeta }])
 

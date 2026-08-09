@@ -38,6 +38,37 @@ Result: 2 test files passed, 3 tests passed. The tests render `ArticleLayout` an
 | `npm run build` | Passed; `/tips/` is statically generated |
 | `git diff --check` | Passed |
 
+## Fix Round 2 — Registry Normalization and Internal Href Policy
+
+### RED
+
+Focused command:
+
+```text
+npm test -- tests/unit/mdx-components.test.tsx tests/unit/guides-registry.test.ts tests/unit/tips-content.test.ts
+```
+
+Result: 3 test files ran; 2 tests failed and 12 passed.
+
+- `'/\\evil.example'` was accepted as an internal `next/link` href even though browser URL normalization can interpret the backslash form as an external origin.
+- `createGuideRegistry()` preserved a non-canonical raw input with whitespace in its title, instead of publishing Zod's trimmed result.
+
+### GREEN
+
+- `MdxLink` now accepts an internal href only when it is a backslash-free entry in `PUBLIC_ROUTES`. The regression suite rejects backslash, unpublished, protocol-relative, HTTP, JavaScript, and fragment hrefs.
+- The registry retains exact identity only for the four frozen canonical metadata objects. It validates and freezes Zod's parsed output for every other runtime input, so transformations (including `.trim()`) are not discarded.
+- Updated the approved design and implementation-plan references from `src/content/guides.ts` to `src/content/guides/index.ts`, documenting the directory-index solution to the file/directory collision.
+
+### Verification
+
+| Command | Result |
+|---|---|
+| Focused regression command above | 3 files passed, 15 tests passed |
+| `npm test` | 12 files passed, 37 tests passed |
+| `npm run lint` | Passed with 0 errors; the existing `postcss.config.mjs` warning remains |
+| `npm run build` | Passed; `/tips/` remains statically generated |
+| `git diff --check` | Passed |
+
 ## Files
 
 - Added: `src/components/site/article-layout.tsx`, `article-toc.tsx`, `callout.tsx`

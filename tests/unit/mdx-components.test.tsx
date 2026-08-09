@@ -25,7 +25,7 @@ describe('MDX link mapping', () => {
     expect(screen.getByRole('link', { name: 'Tips' }).getAttribute('href')).toBe('/tips')
   })
 
-  it.each(['//host/path', 'http://example.com', 'javascript:alert(1)', '#fragment'])(
+  it.each(['/\\evil.example', '/unpublished/', '//host/path', 'http://example.com', 'javascript:alert(1)', '#fragment'])(
     'rejects unsupported MDX href %s',
     (href) => {
       expect(() => render(<MdxLinkHarness href={href}>Unsafe</MdxLinkHarness>)).toThrow('Unsupported MDX link')

@@ -46,7 +46,7 @@
 - Create `src/lib/content-schema.ts`: Zod schemas and guide metadata interfaces.
 - Create `src/lib/metadata.ts`: canonical metadata helper.
 - Create `src/content/homepage-content.json`: cleaned runtime home configuration.
-- Create `src/content/guides.ts`: validated guide registry and lookup functions.
+- Create `src/content/guides/index.ts`: validated guide registry and lookup functions.
 - Create `src/content/guides/*.mdx`: four guide bodies and metadata exports.
 - Create `src/i18n/en.json`: shared English navigation/interface strings.
 - Create `mdx-components.tsx`: safe MDX element mappings.
@@ -501,7 +501,7 @@ Deferred commit message: `feat: build validated wiki homepage`.
 ### Task 5: Create the Typed Guide Registry and Guide Hub
 
 **Files:**
-- Create: `src/content/guides.ts`
+- Create: `src/content/guides/index.ts`
 - Create: `src/app/guides/page.tsx`
 - Create: `src/components/site/breadcrumbs.tsx`
 - Create: `tests/unit/guides-registry.test.ts`

@@ -142,11 +142,14 @@ export const driftersMeta: ReadonlyGuideMetadata = freezeRecursively(parsedDrift
 export const shipMeta: ReadonlyGuideMetadata = freezeRecursively(parsedShipMeta)
 export const connectionsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedConnectionsMeta)
 
+const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta] as const
+
 export function createGuideRegistry(entries: readonly GuideRegistryInput[]): GuideRegistry {
   const parsedGuideEntries = entries.map(({ meta }) => {
-    guideMetadataSchema.parse(meta)
+    const parsedMeta = guideMetadataSchema.parse(meta)
+    const canonicalMeta = canonicalGuideMetadata.find((candidate) => candidate === meta)
 
-    return { meta }
+    return { meta: canonicalMeta ?? freezeRecursively(parsedMeta) as ReadonlyGuideMetadata }
   })
 
   assertUniqueGuideEntries(parsedGuideEntries)
