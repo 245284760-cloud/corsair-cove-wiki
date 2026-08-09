@@ -1,0 +1,46 @@
+import { readFileSync, readdirSync } from 'node:fs'
+import { join, relative, resolve } from 'node:path'
+import { describe, expect, it } from 'vitest'
+
+type RuntimeFile = { path: string; source: string }
+
+const RUNTIME_DIRECTORIES = ['src/app', 'src/components', 'src/content']
+const RUNTIME_EXTENSIONS = new Set(['.json', '.mdx', '.ts', '.tsx'])
+
+const safetyRules = [
+  { label: 'unpublished route', pattern: /\/(?:platforms|privacy|terms|mods|golden-city-maze|tobacco|rope)\//i },
+  { label: 'unapproved game reference', pattern: /\bOSRS\b|second pirate camp/i },
+  { label: 'cheat or piracy term', pattern: /cheat engine|\bcrack\b|\btorrent\b/i },
+  { label: 'fabricated Codes heading', pattern: /^#{1,6}\s+.*\bcodes?\b/im },
+  { label: 'price claim', pattern: /\$\s*\d|\bUSD\b/i },
+  { label: 'discount claim', pattern: /\b\d+(?:\.\d+)?%\s*(?:off|discount)\b|\bdiscount\s*(?:of|at)?\s*\d+(?:\.\d+)?%/i },
+  { label: 'review-percentage claim', pattern: /\b\d+(?:\.\d+)?%\s*(?:positive|negative)\s+reviews?\b|\b(?:positive|negative)\s+review\s+(?:rate|score)\s*(?:of|is)?\s*\d+(?:\.\d+)?%/i },
+] as const
+
+function runtimeFiles(): RuntimeFile[] {
+  const root = resolve(process.cwd())
+
+  function collect(directory: string): RuntimeFile[] {
+    return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+      const fullPath = join(directory, entry.name)
+
+      if (entry.isDirectory()) return collect(fullPath)
+      if (!entry.isFile() || !RUNTIME_EXTENSIONS.has(entry.name.slice(entry.name.lastIndexOf('.')))) return []
+
+      return [{ path: relative(root, fullPath).replaceAll('\\', '/'), source: readFileSync(fullPath, 'utf8') }]
+    })
+  }
+
+  return RUNTIME_DIRECTORIES.flatMap((directory) => collect(join(root, directory)))
+}
+
+describe('production content safety', () => {
+  it('keeps prohibited routes, game references, cheat terms, and volatile claims out of runtime content', () => {
+    const violations = runtimeFiles().flatMap(({ path, source }) => safetyRules.flatMap(({ label, pattern }) => {
+      const match = source.match(pattern)
+      return match ? [`${path}: ${label}: ${match[0]}`] : []
+    }))
+
+    expect(violations, violations.join('\n')).toEqual([])
+  })
+})
