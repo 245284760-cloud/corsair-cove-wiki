@@ -6,7 +6,7 @@
 
 **Architecture:** A Next.js App Router site renders local, validated JSON and MDX through Server Components. Four explicit guide routes consume a single typed guide registry; Zod and Vitest enforce content boundaries before build, while Playwright checks the six-page production experience at desktop and mobile sizes.
 
-**Tech Stack:** Node.js `>=20.9.0` (developer machine: `25.2.1`), npm `11.6.2`, Next.js `16.3.0`, React `19.2.8`, TypeScript `7.0.2`, Tailwind CSS `4.3.3`, `@next/mdx` `16.3.0`, Zod `4.4.3`, Vitest `4.1.10`, React Testing Library, Playwright `1.62.1`.
+**Tech Stack:** Node.js `>=20.9.0` (developer machine: `25.2.1`), npm `11.6.2`, Next.js `16.3.0`, React `19.2.8`, TypeScript `5.9.3`, Tailwind CSS `4.3.3`, `@next/mdx` `16.3.0`, Zod `4.4.3`, Vitest `4.1.10`, React Testing Library, Playwright `1.62.1`.
 
 ## Global Constraints
 
@@ -154,14 +154,14 @@ Create `package.json` with:
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "@vitejs/plugin-react": "6.0.5",
-    "eslint": "10.8.1",
+    "eslint": "9.39.5",
     "eslint-config-next": "16.3.0",
-    "jsdom": "30.0.1",
+    "jsdom": "29.0.1",
     "postcss": "8.5.6",
     "rehype-slug": "6.0.0",
     "remark-gfm": "4.0.1",
     "tailwindcss": "4.3.3",
-    "typescript": "7.0.2",
+    "typescript": "5.9.3",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "4.1.10"
   }
