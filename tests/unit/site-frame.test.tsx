@@ -1,7 +1,10 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
+import { MobileNav } from '@/components/site/mobile-nav'
 import SiteFooter from '@/components/site/site-footer'
 import SiteHeader from '@/components/site/site-header'
+import { ThemeProvider } from '@/components/site/theme-provider'
+import { ThemeToggle } from '@/components/site/theme-toggle'
 
 describe('site frame', () => {
   it('renders only the approved internal header navigation and a collapsed menu', () => {
@@ -37,5 +40,43 @@ describe('site frame', () => {
     expect(screen.getByText(/independent fan site/i)).toBeTruthy()
     expect(screen.queryByRole('link', { name: 'Privacy Policy' })).toBeNull()
     expect(screen.queryByRole('link', { name: 'Terms of Service' })).toBeNull()
+  })
+
+  it('opens and closes the controlled mobile navigation', () => {
+    render(<MobileNav links={[{ href: '/guides/', label: 'Guides' }]} />)
+
+    const menuButton = screen.getByRole('button', { name: 'Open menu' })
+    const menuId = menuButton.getAttribute('aria-controls')
+
+    expect(menuButton.getAttribute('aria-expanded')).toBe('false')
+    expect(menuId).toBeTruthy()
+    expect(document.getElementById(menuId ?? '')).toBeNull()
+
+    fireEvent.click(menuButton)
+
+    expect(screen.getByRole('button', { name: 'Close menu' }).getAttribute('aria-expanded')).toBe('true')
+    expect(document.getElementById(menuId ?? '')?.getAttribute('aria-label')).toBe('Mobile navigation')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close menu' }))
+
+    expect(screen.getByRole('button', { name: 'Open menu' }).getAttribute('aria-expanded')).toBe('false')
+    expect(document.getElementById(menuId ?? '')).toBeNull()
+  })
+
+  it('toggles the light theme to dark through the provider', () => {
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>,
+    )
+
+    expect(document.documentElement.classList.contains('light')).toBe(true)
+
+    const themeButton = screen.getByRole('button', { name: 'Use dark theme' })
+
+    fireEvent.click(themeButton)
+
+    expect(document.documentElement.classList.contains('dark')).toBe(true)
+    expect(screen.getByRole('button', { name: 'Use light theme' })).toBeTruthy()
   })
 })
