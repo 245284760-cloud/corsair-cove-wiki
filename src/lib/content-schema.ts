@@ -145,3 +145,5 @@ export const homeContentSchema = z.object({
     platformClaimLimit: nonEmptyText,
   }).strict(),
 }).strict()
+
+export type HomeContent = z.infer<typeof homeContentSchema>

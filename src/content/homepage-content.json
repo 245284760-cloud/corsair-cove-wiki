@@ -1,0 +1,133 @@
+{
+  "home": {
+    "meta": {
+      "title": "Corsair Cove Wiki – Guides, Ships, Resources & Tips",
+      "description": "Corsair Cove wiki with verified beginner guides for drifters, ships, Fetchers, logistics, and vertical building."
+    },
+    "hero": {
+      "eyebrow": "Independent Fan-Made Strategy Guide",
+      "title": "Corsair Cove Wiki",
+      "description": "Build a pirate stronghold across steep cliffs, manage interconnected production chains and pirate needs, then construct a fleet to explore the Seven Seas.",
+      "stats": [
+        "Released Jul 31, 2026",
+        "50+ Goods",
+        "4 Principle Paths",
+        "62 Steam Achievements"
+      ],
+      "primaryCta": "Start with Beginner Tips",
+      "primaryCtaHref": "/tips/",
+      "secondaryCta": "Explore Ships & Resources",
+      "secondaryCtaHref": "/guides/",
+      "videoLabel": "Official Gameplay Trailer on Steam"
+    },
+    "start": {
+      "eyebrow": "Start Here",
+      "title": "Build Your First Stronghold",
+      "cards": [
+        {
+          "title": "Beginner Tips",
+          "description": "Learn the early priorities that keep your settlement supplied, connected, and ready to expand.",
+          "href": "/tips/"
+        },
+        {
+          "title": "Get More Drifters",
+          "description": "Understand the confirmed conditions for attracting more drifters to your pirate stronghold.",
+          "href": "/how-to-get-more-drifters/"
+        },
+        {
+          "title": "Build Your First Ship",
+          "description": "Follow the core shipbuilding loop and prepare a fleet for exploration across the Seven Seas.",
+          "href": "/how-to-build-ship/"
+        },
+        {
+          "title": "Connect High Buildings",
+          "description": "Use bridges and vertical construction to connect buildings across steep cliffs and limited land.",
+          "href": "/connect-high-buildings/"
+        }
+      ]
+    },
+    "aboutGame": {
+      "title": "What is Corsair Cove?",
+      "paragraphs": [
+        "Corsair Cove is a single-player pirate-city simulation and strategy game developed by Limbic Entertainment and published by Hooded Horse. The full game released for Windows PC on July 31, 2026.",
+        "You build a stronghold across steep cliffs, connect vertical production chains, satisfy pirate needs, and construct ships to explore the Seven Seas. The game includes more than 50 goods, four Principle Paths, 62 Steam achievements, and interface support for 12 languages."
+      ],
+      "stats": [
+        { "label": "Developer", "value": "Limbic Entertainment" },
+        { "label": "Publisher", "value": "Hooded Horse" },
+        { "label": "Platform", "value": "Windows PC and PC Game Pass" },
+        { "label": "Genre", "value": "Simulation, Strategy" },
+        { "label": "Release Date", "value": "July 31, 2026" },
+        { "label": "Achievements", "value": "62 Steam achievements" },
+        { "label": "Languages", "value": "12 interface languages" },
+        { "label": "Production", "value": "50+ goods and 4 Principle Paths" }
+      ],
+      "cta": "Explore All Guides",
+      "ctaHref": "/guides/"
+    },
+    "finalCta": {
+      "title": "Ready to Raise Your Pirate Stronghold?",
+      "description": "Start with the verified beginner guides, then explore ships, resources, production, and vertical building as the guide library grows.",
+      "primary": "Read Beginner Tips",
+      "primaryHref": "/tips/",
+      "secondary": "View All Guides",
+      "secondaryHref": "/guides/"
+    }
+  },
+  "footer": {
+    "aboutTitle": "About Corsair Cove Wiki",
+    "about": "Corsair Cove Wiki is an independent fan-made strategy guide. It organizes verified information about drifters, ships, logistics, and vertical building. It is not affiliated with Limbic Entertainment or Hooded Horse.",
+    "description": "Verified guides and practical reference material for building a pirate stronghold in Corsair Cove.",
+    "playGame": "Play on Steam",
+    "playGameHref": "https://store.steampowered.com/app/1368140/Corsair_Cove/",
+    "microsoftStore": "View on Microsoft Store",
+    "microsoftStoreHref": "https://www.xbox.com/en-US/games/store/corsair-cove/9PHS0189K408",
+    "officialWiki": "Official Wiki",
+    "officialWikiHref": "https://wiki.hoodedhorse.com/Corsair_Cove/Corsair_Cove_Official_Wiki",
+    "officialDiscord": "Official Discord",
+    "officialDiscordHref": "https://discord.com/invite/tz5jxS4yt9",
+    "officialYoutube": "Limbic Entertainment on YouTube",
+    "officialYoutubeHref": "https://www.youtube.com/@LimbicEntertainment",
+    "developerWebsite": "Developer Website",
+    "developerWebsiteHref": "https://www.limbic-entertainment.de",
+    "copyrightNotice": "Corsair Cove is a trademark of its respective owners. This independent fan site is not endorsed by the developer or publisher."
+  },
+  "metadata": {
+    "title": "Corsair Cove Wiki – Guides, Ships, Resources & Tips",
+    "description": "Corsair Cove wiki with verified beginner guides for drifters, ships, Fetchers, logistics, and vertical building.",
+    "keywords": "corsair cove wiki, corsair cove guide, tips, ships, drifters, resources"
+  },
+  "theme": {
+    "defaultMode": "light",
+    "light": {
+      "navigation": "187 72% 37%",
+      "highlight": "187 68% 47%",
+      "contentBackground": "39 38% 88%"
+    },
+    "dark": {
+      "navigation": "187 70% 44%",
+      "highlight": "42 88% 55%",
+      "pageBackground": "210 42% 16%"
+    },
+    "accents": {
+      "pirateRed": "5 75% 53%",
+      "gold": "42 88% 55%"
+    },
+    "officialBrandStandard": false
+  },
+  "languages": {
+    "initialReleaseScope": ["English"],
+    "priority": [
+      { "rank": 1, "language": "English", "localizedTitle": "Corsair Cove Wiki" },
+      { "rank": 2, "language": "German", "localizedTitle": "Corsair Cove Wiki" },
+      { "rank": 3, "language": "French", "localizedTitle": "Wiki Corsair Cove" },
+      { "rank": 4, "language": "Portuguese (Brazil)", "localizedTitle": "Wiki de Corsair Cove" }
+    ],
+    "reassessAfter": "Search Console or regional keyword-volume data"
+  },
+  "maintenance": {
+    "dynamicFactsIncludedInStableHomepage": false,
+    "refreshBeforePublication": ["price", "discount", "review count", "positive review rate"],
+    "platformClaimLimit": "Describe confirmed Windows PC and PC Game Pass availability only; do not infer other platform availability from missing listings."
+  }
+}
