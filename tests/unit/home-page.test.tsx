@@ -27,6 +27,16 @@ describe('home page', () => {
     expect(links.every((link) => PUBLIC_ROUTES.includes(link.getAttribute('href') as (typeof PUBLIC_ROUTES)[number]))).toBe(true)
   })
 
+  it('uses dedicated contrast-safe hero and CTA color roles', () => {
+    render(<Page />)
+
+    const hero = screen.getByRole('heading', { level: 1, name: 'Corsair Cove Wiki' }).closest('section')
+    expect(hero?.className).toContain('bg-hero-background')
+    expect(hero?.className).toContain('text-hero-foreground')
+    expect(screen.getByText('Independent Fan-Made Strategy Guide').className).toContain('text-hero-accent')
+    expect(screen.getByRole('link', { name: 'Start with Beginner Tips' }).className).toContain('text-cta-foreground')
+  })
+
   it('uses the canonical metadata without unpublished coverage claims', () => {
     expect(metadata.title).toBe('Corsair Cove Wiki \u2013 Guides, Ships, Resources & Tips')
     expect(metadata.description).toBe(

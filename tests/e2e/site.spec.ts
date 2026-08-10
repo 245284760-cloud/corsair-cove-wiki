@@ -45,6 +45,36 @@ test('theme can be changed with the keyboard', async ({ page }) => {
   await expect.poll(() => page.locator('html').getAttribute('class')).not.toBe(before)
 })
 
+test('hero keyboard focus uses a visible two-color indicator in both themes', async ({ page }) => {
+  await page.goto('/')
+  const heroLink = page.getByRole('link', { name: 'Explore Ships & Resources' })
+
+  for (const theme of ['light', 'dark']) {
+    await page.locator('html').evaluate((element, value) => {
+      element.classList.remove('light', 'dark')
+      element.classList.add(value)
+    }, theme)
+    await heroLink.focus()
+
+    const indicator = await heroLink.evaluate((element) => {
+      const style = getComputedStyle(element)
+      const heroBackground = getComputedStyle(element.closest('section') as HTMLElement).backgroundColor
+      return {
+        boxShadow: style.boxShadow,
+        heroBackground,
+        outlineColor: style.outlineColor,
+        outlineStyle: style.outlineStyle,
+        outlineWidth: style.outlineWidth,
+      }
+    })
+
+    expect(indicator.outlineStyle).toBe('solid')
+    expect(indicator.outlineWidth).toBe('3px')
+    expect(indicator.outlineColor).not.toBe(indicator.heroBackground)
+    expect(indicator.boxShadow).not.toBe('none')
+  }
+})
+
 test('mobile menu exposes navigation at 390 by 844', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'Mobile navigation is only visible in the mobile project.')
   await page.goto('/')
@@ -78,6 +108,7 @@ test('unknown routes use the custom 404 page', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Back to home' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Browse guides' })).toBeVisible()
+  await expect(page.getByRole('main')).toHaveCount(1)
 })
 
 for (const { path, name } of screenshotRoutes) {

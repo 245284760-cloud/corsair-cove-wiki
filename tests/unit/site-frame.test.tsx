@@ -1,12 +1,21 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { MobileNav } from '@/components/site/mobile-nav'
+import NotFound from '@/app/not-found'
+import { PageShell } from '@/components/site/page-shell'
 import SiteFooter from '@/components/site/site-footer'
 import SiteHeader from '@/components/site/site-header'
 import { ThemeProvider } from '@/components/site/theme-provider'
 import { ThemeToggle } from '@/components/site/theme-toggle'
 
 describe('site frame', () => {
+  it('renders the custom 404 with exactly one main landmark', () => {
+    render(<PageShell><NotFound /></PageShell>)
+
+    expect(screen.getAllByRole('main')).toHaveLength(1)
+    expect(screen.getByRole('heading', { level: 1, name: 'Page not found' })).toBeTruthy()
+  })
+
   it('renders only the approved internal header navigation and a collapsed menu', () => {
     render(<SiteHeader />)
 

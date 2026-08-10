@@ -39,20 +39,20 @@ export default function Page() {
               </div>
             ))}
           </dl>
-          <a className="mt-8 inline-flex rounded-md bg-nav-theme px-5 py-3 font-semibold text-white hover:brightness-110" href={home.aboutGame.ctaHref}>
+          <a className="mt-8 inline-flex rounded-md bg-hero-background px-5 py-3 font-semibold text-hero-foreground hover:brightness-110" href={home.aboutGame.ctaHref}>
             {home.aboutGame.cta}
           </a>
         </div>
       </section>
-      <section aria-labelledby="final-cta-heading" className="bg-callout text-white">
+      <section aria-labelledby="final-cta-heading" className="bg-callout text-callout-foreground">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 id="final-cta-heading" className="text-3xl font-bold tracking-tight">{home.finalCta.title}</h2>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-white/90">{home.finalCta.description}</p>
+          <p className="mt-4 max-w-2xl text-lg leading-8 text-callout-foreground">{home.finalCta.description}</p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <a className="rounded-md bg-cta px-5 py-3 font-semibold text-foreground hover:brightness-110" href={home.finalCta.primaryHref}>
+            <a className="rounded-md bg-cta px-5 py-3 font-semibold text-cta-foreground hover:brightness-110" href={home.finalCta.primaryHref}>
               {home.finalCta.primary}
             </a>
-            <a className="rounded-md border border-white/70 px-5 py-3 font-semibold hover:bg-white/10" href={home.finalCta.secondaryHref}>
+            <a className="rounded-md border border-callout-foreground px-5 py-3 font-semibold hover:bg-white/10" href={home.finalCta.secondaryHref}>
               {home.finalCta.secondary}
             </a>
           </div>

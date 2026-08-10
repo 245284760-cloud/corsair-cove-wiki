@@ -7,11 +7,18 @@
   --surface: 39 38% 96%;
   --muted-foreground: 210 20% 31%;
   --border: 187 25% 70%;
-  --nav-theme: 187 72% 37%;
-  --highlight: 187 68% 47%;
+  --nav-theme: 187 72% 25%;
+  --highlight: 5 75% 42%;
+  --hero-background: 187 72% 18%;
+  --hero-foreground: 39 38% 96%;
+  --hero-muted: 39 28% 86%;
+  --hero-accent: 42 88% 55%;
   --cta: 42 88% 55%;
-  --callout: 5 75% 53%;
-  --focus-ring: 187 72% 37%;
+  --cta-foreground: 210 42% 16%;
+  --callout: 5 75% 42%;
+  --callout-foreground: 39 38% 96%;
+  --focus-ring: 42 88% 55%;
+  --focus-contrast: 210 42% 16%;
 }
 
 .dark {
@@ -21,11 +28,18 @@
   --surface: 210 36% 21%;
   --muted-foreground: 39 25% 76%;
   --border: 187 30% 39%;
-  --nav-theme: 187 70% 44%;
+  --nav-theme: 187 55% 70%;
   --highlight: 42 88% 55%;
+  --hero-background: 187 72% 18%;
+  --hero-foreground: 39 38% 96%;
+  --hero-muted: 39 28% 86%;
+  --hero-accent: 42 88% 55%;
   --cta: 42 88% 55%;
-  --callout: 5 75% 53%;
-  --focus-ring: 187 70% 44%;
+  --cta-foreground: 210 42% 16%;
+  --callout: 5 75% 42%;
+  --callout-foreground: 39 38% 96%;
+  --focus-ring: 42 88% 55%;
+  --focus-contrast: 210 42% 16%;
 }
 
 @theme inline {
@@ -36,8 +50,14 @@
   --color-border: hsl(var(--border));
   --color-nav-theme: hsl(var(--nav-theme));
   --color-highlight: hsl(var(--highlight));
+  --color-hero-background: hsl(var(--hero-background));
+  --color-hero-foreground: hsl(var(--hero-foreground));
+  --color-hero-muted: hsl(var(--hero-muted));
+  --color-hero-accent: hsl(var(--hero-accent));
   --color-cta: hsl(var(--cta));
+  --color-cta-foreground: hsl(var(--cta-foreground));
   --color-callout: hsl(var(--callout));
+  --color-callout-foreground: hsl(var(--callout-foreground));
 }
 
 html {
@@ -53,6 +73,7 @@ body {
 :focus-visible {
   outline: 3px solid hsl(var(--focus-ring));
   outline-offset: 3px;
+  box-shadow: 0 0 0 6px hsl(var(--focus-contrast));
 }
 
 .article-content {

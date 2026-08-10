@@ -100,17 +100,17 @@
   "theme": {
     "defaultMode": "light",
     "light": {
-      "navigation": "187 72% 37%",
-      "highlight": "187 68% 47%",
+      "navigation": "187 72% 25%",
+      "highlight": "5 75% 42%",
       "contentBackground": "39 38% 88%"
     },
     "dark": {
-      "navigation": "187 70% 44%",
+      "navigation": "187 55% 70%",
       "highlight": "42 88% 55%",
       "pageBackground": "210 42% 16%"
     },
     "accents": {
-      "pirateRed": "5 75% 53%",
+      "pirateRed": "5 75% 42%",
       "gold": "42 88% 55%"
     },
     "officialBrandStandard": false

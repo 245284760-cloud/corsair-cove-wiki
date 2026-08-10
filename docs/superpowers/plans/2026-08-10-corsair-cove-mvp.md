@@ -6,7 +6,7 @@
 
 **Architecture:** A Next.js App Router site renders local, validated JSON and MDX through Server Components. Four explicit guide routes consume a single typed guide registry; Zod and Vitest enforce content boundaries before build, while Playwright checks the six-page production experience at desktop and mobile sizes.
 
-**Tech Stack:** Node.js `>=20.9.0` (developer machine: `25.2.1`), npm `11.6.2`, Next.js `16.3.0`, React `19.2.8`, TypeScript `5.9.3`, Tailwind CSS `4.3.3`, `@next/mdx` `16.3.0`, Zod `4.4.3`, Vitest `4.1.10`, React Testing Library, Playwright `1.62.1`.
+**Tech Stack:** Node.js `^20.19.0 || ^22.13.0 || >=24.0.0` (developer machine: `25.2.1`), npm `11.6.2`, Next.js `16.3.0`, React `19.2.8`, TypeScript `5.9.3`, Tailwind CSS `4.3.3`, `@next/mdx` `16.3.0`, Zod `4.4.3`, Vitest `4.1.10`, React Testing Library, Playwright `1.62.1`.
 
 ## Global Constraints
 
@@ -111,7 +111,7 @@ npm --version
 git rev-parse --is-inside-work-tree
 ```
 
-Expected: Node is `v20.9.0` or newer; npm is available; the Git command reports that the directory is not a repository.
+Expected: Node satisfies `^20.19.0 || ^22.13.0 || >=24.0.0`; npm is available; the Git command reports that the directory is not a repository.
 
 - [ ] **Step 2: Create the pinned package manifest**
 
@@ -122,7 +122,7 @@ Create `package.json` with:
   "name": "corsair-cove-wiki",
   "version": "0.1.0",
   "private": true,
-  "engines": { "node": ">=20.9.0" },
+  "engines": { "node": "^20.19.0 || ^22.13.0 || >=24.0.0" },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -157,7 +157,7 @@ Create `package.json` with:
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.0",
     "jsdom": "29.0.1",
-    "postcss": "8.5.6",
+    "postcss": "8.5.26",
     "rehype-slug": "6.0.0",
     "remark-gfm": "4.0.1",
     "tailwindcss": "4.3.3",
@@ -924,7 +924,7 @@ At desktop `1440 × 900` and mobile `390 × 844`, capture the home page, Guide H
 
 Document:
 
-- Node.js `>=20.9.0` and `npm install`.
+- Node.js `^20.19.0 || ^22.13.0 || >=24.0.0` and `npm install`.
 - `npm run dev`, `npm run lint`, `npm test`, `npm run build`, and `npm run test:e2e`.
 - The exact six-page scope and canonical origin.
 - `docs/research/` as audit material and `src/content/` as runtime input.

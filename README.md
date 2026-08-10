@@ -4,7 +4,7 @@ An independent, English-language Corsair Cove strategy wiki. Its canonical produ
 
 ## Requirements and local commands
 
-Use Node.js `>=20.9.0` and npm. The current E2E dependency, `@playwright/test` 1.62.1, declares Node.js `>=20`; the project floor is the stricter `>=20.9.0`.
+Use Node.js `^20.19.0 || ^22.13.0 || >=24.0.0` and npm. This range exactly matches the installed `jsdom` 29.0.1 runtime contract and is stricter than the current `@playwright/test` 1.62.1 requirement.
 
 ```powershell
 npm install

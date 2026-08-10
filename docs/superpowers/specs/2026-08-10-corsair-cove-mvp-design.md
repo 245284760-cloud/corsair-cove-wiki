@@ -46,6 +46,8 @@ The rejected alternatives are:
 
 The website lives directly in `G:\corsaircovewiki.com`; it is not nested in another `corsair-cove-site` directory.
 
+The supported development and build runtime is Node.js `^20.19.0 || ^22.13.0 || >=24.0.0`, matching the installed `jsdom` 29.0.1 contract.
+
 ```text
 G:\corsaircovewiki.com\
 ├── docs\
