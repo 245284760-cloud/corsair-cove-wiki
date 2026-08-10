@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --background: 39 38% 88%;
+  --foreground: 210 42% 16%;
+  --surface: 39 38% 96%;
+  --muted-foreground: 210 20% 31%;
+  --border: 187 25% 70%;
+  --nav-theme: 187 72% 25%;
+  --highlight: 5 75% 42%;
+  --hero-background: 187 72% 18%;
+  --hero-foreground: 39 38% 96%;
+  --hero-muted: 39 28% 86%;
+  --hero-accent: 42 88% 55%;
+  --cta: 42 88% 55%;
+  --cta-foreground: 210 42% 16%;
+  --callout: 5 75% 42%;
+  --callout-foreground: 39 38% 96%;
+  --focus-ring: 42 88% 55%;
+  --focus-contrast: 210 42% 16%;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: 210 42% 16%;
+  --foreground: 39 38% 88%;
+  --surface: 210 36% 21%;
+  --muted-foreground: 39 25% 76%;
+  --border: 187 30% 39%;
+  --nav-theme: 187 55% 70%;
+  --highlight: 42 88% 55%;
+  --hero-background: 187 72% 18%;
+  --hero-foreground: 39 38% 96%;
+  --hero-muted: 39 28% 86%;
+  --hero-accent: 42 88% 55%;
+  --cta: 42 88% 55%;
+  --cta-foreground: 210 42% 16%;
+  --callout: 5 75% 42%;
+  --callout-foreground: 39 38% 96%;
+  --focus-ring: 42 88% 55%;
+  --focus-contrast: 210 42% 16%;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-surface: hsl(var(--surface));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-nav-theme: hsl(var(--nav-theme));
+  --color-highlight: hsl(var(--highlight));
+  --color-hero-background: hsl(var(--hero-background));
+  --color-hero-foreground: hsl(var(--hero-foreground));
+  --color-hero-muted: hsl(var(--hero-muted));
+  --color-hero-accent: hsl(var(--hero-accent));
+  --color-cta: hsl(var(--cta));
+  --color-cta-foreground: hsl(var(--cta-foreground));
+  --color-callout: hsl(var(--callout));
+  --color-callout-foreground: hsl(var(--callout-foreground));
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 320px;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+:focus-visible {
+  outline: 3px solid hsl(var(--focus-ring));
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px hsl(var(--focus-contrast));
+}
+
+.article-content {
+  width: min(100% - 2rem, 72ch);
+  margin-inline: auto;
+}
+
+.article-content :where(a, code, pre, td, th) {
+  overflow-wrap: anywhere;
+}
+
+.article-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

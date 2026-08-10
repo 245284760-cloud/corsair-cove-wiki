@@ -1,0 +1,22 @@
+{
+  "siteName": "Corsair Cove Wiki",
+  "nav": {
+    "home": "Home",
+    "guides": "Guides"
+  },
+  "article": {
+    "verified": "Verified",
+    "version": "Version",
+    "contents": "Contents",
+    "sources": "Sources",
+    "related": "Related guides"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "mobileMenu": {
+    "open": "Open menu",
+    "close": "Close menu"
+  }
+}

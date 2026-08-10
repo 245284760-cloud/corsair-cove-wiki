@@ -46,6 +46,8 @@ The rejected alternatives are:
 
 The website lives directly in `G:\corsaircovewiki.com`; it is not nested in another `corsair-cove-site` directory.
 
+The supported development and build runtime is Node.js `^20.19.0 || ^22.13.0 || >=24.0.0`, matching the installed `jsdom` 29.0.1 contract.
+
 ```text
 G:\corsaircovewiki.com\
 ├── docs\
@@ -81,8 +83,8 @@ approved local JSON, MDX, and guide registry
 ```
 
 - The home page reads `src/content/homepage-content.json`; presentational components do not duplicate its copy.
-- The Guide Hub, home-page guide cards, related-guide blocks, sitemap, and internal-link checks consume `src/content/guides.ts` as the single published-guide registry.
-- Each guide owns one MDX file under `src/content/guides/`.
+- The Guide Hub, home-page guide cards, related-guide blocks, sitemap, and internal-link checks consume `src/content/guides/index.ts` as the single published-guide registry.
+- Each guide owns one MDX file under `src/content/guides/`; the registry uses that directory's `index.ts` to avoid a file/directory module collision.
 - Each public route is explicit rather than generated from arbitrary filenames.
 - Server Components are the default. Only the mobile menu and theme control may be Client Components.
 - Static builds make missing or malformed content a build-time failure instead of a runtime fetch failure.

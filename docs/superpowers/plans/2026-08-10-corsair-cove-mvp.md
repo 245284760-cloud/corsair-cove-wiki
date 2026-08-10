@@ -6,7 +6,7 @@
 
 **Architecture:** A Next.js App Router site renders local, validated JSON and MDX through Server Components. Four explicit guide routes consume a single typed guide registry; Zod and Vitest enforce content boundaries before build, while Playwright checks the six-page production experience at desktop and mobile sizes.
 
-**Tech Stack:** Node.js `>=20.9.0` (developer machine: `25.2.1`), npm `11.6.2`, Next.js `16.3.0`, React `19.2.8`, TypeScript `7.0.2`, Tailwind CSS `4.3.3`, `@next/mdx` `16.3.0`, Zod `4.4.3`, Vitest `4.1.10`, React Testing Library, Playwright `1.62.1`.
+**Tech Stack:** Node.js `^20.19.0 || ^22.13.0 || >=24.0.0` (developer machine: `25.2.1`), npm `11.6.2`, Next.js `16.3.0`, React `19.2.8`, TypeScript `5.9.3`, Tailwind CSS `4.3.3`, `@next/mdx` `16.3.0`, Zod `4.4.3`, Vitest `4.1.10`, React Testing Library, Playwright `1.62.1`.
 
 ## Global Constraints
 
@@ -46,7 +46,7 @@
 - Create `src/lib/content-schema.ts`: Zod schemas and guide metadata interfaces.
 - Create `src/lib/metadata.ts`: canonical metadata helper.
 - Create `src/content/homepage-content.json`: cleaned runtime home configuration.
-- Create `src/content/guides.ts`: validated guide registry and lookup functions.
+- Create `src/content/guides/index.ts`: validated guide registry and lookup functions.
 - Create `src/content/guides/*.mdx`: four guide bodies and metadata exports.
 - Create `src/i18n/en.json`: shared English navigation/interface strings.
 - Create `mdx-components.tsx`: safe MDX element mappings.
@@ -111,7 +111,7 @@ npm --version
 git rev-parse --is-inside-work-tree
 ```
 
-Expected: Node is `v20.9.0` or newer; npm is available; the Git command reports that the directory is not a repository.
+Expected: Node satisfies `^20.19.0 || ^22.13.0 || >=24.0.0`; npm is available; the Git command reports that the directory is not a repository.
 
 - [ ] **Step 2: Create the pinned package manifest**
 
@@ -122,7 +122,7 @@ Create `package.json` with:
   "name": "corsair-cove-wiki",
   "version": "0.1.0",
   "private": true,
-  "engines": { "node": ">=20.9.0" },
+  "engines": { "node": "^20.19.0 || ^22.13.0 || >=24.0.0" },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -154,14 +154,14 @@ Create `package.json` with:
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "@vitejs/plugin-react": "6.0.5",
-    "eslint": "10.8.1",
+    "eslint": "9.39.5",
     "eslint-config-next": "16.3.0",
-    "jsdom": "30.0.1",
-    "postcss": "8.5.6",
+    "jsdom": "29.0.1",
+    "postcss": "8.5.26",
     "rehype-slug": "6.0.0",
     "remark-gfm": "4.0.1",
     "tailwindcss": "4.3.3",
-    "typescript": "7.0.2",
+    "typescript": "5.9.3",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "4.1.10"
   }
@@ -501,7 +501,7 @@ Deferred commit message: `feat: build validated wiki homepage`.
 ### Task 5: Create the Typed Guide Registry and Guide Hub
 
 **Files:**
-- Create: `src/content/guides.ts`
+- Create: `src/content/guides/index.ts`
 - Create: `src/app/guides/page.tsx`
 - Create: `src/components/site/breadcrumbs.tsx`
 - Create: `tests/unit/guides-registry.test.ts`
@@ -924,7 +924,7 @@ At desktop `1440 × 900` and mobile `390 × 844`, capture the home page, Guide H
 
 Document:
 
-- Node.js `>=20.9.0` and `npm install`.
+- Node.js `^20.19.0 || ^22.13.0 || >=24.0.0` and `npm install`.
 - `npm run dev`, `npm run lint`, `npm test`, `npm run build`, and `npm run test:e2e`.
 - The exact six-page scope and canonical origin.
 - `docs/research/` as audit material and `src/content/` as runtime input.

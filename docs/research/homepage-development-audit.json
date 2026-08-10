@@ -1,0 +1,815 @@
+{
+  "generationPolicy": {
+    "generatedAt": "2026-08-09",
+    "targetGame": "Corsair Cove",
+    "targetVersion": "Full release launched 2026-07-31",
+    "researchAsOf": "2026-08-08",
+    "networkAccessUsed": false,
+    "allowedInputs": [
+      "corsair-cove/首页素材.md",
+      "corsair-cove/关卡3-资料源总表.md",
+      "corsair-cove/素材缺口.md",
+      "corsair-cove/页面矩阵规划.md",
+      "corsair-cove/keywords.json"
+    ],
+    "rules": {
+      "fact": "A claim already supported by a reliable source recorded in the allowed local inputs.",
+      "editorial": "A locally documented SEO, CTA, theme, layout, or language recommendation; it is not represented as an official claim.",
+      "dynamic_fact": "A sourced fact that can change and must be refreshed before publication.",
+      "unknown": "The approved local materials do not establish the claim; the value remains null.",
+      "conflict": "Approved local sources disagree; the disputed value is excluded from the clean configuration."
+    }
+  },
+  "home": {
+    "meta": {
+      "title": {
+        "value": "Corsair Cove Wiki – Guides, Ships, Resources & Tips",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#SEO 元数据建议"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "Based on the verified page matrix and homepage scope."
+      },
+      "description": {
+        "value": "Corsair Cove wiki with verified guides for drifters, ships, resources, vertical building, platforms, price, system requirements, and common fixes.",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#SEO 元数据建议"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "Uses only topics present in the approved page matrix."
+      }
+    },
+    "hero": {
+      "eyebrow": {
+        "value": "Independent Fan-Made Strategy Guide",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#Hero 可用素材"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "Explicitly distinguishes the site from official properties."
+      },
+      "title": {
+        "value": "Corsair Cove Wiki",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#Hero 可用素材"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "The game name itself is verified; the Wiki presentation is editorial."
+      },
+      "description": {
+        "value": "Build a pirate stronghold across steep cliffs, manage interconnected production chains and pirate needs, then construct a fleet to explore the Seven Seas.",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#核心玩法与特色",
+          "corsair-cove/首页素材.md#Hero 可用素材"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "Editorial synthesis limited to verified gameplay facts."
+      },
+      "stats": [
+        {
+          "value": "Released Jul 31, 2026",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#游戏基础信息",
+            "corsair-cove/首页素材.md#事实交叉验证"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified",
+          "notes": "Full-release date; not the 2026-05-28 Demo date."
+        },
+        {
+          "value": "50+ Goods",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#核心玩法与特色"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified",
+          "notes": null
+        },
+        {
+          "value": "4 Principle Paths",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#核心玩法与特色",
+            "corsair-cove/首页素材.md#事实交叉验证"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified",
+          "notes": "Notoriety, Empire, Seafaring, and Wealth."
+        },
+        {
+          "value": "62 Steam Achievements",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#玩家关心的动态数据"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified",
+          "notes": "Recorded for the full release."
+        }
+      ],
+      "primaryCta": {
+        "value": "Start with Beginner Tips",
+        "href": "/tips/",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#Hero 可用素材",
+          "corsair-cove/关卡3-资料源总表.md"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "The target page is green-light."
+      },
+      "secondaryCta": {
+        "value": "Explore Ships & Resources",
+        "href": "/guides/",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#Hero 可用素材",
+          "corsair-cove/关卡3-资料源总表.md"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "Uses the green-light Guide Hub instead of linking to a disputed resource fact."
+      },
+      "tertiaryCta": {
+        "value": "Check Platform & Price",
+        "href": "/platforms/",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#Hero 可用素材",
+          "corsair-cove/关卡3-资料源总表.md"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial_with_limit",
+        "notes": "The yellow-light platform page may state current confirmed PC availability but may not claim a permanent absence from PS5."
+      },
+      "videoLabel": {
+        "value": "Official Gameplay Trailer on Steam",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#官方视频入口",
+          "corsair-cove/首页素材.md#Hero 可用素材"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "The official Steam news and store entries establish the media source."
+      }
+    },
+    "start": {
+      "eyebrow": {
+        "value": "Start Here",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#Start Here 可用主题"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": null
+      },
+      "title": {
+        "value": "Your Corsair Cove Journey",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#Start Here 可用主题"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": null
+      },
+      "cards": [
+        {
+          "number": "1",
+          "title": "Beginner Tips",
+          "description": "Learn the essentials of building connections, reading resource net values, covering work areas, and assigning pirates efficiently.",
+          "href": "/tips/",
+          "provenance": {
+            "kind": "editorial",
+            "sourceRefs": [
+              "corsair-cove/首页素材.md#Start Here 可用主题",
+              "corsair-cove/关卡3-资料源总表.md"
+            ],
+            "asOf": "2026-08-08",
+            "status": "green_light"
+          }
+        },
+        {
+          "number": "2",
+          "title": "Get More Drifters",
+          "description": "Understand the difference between Drifters, Hands, Crew, and occupied jobs before expanding your pirate population.",
+          "href": "/how-to-get-more-drifters/",
+          "provenance": {
+            "kind": "editorial",
+            "sourceRefs": [
+              "corsair-cove/首页素材.md#Start Here 可用主题",
+              "corsair-cove/关卡3-资料源总表.md"
+            ],
+            "asOf": "2026-08-08",
+            "status": "green_light"
+          }
+        },
+        {
+          "number": "3",
+          "title": "Build Your First Ship",
+          "description": "Check the Compass unlock, Pier, required resources, Swabbies, and upkeep before starting your first vessel.",
+          "href": "/how-to-build-ship/",
+          "provenance": {
+            "kind": "editorial",
+            "sourceRefs": [
+              "corsair-cove/首页素材.md#Start Here 可用主题",
+              "corsair-cove/关卡3-资料源总表.md"
+            ],
+            "asOf": "2026-08-08",
+            "status": "green_light"
+          }
+        },
+        {
+          "number": "4",
+          "title": "Connect High Buildings",
+          "description": "Plan roads, rope bridges, ladders, cliff paths, and vertical logistics to reach buildings above your settlement.",
+          "href": "/connect-high-buildings/",
+          "provenance": {
+            "kind": "editorial",
+            "sourceRefs": [
+              "corsair-cove/首页素材.md#Start Here 可用主题",
+              "corsair-cove/关卡3-资料源总表.md"
+            ],
+            "asOf": "2026-08-08",
+            "status": "green_light"
+          }
+        }
+      ]
+    },
+    "aboutGame": {
+      "title": {
+        "value": "What is Corsair Cove?",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#About Game 可用素材"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": null
+      },
+      "paragraphs": [
+        {
+          "value": "Corsair Cove is a single-player strategy and simulation game developed by Limbic Entertainment and published by Hooded Horse for Windows PC. Starting with an island and shipwreck, players build a pirate settlement across steep terrain and connect buildings and production chains vertically.",
+          "kind": "editorial",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#About Game 可用素材",
+            "corsair-cove/首页素材.md#事实交叉验证"
+          ],
+          "asOf": "2026-08-08",
+          "status": "approved_editorial",
+          "notes": "Editorial synthesis of verified facts."
+        },
+        {
+          "value": "As the settlement grows, players construct ships, assign specialized crew and captains, explore the Seven Seas, resolve events, raid for resources, and balance pirate needs, Cohesion, logistics, and fleet upkeep.",
+          "kind": "editorial",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#核心玩法与特色",
+            "corsair-cove/首页素材.md#About Game 可用素材"
+          ],
+          "asOf": "2026-08-08",
+          "status": "approved_editorial",
+          "notes": "Editorial synthesis of verified gameplay facts."
+        }
+      ],
+      "stats": [
+        {
+          "label": "Developer",
+          "value": "Limbic Entertainment",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#游戏基础信息",
+            "corsair-cove/首页素材.md#事实交叉验证"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified"
+        },
+        {
+          "label": "Publisher",
+          "value": "Hooded Horse",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#游戏基础信息",
+            "corsair-cove/首页素材.md#事实交叉验证"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified"
+        },
+        {
+          "label": "Platform",
+          "value": "Windows PC",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#游戏基础信息",
+            "corsair-cove/首页素材.md#事实交叉验证"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified"
+        },
+        {
+          "label": "Genre",
+          "value": "Simulation, Strategy",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#游戏基础信息"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified"
+        },
+        {
+          "label": "Release Date",
+          "value": "July 31, 2026",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#游戏基础信息",
+            "corsair-cove/首页素材.md#事实交叉验证"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified"
+        },
+        {
+          "label": "Achievements",
+          "value": "62 Steam achievements",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#玩家关心的动态数据"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified"
+        },
+        {
+          "label": "Languages",
+          "value": "12 interface languages",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#玩家关心的动态数据"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified"
+        },
+        {
+          "label": "Production",
+          "value": "50+ goods",
+          "kind": "fact",
+          "sourceRefs": [
+            "corsair-cove/首页素材.md#核心玩法与特色"
+          ],
+          "asOf": "2026-08-08",
+          "status": "verified"
+        }
+      ],
+      "cta": {
+        "value": "Explore All Guides",
+        "href": "/guides/",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#About Game 可用素材",
+          "corsair-cove/页面矩阵规划.md#内链规则"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "The Guide Hub is green-light and acts only as an index."
+      }
+    },
+    "finalCta": {
+      "title": {
+        "value": "Ready to Master Corsair Cove?",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#教程字段补齐：Final CTA"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": null
+      },
+      "description": {
+        "value": "Start with the essentials of vertical building, drifter management, and ship construction. Then use the verified resource, event, platform, and troubleshooting guides to plan your next move.",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#教程字段补齐：Final CTA"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "The platform guide remains date-scoped where evidence is incomplete."
+      },
+      "primary": {
+        "value": "Read the Beginner Guide",
+        "href": "/tips/",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#教程字段补齐：Final CTA"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": null
+      },
+      "secondary": {
+        "value": "Play on Steam",
+        "href": "https://store.steampowered.com/app/1368140/Corsair_Cove/",
+        "kind": "editorial",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#教程字段补齐：Final CTA",
+          "corsair-cove/首页素材.md#官方入口"
+        ],
+        "asOf": "2026-08-08",
+        "status": "approved_editorial",
+        "notes": "The destination is an official store page."
+      }
+    }
+  },
+  "footer": {
+    "aboutTitle": {
+      "value": "Corsair Cove Guide",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#教程字段补齐：Footer"
+      ],
+      "asOf": "2026-08-08",
+      "status": "approved_editorial",
+      "notes": null
+    },
+    "about": {
+      "value": "Corsair Cove Guide is an independent fan-made reference for Limbic Entertainment's pirate city builder. It organizes verified information about vertical construction, drifters, ships, resources, events, platforms, and current issues. It is not affiliated with Limbic Entertainment or Hooded Horse.",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#教程字段补齐：Footer"
+      ],
+      "asOf": "2026-08-08",
+      "status": "approved_editorial",
+      "notes": "Three sentences including the non-affiliation statement."
+    },
+    "description": {
+      "value": "Independent Corsair Cove guides backed by official stores, developer updates, and the official community wiki.",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#教程字段补齐：Footer"
+      ],
+      "asOf": "2026-08-08",
+      "status": "approved_editorial",
+      "notes": null
+    },
+    "officialLinks": [
+      {
+        "label": "Play Corsair Cove on Steam",
+        "url": "https://store.steampowered.com/app/1368140/Corsair_Cove/",
+        "kind": "fact",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#CTA 与 Footer 可用入口"
+        ],
+        "asOf": "2026-08-08",
+        "status": "verified"
+      },
+      {
+        "label": "Microsoft Store / PC Game Pass",
+        "url": "https://www.xbox.com/en-US/games/store/corsair-cove/9PHS0189K408",
+        "kind": "fact",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#CTA 与 Footer 可用入口"
+        ],
+        "asOf": "2026-08-08",
+        "status": "verified_pc_storefront"
+      },
+      {
+        "label": "Corsair Cove Official Wiki",
+        "url": "https://wiki.hoodedhorse.com/Corsair_Cove/Corsair_Cove_Official_Wiki",
+        "kind": "fact",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#CTA 与 Footer 可用入口"
+        ],
+        "asOf": "2026-08-08",
+        "status": "verified"
+      },
+      {
+        "label": "Official Discord",
+        "url": "https://discord.com/invite/tz5jxS4yt9",
+        "kind": "fact",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#CTA 与 Footer 可用入口"
+        ],
+        "asOf": "2026-08-08",
+        "status": "verified"
+      },
+      {
+        "label": "Official Limbic Entertainment YouTube",
+        "url": "https://www.youtube.com/@LimbicEntertainment",
+        "kind": "fact",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#CTA 与 Footer 可用入口"
+        ],
+        "asOf": "2026-08-08",
+        "status": "verified"
+      },
+      {
+        "label": "Limbic Entertainment Website",
+        "url": "https://www.limbic-entertainment.de",
+        "kind": "fact",
+        "sourceRefs": [
+          "corsair-cove/首页素材.md#CTA 与 Footer 可用入口"
+        ],
+        "asOf": "2026-08-08",
+        "status": "verified"
+      }
+    ],
+    "privacyPolicy": {
+      "value": "Privacy Policy",
+      "href": "/privacy/",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#教程字段补齐：Footer"
+      ],
+      "asOf": "2026-08-08",
+      "status": "planned_path_only",
+      "notes": "Legal text must be generated later from the site's actual data practices."
+    },
+    "termsOfService": {
+      "value": "Terms of Service",
+      "href": "/terms/",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#教程字段补齐：Footer"
+      ],
+      "asOf": "2026-08-08",
+      "status": "planned_path_only",
+      "notes": "Legal text must be generated later from the site's actual functionality."
+    },
+    "copyrightNotice": {
+      "value": "Corsair Cove and related trademarks belong to Limbic Entertainment and Hooded Horse. This site is an independent fan-made guide.",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#教程字段补齐：Footer"
+      ],
+      "asOf": "2026-08-08",
+      "status": "approved_editorial",
+      "notes": null
+    }
+  },
+  "metadata": {
+    "title": {
+      "value": "Corsair Cove Wiki – Guides, Ships, Resources & Tips",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#SEO 元数据建议"
+      ],
+      "asOf": "2026-08-08",
+      "status": "approved_editorial",
+      "notes": "Must remain at or below 60 characters."
+    },
+    "description": {
+      "value": "Corsair Cove wiki with verified guides for drifters, ships, resources, vertical building, platforms, price, system requirements, and common fixes.",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#SEO 元数据建议"
+      ],
+      "asOf": "2026-08-08",
+      "status": "approved_editorial",
+      "notes": "Must remain between 140 and 160 characters."
+    },
+    "keywords": {
+      "value": "corsair cove wiki, corsair cove guide, tips, ships, drifters, resources, platforms",
+      "kind": "editorial",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#SEO 元数据建议",
+        "corsair-cove/keywords.json"
+      ],
+      "asOf": "2026-08-08",
+      "status": "approved_editorial",
+      "notes": "Excludes OSRS, trainer, crack, torrent, and review intent."
+    }
+  },
+  "theme": {
+    "kind": "editorial",
+    "sourceRefs": [
+      "corsair-cove/首页素材.md#主题色建议"
+    ],
+    "asOf": "2026-08-08",
+    "status": "approved_editorial",
+    "officialBrandStandard": false,
+    "defaultMode": "dark navigation with light sand content background",
+    "light": {
+      "navTheme": "187 72% 37%",
+      "navThemeLight": "187 68% 47%",
+      "contentBackground": "39 38% 88%"
+    },
+    "dark": {
+      "navTheme": "187 70% 44%",
+      "navThemeLight": "42 88% 55%",
+      "pageBackground": "210 42% 16%"
+    },
+    "accents": {
+      "pirateRed": "5 75% 53%",
+      "treasureGold": "42 88% 55%"
+    }
+  },
+  "languages": {
+    "kind": "editorial",
+    "sourceRefs": [
+      "corsair-cove/首页素材.md#多语言优先级"
+    ],
+    "asOf": "2026-08-08",
+    "status": "approved_editorial",
+    "initialReleaseScope": [
+      "English"
+    ],
+    "priority": [
+      {
+        "rank": 1,
+        "language": "English",
+        "localizedTitle": "Corsair Cove",
+        "basis": "Default research language, official full voice support, and primary global query wording."
+      },
+      {
+        "rank": 2,
+        "language": "German",
+        "localizedTitle": "Corsair Cove",
+        "basis": "Official full voice support and multiple German long-tail terms in the Level 2 material."
+      },
+      {
+        "rank": 3,
+        "language": "French",
+        "localizedTitle": "Corsair Cove",
+        "basis": "Official full voice support and French price and gameplay queries in the Level 2 material."
+      },
+      {
+        "rank": 4,
+        "language": "Portuguese (Brazil)",
+        "localizedTitle": "Corsair Cove",
+        "basis": "Official interface and subtitle support plus a Portuguese platform query in the Level 2 material."
+      }
+    ],
+    "limitations": "This is an editorial priority, not country-level traffic measurement. Reassess after Search Console or regional keyword-volume data exists."
+  },
+  "dynamicFacts": [
+    {
+      "label": "Steam US list price",
+      "value": "US$39.99",
+      "kind": "dynamic_fact",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#玩家关心的动态数据"
+      ],
+      "asOf": "2026-08-08",
+      "status": "verified_at_collection_time",
+      "refreshRequired": true
+    },
+    {
+      "label": "Steam US current price",
+      "value": "US$29.99",
+      "kind": "dynamic_fact",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#玩家关心的动态数据"
+      ],
+      "asOf": "2026-08-08",
+      "status": "verified_at_collection_time",
+      "refreshRequired": true
+    },
+    {
+      "label": "Steam discount",
+      "value": "25%",
+      "kind": "dynamic_fact",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#玩家关心的动态数据"
+      ],
+      "asOf": "2026-08-08",
+      "status": "verified_at_collection_time",
+      "refreshRequired": true
+    },
+    {
+      "label": "Microsoft Store US price",
+      "value": "US$39.99",
+      "kind": "dynamic_fact",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#玩家关心的动态数据"
+      ],
+      "asOf": "2026-08-08",
+      "status": "verified_at_collection_time",
+      "refreshRequired": true
+    },
+    {
+      "label": "Steam purchaser review count",
+      "value": "1,796",
+      "kind": "dynamic_fact",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#玩家关心的动态数据"
+      ],
+      "asOf": "2026-08-08",
+      "status": "verified_at_collection_time",
+      "refreshRequired": true
+    },
+    {
+      "label": "Steam positive review rate",
+      "value": "86%",
+      "kind": "dynamic_fact",
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#玩家关心的动态数据"
+      ],
+      "asOf": "2026-08-08",
+      "status": "verified_at_collection_time",
+      "refreshRequired": true
+    }
+  ],
+  "sidebarCodes": {
+    "value": "暂无",
+    "kind": "unknown",
+    "sourceRefs": [
+      "corsair-cove/首页素材.md#教程字段补齐：无兑换码场景",
+      "corsair-cove/页面矩阵规划.md#明确不做"
+    ],
+    "asOf": "2026-08-08",
+    "status": "no_verified_code_system",
+    "notes": "No official code system was found and Level 2 did not plan a Codes page. No codes may be invented."
+  },
+  "excludedClaims": [
+    {
+      "claim": "Corsair Cove has no PS5 version and will never launch on PS5.",
+      "kind": "unknown",
+      "value": null,
+      "sourceRefs": [
+        "corsair-cove/素材缺口.md#/platforms/",
+        "corsair-cove/首页素材.md#未验证、冲突或禁止写入的信息"
+      ],
+      "reason": "Official channels list PC, but no permanent no-PS5 statement was found."
+    },
+    {
+      "claim": "Corsair Cove currently has an Xbox console release.",
+      "kind": "unknown",
+      "value": null,
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#未验证、冲突或禁止写入的信息"
+      ],
+      "reason": "The Microsoft/Xbox store page currently identifies PC play and PC Game Pass."
+    },
+    {
+      "claim": "Corsair Cove officially supports mods or Steam Workshop.",
+      "kind": "unknown",
+      "value": null,
+      "sourceRefs": [
+        "corsair-cove/素材缺口.md#/mods/",
+        "corsair-cove/关卡3-资料源总表.md"
+      ],
+      "reason": "A player-generated Moddable tag is not official support documentation."
+    },
+    {
+      "claim": "A verified step-by-step Golden City Maze route.",
+      "kind": "conflict",
+      "value": null,
+      "sourceRefs": [
+        "corsair-cove/素材缺口.md#/golden-city-maze/",
+        "corsair-cove/关卡3-资料源总表.md"
+      ],
+      "reason": "No reliable route exists in the approved materials and Ring classification conflicts."
+    },
+    {
+      "claim": "Exact Rope input and output quantities.",
+      "kind": "conflict",
+      "value": null,
+      "sourceRefs": [
+        "corsair-cove/素材缺口.md#/rope/",
+        "corsair-cove/关卡3-资料源总表.md"
+      ],
+      "reason": "Official Wiki pages disagree and current full-release UI evidence is missing."
+    },
+    {
+      "claim": "The exact first location or event that provides Tobacco.",
+      "kind": "unknown",
+      "value": null,
+      "sourceRefs": [
+        "corsair-cove/素材缺口.md#/tobacco/",
+        "corsair-cove/关卡3-资料源总表.md"
+      ],
+      "reason": "The approved materials establish marketplace supply but not the first guaranteed source."
+    },
+    {
+      "claim": "Active redemption codes.",
+      "kind": "unknown",
+      "value": null,
+      "sourceRefs": [
+        "corsair-cove/首页素材.md#教程字段补齐：无兑换码场景",
+        "corsair-cove/页面矩阵规划.md#明确不做"
+      ],
+      "reason": "No official code system was found."
+    },
+    {
+      "claim": "Video instructions inferred from YouTube titles or descriptions.",
+      "kind": "unknown",
+      "value": null,
+      "sourceRefs": [
+        "corsair-cove/素材缺口.md#全部内页的YouTube字幕",
+        "corsair-cove/关卡3-资料源总表.md#终审记录"
+      ],
+      "reason": "Transcript access required a logged-in human-authorized environment; titles were not treated as transcript evidence."
+    }
+  ]
+}
