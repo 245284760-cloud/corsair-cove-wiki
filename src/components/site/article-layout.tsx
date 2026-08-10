@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { ArticleToc } from '@/components/site/article-toc'
+import { AdsterraNativeBanner } from '@/components/site/adsterra-native-banner'
 import { Breadcrumbs } from '@/components/site/breadcrumbs'
 import { Callout } from '@/components/site/callout'
 import { GuideCard } from '@/components/site/guide-card'
@@ -32,6 +33,7 @@ export function ArticleLayout({ meta, children }: Readonly<{
       </header>
       <div className="mt-10 max-w-3xl"><ArticleToc entries={meta.toc} /></div>
       <div className="article-content mt-10 space-y-6 leading-7">{children}</div>
+      <AdsterraNativeBanner />
       <section className="mt-14" aria-labelledby="related-guides-heading">
         <h2 className="text-2xl font-bold tracking-tight text-nav-theme" id="related-guides-heading">Related guides</h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

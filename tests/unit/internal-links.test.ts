@@ -19,6 +19,7 @@ const APPROVED_EXTERNAL_HOSTS = new Set([
   'www.youtube.com',
   'www.limbic-entertainment.de',
   'www.googletagmanager.com',
+  'pl30782761.effectivecpmnetwork.com',
 ])
 
 function runtimeFiles(): RuntimeFile[] {
