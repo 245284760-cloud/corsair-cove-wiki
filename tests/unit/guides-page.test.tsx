@@ -36,8 +36,8 @@ describe('guides page', () => {
   it('publishes the high-building connection guide at its explicit destination', () => {
     render(<GuidesPage />)
 
-    expect(screen.getByRole('link', { name: connectionsMeta.title }).getAttribute('href')).toBe(
-      '/connect-high-buildings/',
+    expect(screen.getByRole('link', { name: /^Connect High Buildings:/ }).getAttribute('href')).toBe(
+      connectionsMeta.href,
     )
   })
 })

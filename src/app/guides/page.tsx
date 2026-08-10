@@ -4,6 +4,13 @@ import { GuideCard } from '@/components/site/guide-card'
 import { guideEntries, guideGroups } from '@/content/guides'
 import { createPageMetadata } from '@/lib/metadata'
 
+const guideCardLabels = {
+  '/tips/': 'Beginner Tips',
+  '/how-to-get-more-drifters/': 'Get More Drifters',
+  '/how-to-build-ship/': 'Build Your First Ship',
+  '/connect-high-buildings/': 'Connect High Buildings',
+} as const
+
 export const metadata: Metadata = createPageMetadata(
   '/guides/',
   'Corsair Cove Guides – Tips, Drifters, Ships & Building',
@@ -30,7 +37,7 @@ export default function GuidesPage() {
                 {group}
               </h2>
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
-                {entries.map(({ meta }) => <GuideCard card={meta} key={meta.href} />)}
+                {entries.map(({ meta }) => <GuideCard card={meta} key={meta.href} label={guideCardLabels[meta.href]} />)}
               </div>
             </section>
           )
