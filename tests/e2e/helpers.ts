@@ -28,7 +28,19 @@ export function collectBrowserDiagnostics(page: Page): BrowserDiagnostics {
 
   page.on('requestfailed', (request) => {
     if (new URL(request.url()).origin === baseOrigin) {
-      failedSameOriginRequests.push(`${request.method()} ${request.url()} (${request.failure()?.errorText ?? 'unknown error'})`)
+      const url = new URL(request.url())
+      failedSameOriginRequests.push(
+        `${request.resourceType()} ${request.method()} ${url.pathname} ${request.url()} (request failed: ${request.failure()?.errorText ?? 'unknown error'})`,
+      )
+    }
+  })
+  page.on('response', (response) => {
+    if (response.status() >= 400 && new URL(response.url()).origin === baseOrigin) {
+      const request = response.request()
+      const url = new URL(response.url())
+      failedSameOriginRequests.push(
+        `${request.resourceType()} ${request.method()} ${url.pathname} ${response.url()} (HTTP ${response.status()})`,
+      )
     }
   })
   page.on('console', (message) => {

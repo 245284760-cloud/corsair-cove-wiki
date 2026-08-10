@@ -15,7 +15,7 @@ npm run build
 npm run test:e2e
 ```
 
-`npm run dev` starts the local development server. The E2E command uses Chromium; on a new machine run `npx playwright install chromium` once before it. The E2E suite starts the built production server, checks both 1440 x 900 and 390 x 844 viewports, and writes deterministic screenshots to `artifacts/screenshots/`.
+`npm run dev` starts the local development server. The E2E command uses Chromium; on a new machine run `npx playwright install chromium` once before it. The E2E suite always runs `npm run build && npm run start` itself and refuses to reuse an arbitrary process on port 3000, then checks both 1440 x 900 and 390 x 844 viewports and writes deterministic screenshots to `artifacts/screenshots/`.
 
 ## Published MVP scope
 

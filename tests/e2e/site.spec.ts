@@ -62,7 +62,12 @@ test('guide tables stay within the mobile viewport', async ({ page }, testInfo) 
   expect(tableCount, 'The responsive guide table should be present.').toBeGreaterThan(0)
   for (let index = 0; index < tableCount; index += 1) {
     await expect(
-      await tables.nth(index).evaluate((table) => table.getBoundingClientRect().right <= window.innerWidth),
+      await tables.nth(index).evaluate((table) => {
+        const { left, right } = table.getBoundingClientRect()
+        const tolerance = 1
+
+        return left >= -tolerance && right <= window.innerWidth + tolerance
+      }),
     ).toBe(true)
   }
 })
