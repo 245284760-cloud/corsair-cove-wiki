@@ -1,17 +1,26 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import GuidesPage, { metadata } from '@/app/guides/page'
-import { connectionsMeta, guideEntries, guideGroups, GUIDE_SLUGS } from '@/content/guides'
+import {
+  connectionsMeta,
+  discoveryEventsMeta,
+  guideEntries,
+  guideGroups,
+  GUIDE_SLUGS,
+} from '@/content/guides'
 
 describe('guides page', () => {
-  it('renders one guide hub heading and exactly four published guide destinations', () => {
+  it('renders one guide hub heading and every registered published guide destination', () => {
     const { container } = render(<GuidesPage />)
 
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(screen.getByRole('heading', { level: 1, name: 'Corsair Cove Guides' })).toBeTruthy()
     expect(screen.getAllByRole('link').filter((link) => (
       GUIDE_SLUGS.some((slug) => link.getAttribute('href') === `/${slug}/`)
-    ))).toHaveLength(4)
+    ))).toHaveLength(guideEntries.length)
+    expect(screen.getByRole('link', { name: /^Discovery Events:/ }).getAttribute('href')).toBe(
+      discoveryEventsMeta.href,
+    )
     expect(screen.queryByRole('link', { name: /mods/i })).toBeNull()
 
     const allowedInternalHrefs = new Set(['/', ...guideEntries.map(({ meta }) => meta.href)])

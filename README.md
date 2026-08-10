@@ -19,7 +19,7 @@ npm run test:e2e
 
 ## Published MVP scope
 
-Only these six public pages are in scope:
+Only these seven public pages are in scope:
 
 - `/`
 - `/guides/`
@@ -27,6 +27,7 @@ Only these six public pages are in scope:
 - `/how-to-get-more-drifters/`
 - `/how-to-build-ship/`
 - `/connect-high-buildings/`
+- `/discovery-events/`
 
 The site is intentionally not a live reader of the research archive. `docs/research/` is an audit trail used to substantiate content; `src/content/` is the validated runtime input bundled with the site.
 

@@ -4,14 +4,29 @@ import { describe, expect, it } from 'vitest'
 import sitemap from '@/app/sitemap'
 import robots from '@/app/robots'
 import NotFound from '@/app/not-found'
+import { metadata as discoveryEventsMetadata } from '@/app/discovery-events/page'
+import { discoveryEventsMeta } from '@/content/guides'
 import { CANONICAL_ORIGIN } from '@/lib/metadata'
 import { PUBLIC_ROUTES } from '@/lib/routes'
 
 describe('production SEO routes', () => {
-  it('publishes exactly the six canonical public URLs in the sitemap', async () => {
-    expect((await sitemap()).map((item) => item.url)).toEqual(
+  it('publishes every canonical public URL in the sitemap, including discovery events', async () => {
+    const urls = (await sitemap()).map((item) => item.url)
+
+    expect(urls).toContain('https://corsaircovewiki.com/discovery-events/')
+    expect(urls).toEqual(
       PUBLIC_ROUTES.map((route) => new URL(route, CANONICAL_ORIGIN).href),
     )
+  })
+
+  it('publishes discovery events as canonical article metadata', () => {
+    const canonicalUrl = new URL(discoveryEventsMeta.href, CANONICAL_ORIGIN).href
+
+    expect(discoveryEventsMetadata.alternates?.canonical).toBe(canonicalUrl)
+    expect(discoveryEventsMetadata.openGraph).toMatchObject({
+      url: canonicalUrl,
+      type: 'article',
+    })
   })
 
   it('points production robots policy at the canonical sitemap without unpublished routes', async () => {

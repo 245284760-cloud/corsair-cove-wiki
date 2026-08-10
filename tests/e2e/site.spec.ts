@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test'
+import { discoveryEventsMeta, guideEntries } from '../../src/content/guides'
 import { PUBLIC_ROUTES } from '../../src/lib/routes'
 import { collectBrowserDiagnostics, expectPageContract, prepareVisualCapture } from './helpers'
 
-const guideCards = ['Beginner Tips', 'Get More Drifters', 'Build Your First Ship', 'Connect High Buildings']
 const screenshotRoutes = [
   { path: '/', name: 'home' },
   { path: '/guides/', name: 'guide-hub' },
@@ -29,11 +29,40 @@ test('home leads to Beginner Tips', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Tips')
 })
 
-test('Guide Hub exposes all four published guide cards', async ({ page }) => {
+test('Guide Hub exposes every registered published guide card', async ({ page }) => {
   await page.goto('/guides/')
-  for (const name of guideCards) {
-    await expect(page.getByRole('link', { name })).toBeVisible()
+  for (const { meta } of guideEntries) {
+    await expect(page.locator(`a[href="${meta.href}"]`)).toBeVisible()
   }
+})
+
+test('discovery events satisfies the article contract and returns to Guide Hub', async ({ page }) => {
+  const diagnostics = collectBrowserDiagnostics(page)
+  const response = await page.goto(discoveryEventsMeta.href, { waitUntil: 'networkidle' })
+
+  expect(response?.status()).toBe(200)
+  await expectPageContract(page)
+  await expect(page.getByRole('heading', { level: 1, name: discoveryEventsMeta.title })).toBeVisible()
+  await expect(page.locator('.article-content h2')).toHaveText(
+    discoveryEventsMeta.toc.map(({ label }) => label),
+  )
+
+  const sourceLinks = page.locator('[aria-labelledby="sources-heading"] a')
+  await expect(sourceLinks).toHaveCount(discoveryEventsMeta.sources.length)
+  expect(await sourceLinks.evaluateAll((links) => links.map((link) => link.getAttribute('href')))).toEqual(
+    discoveryEventsMeta.sources.map(({ url }) => url),
+  )
+
+  const relatedLinks = page.locator('[aria-labelledby="related-guides-heading"] a')
+  await expect(relatedLinks).toHaveCount(discoveryEventsMeta.related.length)
+  expect(await relatedLinks.evaluateAll((links) => links.map((link) => link.getAttribute('href')))).toEqual(
+    discoveryEventsMeta.related,
+  )
+
+  await page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('link', { name: 'Guides' }).click()
+  await expect(page).toHaveURL(/\/guides\/$/)
+  await expect(page.locator(`a[href="${discoveryEventsMeta.href}"]`)).toBeVisible()
+  await diagnostics.assertClean()
 })
 
 test('theme can be changed with the keyboard', async ({ page }) => {
