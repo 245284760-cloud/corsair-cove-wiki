@@ -18,6 +18,7 @@ const APPROVED_EXTERNAL_HOSTS = new Set([
   'discord.com',
   'www.youtube.com',
   'www.limbic-entertainment.de',
+  'www.googletagmanager.com',
 ])
 
 function runtimeFiles(): RuntimeFile[] {
