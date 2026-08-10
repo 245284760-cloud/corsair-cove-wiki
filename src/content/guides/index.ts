@@ -5,6 +5,7 @@ export const GUIDE_SLUGS = [
   'how-to-get-more-drifters',
   'how-to-build-ship',
   'connect-high-buildings',
+  'discovery-events',
 ] as const
 
 export type GuideSlug = (typeof GUIDE_SLUGS)[number]
@@ -118,6 +119,32 @@ const parsedConnectionsMeta = guideMetadataSchema.parse({
   related: ['/tips/', '/how-to-get-more-drifters/', '/how-to-build-ship/'],
 })
 
+const parsedDiscoveryEventsMeta = guideMetadataSchema.parse({
+  slug: 'discovery-events',
+  href: '/discovery-events/',
+  title: 'What Is a Discovery Event in Corsair Cove?',
+  description: 'Learn how Corsair Cove Discovery Points, quest lines, and Events connect, how to reach them, and what to monitor aboard your ship.',
+  primaryKeyword: 'corsair cove what is a discovery event',
+  category: 'Events',
+  directAnswer: 'A Discovery Point, quest line, and Event are related but not interchangeable. A Discovery Point lets a ship explore a fog-covered region, which can start or expose that area\u2019s quest and event flow. This guide does not provide fixed answers for individual event choices.',
+  verifiedOn: '2026-08-08',
+  applicableVersion: 'Full release; sources checked 2026-08-08',
+  toc: [
+    { id: 'what-discovery-points-quest-lines-and-events-mean', label: 'What Discovery Points, Quest Lines, and Events Mean', level: 2 },
+    { id: 'reach-a-discovery-point-through-the-fog', label: 'Reach a Discovery Point Through the Fog', level: 2 },
+    { id: 'prepare-a-ship-for-the-event', label: 'Prepare a Ship for the Event', level: 2 },
+    { id: 'monitor-health-crew-and-objectives', label: 'Monitor Health, Crew, and Objectives', level: 2 },
+    { id: 'evidence-limit-do-not-guess-event-choices', label: 'Evidence Limit: Do Not Guess Event Choices', level: 2 },
+  ],
+  sources: [
+    { label: 'Official Wiki \u2014 Seven Seas', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Seven_Seas' },
+    { label: 'Official Wiki \u2014 Events', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Events' },
+    { label: 'Official Wiki \u2014 Quests', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Quests' },
+    { label: "Hooded Horse Beginner's Guide", url: 'https://steamcommunity.com/sharedfiles/filedetails/?id=3725819251' },
+  ],
+  related: ['/tips/', '/how-to-get-more-drifters/', '/how-to-build-ship/', '/connect-high-buildings/'],
+})
+
 type ParsedGuideEntry = {
   meta: ReadonlyGuideMetadata
 }
@@ -154,8 +181,9 @@ export const tipsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedTipsMeta)
 export const driftersMeta: ReadonlyGuideMetadata = freezeRecursively(parsedDriftersMeta)
 export const shipMeta: ReadonlyGuideMetadata = freezeRecursively(parsedShipMeta)
 export const connectionsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedConnectionsMeta)
+export const discoveryEventsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedDiscoveryEventsMeta)
 
-const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta] as const
+const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta] as const
 
 export function createGuideRegistry(entries: readonly GuideRegistryInput[]): GuideRegistry {
   const parsedGuideEntries = entries.map(({ meta }) => {
@@ -175,6 +203,7 @@ export const guideEntries = createGuideRegistry([
   { meta: driftersMeta },
   { meta: shipMeta },
   { meta: connectionsMeta },
+  { meta: discoveryEventsMeta },
 ])
 
 export const guideGroups = freezeRecursively(

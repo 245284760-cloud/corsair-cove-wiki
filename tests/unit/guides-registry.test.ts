@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import {
   createGuideRegistry,
+  discoveryEventsMeta,
   driftersMeta,
   GUIDE_SLUGS,
   getGuideMeta,
@@ -15,17 +16,24 @@ const metadataExportBySlug = {
   'how-to-get-more-drifters': 'driftersMeta',
   'how-to-build-ship': 'shipMeta',
   'connect-high-buildings': 'connectionsMeta',
+  'discovery-events': 'discoveryEventsMeta',
 } as const
 
 describe('published guide registry', () => {
-  it('contains exactly the four published guide slugs in editorial order', () => {
+  it('contains exactly the five published guide slugs in editorial order', () => {
     expect(GUIDE_SLUGS).toEqual([
       'tips',
       'how-to-get-more-drifters',
       'how-to-build-ship',
       'connect-high-buildings',
+      'discovery-events',
     ])
     expect(guideEntries.map(({ meta }) => meta.href)).not.toContain('/mods/')
+  })
+
+  it('publishes the discovery events entry from the registry', () => {
+    expect(discoveryEventsMeta.slug).toBe('discovery-events')
+    expect(guideEntries.some(({ meta }) => meta === discoveryEventsMeta)).toBe(true)
   })
 
   it('keeps every registry guide backed by an explicit MDX file and article route', () => {
