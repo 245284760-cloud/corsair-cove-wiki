@@ -9,6 +9,7 @@ const guideCardLabels = {
   '/how-to-get-more-drifters/': 'Get More Drifters',
   '/how-to-build-ship/': 'Build Your First Ship',
   '/connect-high-buildings/': 'Connect High Buildings',
+  '/discovery-events/': 'Discovery Events',
 } as const
 
 export const metadata: Metadata = createPageMetadata(
