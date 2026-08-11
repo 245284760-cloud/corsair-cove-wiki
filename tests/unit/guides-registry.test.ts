@@ -26,7 +26,7 @@ const metadataExportBySlug = {
 } as const
 
 describe('published guide registry', () => {
-  it('contains exactly the five published guide slugs in editorial order', () => {
+  it('contains all published guide slugs in editorial order', () => {
     expect(GUIDE_SLUGS).toEqual([
       'tips',
       'how-to-get-more-drifters',
