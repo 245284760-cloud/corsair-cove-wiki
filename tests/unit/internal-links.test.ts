@@ -13,6 +13,9 @@ const TAILWIND_VARIANT = /^(?:sm|md|lg|xl|2xl|dark|hover|focus|active|disabled|f
 const APPROVED_EXTERNAL_HOSTS = new Set([
   'store.steampowered.com',
   'www.xbox.com',
+  'news.xbox.com',
+  'help.steampowered.com',
+  'support.microsoft.com',
   'wiki.hoodedhorse.com',
   'steamcommunity.com',
   'discord.com',
@@ -136,7 +139,7 @@ describe('published internal links', () => {
     })
   })
 
-  it('normalizes every discovered runtime link to the six-route public allowlist', () => {
+  it('normalizes every discovered runtime link to the twelve-route public allowlist', () => {
     const inspectedLinks = discoveredLinks().map(inspectLink)
     const violations = inspectedLinks.flatMap(({ violation }) => violation ? [violation] : [])
     const discoveredInternalLinks = inspectedLinks.flatMap(({ normalized }) => normalized ? [normalized] : [])
