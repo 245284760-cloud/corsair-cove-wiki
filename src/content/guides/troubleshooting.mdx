@@ -1,0 +1,59 @@
+export { troubleshootingMeta as guideMeta } from '@/content/guides'
+
+## Fast diagnostic checklist
+
+Work down this ladder in order and stop when the problem is gone:
+
+1. Restart the game and, for a launcher or sign-in problem, restart Windows.
+2. Install pending Corsair Cove, Windows, and GPU-driver updates. Record the game version before testing again.
+3. Compare the PC with the [official system requirements](/system-requirements/), including 64-bit Windows, RAM, GPU, DirectX 12, and available SSD space.
+4. If you installed through Steam, use **Properties → Installed Files → Verify integrity of game files**. Steam documents this repair step in its [file-verification support article](https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB).
+5. If you installed from Microsoft Store or PC Game Pass, use Windows **Settings → Apps → Installed apps → Corsair Cove → Advanced options → Repair**. Microsoft explains this non-destructive option in its [repair apps support article](https://support.microsoft.com/en-us/windows/apps/repair-apps-and-programs-in-windows).
+6. Re-test with conservative graphics settings and no overlays or background capture tools.
+7. If it still fails, collect the evidence in [Collect a useful bug report](#collect-a-useful-bug-report) before changing files or reinstalling.
+
+## Startup and crash problems
+
+If the game does not launch, first restart the game and Windows, then apply pending game, Windows, and GPU-driver updates. Confirm that the installation is on a drive with enough free space and that the PC meets the [published requirements](/system-requirements/). Disable overlays temporarily (for example, recording, monitoring, or chat overlays) so you can tell whether the crash is game-related or caused by another process.
+
+Use the repair method for the store where you installed the game: Steam file verification for a Steam install, or Microsoft **Repair** for a Microsoft Store/Game Pass install. Do not run both launchers against the same installation or copy files between them.
+
+If the crash repeats at one reproducible action, note the exact action and whether a new game behaves differently from an existing save. Do not delete save folders or configuration directories as a first-line fix. If you eventually consider **Reset** in Windows Advanced options, back up saves and settings first and understand that Reset can remove local app data; use Repair before Reset.
+
+## Performance and graphics problems
+
+Start by comparing the CPU, GPU, RAM, DirectX version, and storage type with the [minimum and recommended requirements](/system-requirements/). Meeting minimum requirements is not a frame-rate guarantee. Install current GPU drivers, restart, and test with conservative settings: lower resolution or shadows, disable expensive effects, cap the frame rate, and close background applications.
+
+Test one change at a time. Record whether the issue is low frame rate, stutter, long loading, a visual artifact, or a crash. If a setting change fixes the issue, keep the stable setting and include the before/after values in a report. Do not claim a driver or hardware limitation is a confirmed game bug without a reproducible comparison.
+
+## Save and settings problems
+
+For a missing or apparently rolled-back save, restart the game and Windows, verify or repair the installation, and check whether the correct platform account is signed in. Test a new save only after preserving the affected save and noting the time of the last successful load.
+
+Avoid deleting save data, caches, or unspecified directories. If Windows presents a **Reset** option for the app, make a backup of local saves and settings first; Reset may remove local app data and is not reversible through this guide. Report the exact save slot, date, platform/store, and whether the failure affects one save or every save.
+
+## Microsoft Store and PC Game Pass problems
+
+Confirm that Windows is updated and that the Microsoft Store/Xbox app is signed into the account with the game entitlement. Restart Windows, then use **Settings → Apps → Installed apps → Corsair Cove → Advanced options → Repair**. Repair is the first Microsoft-supported recovery step; do not jump directly to Reset.
+
+If the entitlement, install, or launch error remains, record the exact error text and code, the Xbox app or Microsoft Store version, and whether another Game Pass title launches. Do not mix Steam files with the Microsoft Store installation. Use the [Steam discussions and reporting hub](https://steamcommunity.com/app/1368140/discussions/) only for issues that reproduce in the Steam build; store-specific entitlement failures should include the Microsoft error details in the report.
+
+## Collect a useful bug report
+
+Include enough evidence for another person to reproduce the problem:
+
+- Game version, platform/store, Windows version, CPU, GPU, RAM, and whether the game is on an SSD.
+- A short title that names the symptom (for example, “Crash when loading save after opening the map”).
+- Numbered reproduction steps, starting from a fresh launch, plus the expected and actual result.
+- Frequency, whether a new save reproduces it, and the first update or setting change after which it appeared.
+- Exact error text or code, screenshots or a short video, and relevant log/crash identifiers if the game provides them.
+- Save evidence only when safe to share; keep a private backup and redact account names or personal paths.
+
+Search the [Steam discussions and reporting hub](https://steamcommunity.com/app/1368140/discussions/) for duplicates before opening a new thread. Follow the developer's [bug-reporting guidance](https://steamcommunity.com/app/1368140/discussions/0/570414055657832894/) and add your hardware and reproduction evidence rather than posting only “it crashes.”
+
+## Official support and known issues
+
+Use the [Steam file-verification instructions](https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB) for Steam repairs and Microsoft's [repair-app instructions](https://support.microsoft.com/en-us/windows/apps/repair-apps-and-programs-in-windows) for Microsoft Store or PC Game Pass repairs. Check the [official Steam discussions](https://steamcommunity.com/app/1368140/discussions/) for pinned announcements and known issues, then follow the developer's [reporting guidance](https://steamcommunity.com/app/1368140/discussions/0/570414055657832894/) when the checklist does not resolve the problem.
+
+Known issues and workarounds can change with patches. Include the date checked and your game version in any report; do not present an old discussion workaround as a current guarantee.
+
