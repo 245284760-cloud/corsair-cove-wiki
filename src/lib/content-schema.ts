@@ -27,7 +27,7 @@ export const guideMetadataSchema = z.object({
   primaryKeyword: nonEmptyText,
   category: nonEmptyText,
   directAnswer: nonEmptyText,
-  verifiedOn: z.literal('2026-08-08'),
+  verifiedOn: z.iso.date(),
   applicableVersion: nonEmptyText,
   toc: z.array(tocEntrySchema).min(1),
   sources: z.array(guideSourceSchema).min(2),

@@ -101,11 +101,11 @@ describe('published content schemas', () => {
     expect(guideMetadataSchema.parse(validGuide)).toMatchObject(validGuide)
   })
 
-  it('rejects a guide route outside the four published guide pages', () => {
+  it('rejects a guide route outside the published guide pages', () => {
     expect(() => guideMetadataSchema.parse({ ...validGuide, href: '/mods/' })).toThrow()
   })
 
-  it('requires HTTPS evidence and the required verification date', () => {
+  it('requires HTTPS evidence and an ISO verification date', () => {
     expect(() => guideMetadataSchema.parse({
       ...validGuide,
       sources: [
@@ -113,7 +113,8 @@ describe('published content schemas', () => {
         validGuide.sources[1],
       ],
     })).toThrow()
-    expect(() => guideMetadataSchema.parse({ ...validGuide, verifiedOn: '2026-08-09' })).toThrow()
+    expect(guideMetadataSchema.parse({ ...validGuide, verifiedOn: '2026-08-09' })).toMatchObject({ verifiedOn: '2026-08-09' })
+    expect(() => guideMetadataSchema.parse({ ...validGuide, verifiedOn: '2026-8-9' })).toThrow()
   })
 
   it('requires an H2 table of contents entry and two sources', () => {
@@ -126,7 +127,7 @@ describe('published content schemas', () => {
       ...validHomeContent,
       home: {
         ...validHomeContent.home,
-        hero: { ...validHomeContent.home.hero, primaryCtaHref: '/platforms/' },
+        hero: { ...validHomeContent.home.hero, primaryCtaHref: '/mods/' },
       },
     })).toThrow()
   })

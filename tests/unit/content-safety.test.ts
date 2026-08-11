@@ -9,7 +9,7 @@ const EXCLUDED_RUNTIME_DIRECTORIES = new Set(['docs', 'research', 'test', 'tests
 const RUNTIME_EXTENSIONS = new Set(['.json', '.mdx', '.ts', '.tsx'])
 
 const safetyRules = [
-  { label: 'unpublished route', pattern: /\/(?:platforms|privacy|terms|mods|golden-city-maze|tobacco|rope)\//i },
+  { label: 'unpublished route', pattern: /\/(?:privacy|terms|mods|golden-city-maze|tobacco|rope)\//i },
   { label: 'unapproved game reference', pattern: /\bOSRS\b|second pirate camp/i },
   { label: 'cheat or piracy term', pattern: /cheat engine|\bcrack\b|\btorrent\b/i },
   { label: 'fabricated Codes heading', pattern: /^#{1,6}\s+.*\bcodes?\b/im },
