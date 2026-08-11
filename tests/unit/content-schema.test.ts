@@ -115,6 +115,8 @@ describe('published content schemas', () => {
     })).toThrow()
     expect(guideMetadataSchema.parse({ ...validGuide, verifiedOn: '2026-08-09' })).toMatchObject({ verifiedOn: '2026-08-09' })
     expect(() => guideMetadataSchema.parse({ ...validGuide, verifiedOn: '2026-8-9' })).toThrow()
+    expect(() => guideMetadataSchema.parse({ ...validGuide, verifiedOn: '2026-02-30' })).toThrow()
+    expect(() => guideMetadataSchema.parse({ ...validGuide, verifiedOn: 'August 11, 2026' })).toThrow()
   })
 
   it('requires an H2 table of contents entry and two sources', () => {
