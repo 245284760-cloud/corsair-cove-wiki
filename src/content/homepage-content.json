@@ -2,7 +2,7 @@
   "home": {
     "meta": {
       "title": "Corsair Cove Wiki – Guides, Ships, Resources & Tips",
-      "description": "Corsair Cove wiki with verified beginner guides for drifters, ships, Fetchers, logistics, and vertical building."
+      "description": "Corsair Cove wiki with verified game information, beginner guides, troubleshooting, ships, Fetchers, logistics, and vertical building."
     },
     "hero": {
       "eyebrow": "Independent Fan-Made Strategy Guide",
@@ -44,6 +44,17 @@
           "description": "Use bridges and vertical construction to connect buildings across steep cliffs and limited land.",
           "href": "/connect-high-buildings/"
         }
+      ]
+    },
+    "gameInfo": {
+      "eyebrow": "Game Information",
+      "title": "Check Before You Buy or Play",
+      "cards": [
+        { "title": "Platforms", "description": "Check confirmed PC stores, PC Game Pass, and the current PS5, Xbox console, and Switch status.", "href": "/platforms/" },
+        { "title": "Release Date", "description": "See the verified full-game and demo release dates without speculative console timelines.", "href": "/release-date/" },
+        { "title": "Price", "description": "Check the dated regional price snapshot and follow official stores for your current local price.", "href": "/price/" },
+        { "title": "System Requirements", "description": "Compare the official minimum and recommended Windows PC specifications.", "href": "/system-requirements/" },
+        { "title": "Troubleshooting", "description": "Work through safe startup, crash, performance, and store-repair checks before reporting a bug.", "href": "/troubleshooting/" }
       ]
     },
     "aboutGame": {
@@ -94,7 +105,7 @@
   },
   "metadata": {
     "title": "Corsair Cove Wiki – Guides, Ships, Resources & Tips",
-    "description": "Corsair Cove wiki with verified beginner guides for drifters, ships, Fetchers, logistics, and vertical building.",
+    "description": "Corsair Cove wiki with verified game information, beginner guides, troubleshooting, ships, Fetchers, logistics, and vertical building.",
     "keywords": "corsair cove wiki, corsair cove guide, tips, ships, drifters, resources"
   },
   "theme": {

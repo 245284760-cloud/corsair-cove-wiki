@@ -10,12 +10,17 @@ const guideCardLabels = {
   '/how-to-build-ship/': 'Build Your First Ship',
   '/connect-high-buildings/': 'Connect High Buildings',
   '/discovery-events/': 'Discovery Events',
+  '/platforms/': 'Platforms',
+  '/release-date/': 'Release Date',
+  '/price/': 'Price',
+  '/system-requirements/': 'System Requirements',
+  '/troubleshooting/': 'Troubleshooting',
 } as const
 
 export const metadata: Metadata = createPageMetadata(
   '/guides/',
-  'Corsair Cove Guides – Tips, Drifters, Ships & Building',
-  'Verified Corsair Cove guides for beginner tips, Drifters, shipbuilding, and connecting high buildings.',
+  'Corsair Cove Guides - Game Information, Tips & Support',
+  'Verified Corsair Cove game information, beginner tips, Drifters, shipbuilding, building, and troubleshooting guides.',
 )
 
 export default function GuidesPage() {
@@ -25,7 +30,7 @@ export default function GuidesPage() {
       <header className="mt-8 max-w-3xl">
         <h1 className="text-4xl font-bold tracking-tight text-nav-theme">Corsair Cove Guides</h1>
         <p className="mt-4 text-lg leading-8 text-muted-foreground">
-          Start with practical, verified help for your settlement, population, ships, and building connections.
+          Start with practical, verified game information and help for your settlement, population, ships, building connections, and troubleshooting.
         </p>
       </header>
       <div className="mt-12 space-y-12">

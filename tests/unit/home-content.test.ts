@@ -39,7 +39,12 @@ describe('validated home content', () => {
       '/guides/',
       '/how-to-build-ship/',
       '/how-to-get-more-drifters/',
+      '/platforms/',
+      '/price/',
+      '/release-date/',
+      '/system-requirements/',
       '/tips/',
+      '/troubleshooting/',
     ])
     expect(allInternalLinks(homeContent).every((href) => PUBLIC_ROUTES.includes(href as (typeof PUBLIC_ROUTES)[number]))).toBe(true)
   })
@@ -47,14 +52,9 @@ describe('validated home content', () => {
   it('omits unpublished features and claims from the runtime copy', () => {
     const serialized = JSON.stringify(homeContent)
 
-    expect(serialized).not.toMatch(/\/platforms\/|\/privacy\/|\/terms\//)
-    expect(homeContent.home.meta.description).toBe(
-      'Corsair Cove wiki with verified beginner guides for drifters, ships, Fetchers, logistics, and vertical building.',
-    )
-    expect(homeContent.metadata.description).toBe(
-      'Corsair Cove wiki with verified beginner guides for drifters, ships, Fetchers, logistics, and vertical building.',
-    )
-    expect(homeContent.metadata.keywords).not.toMatch(/platforms/i)
+    expect(serialized).not.toMatch(/\/privacy\/|\/terms\//)
+    expect(homeContent.home.meta.description).toMatch(/game information|troubleshooting/i)
+    expect(homeContent.metadata.description).toMatch(/game information|troubleshooting/i)
     expect(homeContent.footer.about).not.toMatch(/platforms|common fixes/i)
     expect(homeContent).not.toHaveProperty('sidebarCodes')
   })

@@ -73,6 +73,11 @@ export const homeContentSchema = z.object({
       title: nonEmptyText,
       cards: z.array(homeCardSchema).min(1),
     }).strict(),
+    gameInfo: z.object({
+      eyebrow: nonEmptyText,
+      title: nonEmptyText,
+      cards: z.array(homeCardSchema).length(5),
+    }).strict(),
     aboutGame: z.object({
       title: nonEmptyText,
       paragraphs: z.array(nonEmptyText).min(1),

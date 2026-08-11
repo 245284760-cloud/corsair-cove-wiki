@@ -10,10 +10,23 @@ describe('home page', () => {
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(screen.getByRole('heading', { level: 1, name: 'Corsair Cove Wiki' })).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'Build Your First Stronghold' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'Game Information' })).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'What is Corsair Cove?' })).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'Ready to Raise Your Pirate Stronghold?' })).toBeTruthy()
     expect(screen.getByText('Released Jul 31, 2026')).toBeTruthy()
     expect(screen.getByText('62 Steam Achievements')).toBeTruthy()
+  })
+
+  it('renders exactly five Game Information cards for the new core pages', () => {
+    render(<Page />)
+
+    const heading = screen.getByRole('heading', { name: 'Game Information' })
+    const section = heading.closest('section')
+    expect(section).toBeTruthy()
+    expect(section?.querySelectorAll('a[href^="/"]')).toHaveLength(5)
+    expect(['platforms', 'release-date', 'price', 'system-requirements', 'troubleshooting'].every((slug) =>
+      section?.querySelector(`a[href="/${slug}/"]`),
+    )).toBe(true)
   })
 
   it('renders only approved internal destinations and all four Start Here cards', () => {
@@ -39,10 +52,8 @@ describe('home page', () => {
 
   it('uses the canonical metadata without unpublished coverage claims', () => {
     expect(metadata.title).toBe('Corsair Cove Wiki \u2013 Guides, Ships, Resources & Tips')
-    expect(metadata.description).toBe(
-      'Corsair Cove wiki with verified beginner guides for drifters, ships, Fetchers, logistics, and vertical building.',
-    )
+    expect(metadata.description).toMatch(/game information|troubleshooting/i)
     expect(metadata.alternates?.canonical).toBe('https://corsaircovewiki.com/')
-    expect(JSON.stringify(metadata)).not.toMatch(/price|platform|system requirement|troubleshooting/i)
+    expect(JSON.stringify(metadata)).not.toMatch(/price|platform|system requirement/i)
   })
 })

@@ -38,6 +38,17 @@ const validHomeContent = {
       title: 'Build Your First Stronghold',
       cards: [{ title: 'Beginner Tips', description: 'Get started.', href: '/tips/' }],
     },
+    gameInfo: {
+      eyebrow: 'Game Information',
+      title: 'Check Before You Buy or Play',
+      cards: [
+        { title: 'Platforms', description: 'Check platforms.', href: '/platforms/' },
+        { title: 'Release Date', description: 'Check dates.', href: '/release-date/' },
+        { title: 'Price', description: 'Check price.', href: '/price/' },
+        { title: 'System Requirements', description: 'Check requirements.', href: '/system-requirements/' },
+        { title: 'Troubleshooting', description: 'Fix issues.', href: '/troubleshooting/' },
+      ],
+    },
     aboutGame: {
       title: 'What is Corsair Cove?',
       paragraphs: ['Corsair Cove is a strategy game.'],

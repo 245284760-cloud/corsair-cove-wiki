@@ -25,6 +25,15 @@ export default function Page() {
           {home.start.cards.map((card) => <GuideCard key={card.href} card={card} />)}
         </div>
       </section>
+      <section aria-labelledby="game-information-heading" className="bg-surface">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <h2 id="game-information-heading" className="text-3xl font-bold tracking-tight">{home.gameInfo.eyebrow}</h2>
+          <p className="mt-3 text-lg text-muted-foreground">{home.gameInfo.title}</p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {home.gameInfo.cards.map((card) => <GuideCard key={card.href} card={card} />)}
+          </div>
+        </div>
+      </section>
       <section aria-labelledby="about-game-heading" className="bg-surface">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 id="about-game-heading" className="text-3xl font-bold tracking-tight">{home.aboutGame.title}</h2>

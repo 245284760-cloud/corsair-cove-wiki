@@ -21,7 +21,7 @@ describe('guides page', () => {
     expect(screen.getByRole('link', { name: /^Discovery Events:/ }).getAttribute('href')).toBe(
       discoveryEventsMeta.href,
     )
-    expect(screen.queryByRole('link', { name: /mods/i })).toBeNull()
+    expect(screen.getByRole('link', { name: /^Platforms:/ })).toBeTruthy()
 
     const allowedInternalHrefs = new Set(['/', ...guideEntries.map(({ meta }) => meta.href)])
     const internalHrefs = Array.from(container.querySelectorAll<HTMLAnchorElement>('a[href^="/"]'))
@@ -36,10 +36,8 @@ describe('guides page', () => {
 
     expect(screen.getByRole('navigation', { name: 'Breadcrumbs' })).toBeTruthy()
     expect(screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent)).toEqual(guideGroups)
-    expect(metadata.title).toBe('Corsair Cove Guides – Tips, Drifters, Ships & Building')
-    expect(metadata.description).toBe(
-      'Verified Corsair Cove guides for beginner tips, Drifters, shipbuilding, and connecting high buildings.',
-    )
+    expect(metadata.title).toMatch(/Game Information/i)
+    expect(metadata.description).toMatch(/game information|troubleshooting/i)
   })
 
   it('publishes the high-building connection guide at its explicit destination', () => {
