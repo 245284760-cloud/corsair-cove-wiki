@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { createElement } from 'react'
+import { render } from '@testing-library/react'
 import {
   platformsMeta,
   priceMeta,
@@ -6,6 +8,8 @@ import {
   systemRequirementsMeta,
   troubleshootingMeta,
 } from '@/content/guides'
+import SystemRequirementsContent, { guideMeta as systemRequirementsGuideMeta } from '@/content/guides/system-requirements.mdx'
+import { ArticleLayout } from '@/components/site/article-layout'
 
 const coreInformationMeta = [
   platformsMeta,
@@ -32,5 +36,22 @@ describe('core information content contracts', () => {
       expect(meta.sources.length).toBeGreaterThanOrEqual(2)
       expect(meta.related.length).toBeGreaterThanOrEqual(2)
     }
+  })
+
+  it('renders the system requirements guide with the approved sections and specs', () => {
+    const { container } = render(createElement(ArticleLayout, { meta: systemRequirementsGuideMeta }, createElement(SystemRequirementsContent)))
+
+    expect(systemRequirementsGuideMeta.href).toBe('/system-requirements/')
+    expect(Array.from(container.querySelectorAll('.article-content h2')).map((heading) => heading.textContent)).toEqual([
+      'Supported operating system',
+      'Minimum requirements',
+      'Recommended requirements',
+      'Storage and hardware notes',
+      'Check your PC before buying',
+      'Fix startup or performance problems',
+    ])
+    expect(container.textContent).toContain('Windows 10 64-bit')
+    expect(container.textContent).toContain('GTX 1660 Super 6 GB')
+    expect(container.textContent).toContain('RTX 2070 8 GB')
   })
 })
