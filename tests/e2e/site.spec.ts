@@ -131,6 +131,28 @@ test('guide tables stay within the mobile viewport', async ({ page }, testInfo) 
   }
 })
 
+test('platform and system requirement tables stay within the mobile viewport', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'Table containment is tested in the mobile project.')
+
+  for (const route of ['/platforms/', '/system-requirements/']) {
+    await page.goto(route)
+    const tables = page.locator('.article-content table')
+    const tableCount = await tables.count()
+    expect(tableCount, `A responsive table should be present on ${route}`).toBeGreaterThan(0)
+
+    for (let index = 0; index < tableCount; index += 1) {
+      await expect(
+        await tables.nth(index).evaluate((table) => {
+          const { left, right } = table.getBoundingClientRect()
+          const tolerance = 1
+
+          return left >= -tolerance && right <= window.innerWidth + tolerance
+        }),
+      ).toBe(true)
+    }
+  }
+})
+
 test('unknown routes use the custom 404 page', async ({ page }) => {
   const response = await page.goto('/not-a-published-page/')
   expect(response?.status()).toBe(404)

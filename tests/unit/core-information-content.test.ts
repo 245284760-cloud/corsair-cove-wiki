@@ -9,6 +9,10 @@ import {
   troubleshootingMeta,
 } from '@/content/guides'
 import SystemRequirementsContent, { guideMeta as systemRequirementsGuideMeta } from '@/content/guides/system-requirements.mdx'
+import PlatformsContent, { guideMeta as platformsGuideMeta } from '@/content/guides/platforms.mdx'
+import ReleaseDateContent, { guideMeta as releaseDateGuideMeta } from '@/content/guides/release-date.mdx'
+import PriceContent, { guideMeta as priceGuideMeta } from '@/content/guides/price.mdx'
+import TroubleshootingContent, { guideMeta as troubleshootingGuideMeta } from '@/content/guides/troubleshooting.mdx'
 import { ArticleLayout } from '@/components/site/article-layout'
 
 const coreInformationMeta = [
@@ -18,6 +22,14 @@ const coreInformationMeta = [
   systemRequirementsMeta,
   troubleshootingMeta,
 ]
+
+const coreInformationArticles = [
+  [platformsGuideMeta, PlatformsContent],
+  [releaseDateGuideMeta, ReleaseDateContent],
+  [priceGuideMeta, PriceContent],
+  [systemRequirementsGuideMeta, SystemRequirementsContent],
+  [troubleshootingGuideMeta, TroubleshootingContent],
+] as const
 
 describe('core information content contracts', () => {
   it('answers each primary search intent with the approved direct claim', () => {
@@ -53,5 +65,18 @@ describe('core information content contracts', () => {
     expect(container.textContent).toContain('Windows 10 64-bit')
     expect(container.textContent).toContain('GTX 1660 Super 6 GB')
     expect(container.textContent).toContain('RTX 2070 8 GB')
+  })
+
+  it('renders each core information page as a complete article contract', () => {
+    for (const [meta, Content] of coreInformationArticles) {
+      const { container } = render(createElement(ArticleLayout, { meta }, createElement(Content)))
+
+      expect(container.querySelectorAll('h1')).toHaveLength(1)
+      expect(Array.from(container.querySelectorAll('.article-content h2')).map((heading) => heading.textContent?.toLowerCase())).toEqual(
+        meta.toc.map(({ label }) => label.toLowerCase()),
+      )
+      expect(container.querySelector('[aria-labelledby="sources-heading"]')).not.toBeNull()
+      expect(container.querySelector('[aria-labelledby="related-guides-heading"]')).not.toBeNull()
+    }
   })
 })

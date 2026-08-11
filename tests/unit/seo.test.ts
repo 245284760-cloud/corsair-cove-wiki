@@ -8,6 +8,11 @@ import { metadata as discoveryEventsMetadata } from '@/app/discovery-events/page
 import { discoveryEventsMeta } from '@/content/guides'
 import { CANONICAL_ORIGIN } from '@/lib/metadata'
 import { PUBLIC_ROUTES } from '@/lib/routes'
+import { metadata as platformsMetadata } from '@/app/platforms/page'
+import { metadata as releaseDateMetadata } from '@/app/release-date/page'
+import { metadata as priceMetadata } from '@/app/price/page'
+import { metadata as systemRequirementsMetadata } from '@/app/system-requirements/page'
+import { metadata as troubleshootingMetadata } from '@/app/troubleshooting/page'
 
 describe('production SEO routes', () => {
   it('publishes every canonical public URL in the sitemap, including discovery events', async () => {
@@ -17,6 +22,35 @@ describe('production SEO routes', () => {
     expect(urls).toEqual(
       PUBLIC_ROUTES.map((route) => new URL(route, CANONICAL_ORIGIN).href),
     )
+  })
+
+  it('keeps all twelve published routes on unique canonical URLs', async () => {
+    const urls = (await sitemap()).map((item) => item.url)
+
+    expect(PUBLIC_ROUTES).toHaveLength(12)
+    expect(urls).toHaveLength(12)
+    expect(new Set(urls).size).toBe(urls.length)
+    expect(urls.every((url) => url.startsWith(`${CANONICAL_ORIGIN}/`))).toBe(true)
+  })
+
+  it('publishes canonical article metadata for each new core information route', () => {
+    const metadata = [
+      platformsMetadata,
+      releaseDateMetadata,
+      priceMetadata,
+      systemRequirementsMetadata,
+      troubleshootingMetadata,
+    ]
+
+    const canonicals = metadata.map((item) => item.alternates?.canonical)
+    expect(canonicals).toEqual([
+      'https://corsaircovewiki.com/platforms/',
+      'https://corsaircovewiki.com/release-date/',
+      'https://corsaircovewiki.com/price/',
+      'https://corsaircovewiki.com/system-requirements/',
+      'https://corsaircovewiki.com/troubleshooting/',
+    ])
+    expect(new Set(canonicals).size).toBe(canonicals.length)
   })
 
   it('publishes discovery events as canonical article metadata', () => {

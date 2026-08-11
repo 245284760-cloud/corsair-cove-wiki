@@ -8,7 +8,13 @@ const RUNTIME_SOURCE_DIRECTORY = 'src'
 const EXCLUDED_RUNTIME_DIRECTORIES = new Set(['docs', 'research', 'test', 'tests'])
 const RUNTIME_EXTENSIONS = new Set(['.json', '.mdx', '.ts', '.tsx'])
 
-const safetyRules = [
+type SafetyRule = {
+  label: string
+  pattern: RegExp
+  allowedPaths?: readonly RegExp[]
+}
+
+const safetyRules: readonly SafetyRule[] = [
   { label: 'unpublished route', pattern: /\/(?:privacy|terms|mods|golden-city-maze|tobacco|rope)\//i },
   { label: 'unapproved game reference', pattern: /\bOSRS\b|second pirate camp/i },
   { label: 'cheat or piracy term', pattern: /cheat engine|\bcrack\b|\btorrent\b/i },
