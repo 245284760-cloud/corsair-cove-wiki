@@ -207,7 +207,7 @@ const parsedPriceMeta = guideMetadataSchema.parse({
   description: 'Check the dated Corsair Cove France price snapshot and use official stores for your current region and sale status.',
   primaryKeyword: 'corsair cove price',
   category: 'Game Info',
-  directAnswer: 'Steam listed Corsair Cove at a €39.99 base price in France when checked on August 11, 2026, with a temporary €29.99 launch price through August 14. Store prices vary by region and sale, so check the official listing for your current local price.',
+  directAnswer: 'The France Steam store snapshot was checked on August 11, 2026. Prices and launch sales vary by region and date, so check the official listing for your current local price.',
   verifiedOn: '2026-08-11',
   applicableVersion: 'Full release; France store snapshot checked 2026-08-11',
   toc: [

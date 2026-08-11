@@ -13,8 +13,8 @@ const safetyRules = [
   { label: 'unapproved game reference', pattern: /\bOSRS\b|second pirate camp/i },
   { label: 'cheat or piracy term', pattern: /cheat engine|\bcrack\b|\btorrent\b/i },
   { label: 'fabricated Codes heading', pattern: /^#{1,6}\s+.*\bcodes?\b/im },
-  { label: 'price claim', pattern: /(?:\$|€)\s*\d|\b(?:USD|EUR)\b/i, allowedPaths: [/^src\/content\/guides\/(?:price\.mdx|index\.ts)$/i] },
-  { label: 'discount claim', pattern: /\b(?:save|saving|discount)\s+\d+(?:\.\d+)?%|\b\d+(?:\.\d+)?%\s*(?:off|discount|savings?)\b/i, allowedPaths: [/^src\/content\/guides\/(?:price\.mdx|index\.ts)$/i] },
+  { label: 'price claim', pattern: /(?:\$|€)\s*\d|\b(?:USD|EUR)\b/i, allowedPaths: [/^src\/content\/guides\/price\.mdx$/i] },
+  { label: 'discount claim', pattern: /\b(?:save|saving|discount)\s+\d+(?:\.\d+)?%|\b\d+(?:\.\d+)?%\s*(?:off|discount|savings?)\b/i, allowedPaths: [/^src\/content\/guides\/price\.mdx$/i] },
   { label: 'review-percentage claim', pattern: /\b\d+(?:\.\d+)?%\s*(?:positive|negative)\s+reviews?\b|\b\d+(?:\.\d+)?%\s+reviews?\s+(?:positive|negative)\b|\b\d+(?:\.\d+)?%\s+of\s+reviews?\s+(?:are|is)\s+(?:positive|negative)\b|\b(?:positive|negative)\s+review\s+(?:rate|score)\s*(?:of|is)?\s*\d+(?:\.\d+)?%/i },
 ] as const
 

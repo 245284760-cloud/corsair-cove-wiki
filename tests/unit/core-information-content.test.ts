@@ -21,7 +21,7 @@ describe('core information content contracts', () => {
     expect(platformsMeta.directAnswer).toMatch(/Windows PC|PC Game Pass/)
     expect(platformsMeta.directAnswer).toMatch(/no official (PS5|PlayStation).*listing/i)
     expect(releaseDateMeta.directAnswer).toMatch(/July 31, 2026/)
-    expect(priceMeta.directAnswer).toMatch(/€39\.99.*€29\.99|regional/i)
+    expect(priceMeta.directAnswer).toMatch(/France.*August 11, 2026|regional/i)
     expect(systemRequirementsMeta.directAnswer).toMatch(/64-bit Windows PC|Windows 10.*64-bit/i)
     expect(troubleshootingMeta.directAnswer).toMatch(/verify|repair|report/i)
   })
