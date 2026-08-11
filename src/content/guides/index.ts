@@ -6,6 +6,11 @@ export const GUIDE_SLUGS = [
   'how-to-build-ship',
   'connect-high-buildings',
   'discovery-events',
+  'platforms',
+  'release-date',
+  'price',
+  'system-requirements',
+  'troubleshooting',
 ] as const
 
 export type GuideSlug = (typeof GUIDE_SLUGS)[number]
@@ -145,6 +150,133 @@ const parsedDiscoveryEventsMeta = guideMetadataSchema.parse({
   related: ['/tips/', '/how-to-get-more-drifters/', '/how-to-build-ship/', '/connect-high-buildings/'],
 })
 
+const parsedPlatformsMeta = guideMetadataSchema.parse({
+  slug: 'platforms',
+  href: '/platforms/',
+  title: 'Corsair Cove Platforms: PC, PS5, Xbox, and Switch Status',
+  description: 'Check Corsair Cove availability on PC stores and Game Pass, plus the verified PlayStation, Xbox console, and Nintendo Switch status.',
+  primaryKeyword: 'corsair cove ps5',
+  category: 'Game Info',
+  directAnswer: 'Corsair Cove is available on Windows PC through Steam and the Microsoft Store, and it joined PC Game Pass and Game Pass Ultimate on July 31, 2026. The Microsoft listing says Play with PC; no official PS5 or Nintendo Switch listing was found as of August 11, 2026.',
+  verifiedOn: '2026-08-11',
+  applicableVersion: 'Full release; availability checked 2026-08-11',
+  toc: [
+    { id: 'confirmed-availability', label: 'Confirmed Availability', level: 2 },
+    { id: 'windows-pc-stores', label: 'Windows PC Stores', level: 2 },
+    { id: 'playstation-status', label: 'PlayStation Status', level: 2 },
+    { id: 'xbox-and-game-pass-status', label: 'Xbox and Game Pass Status', level: 2 },
+    { id: 'nintendo-switch-status', label: 'Nintendo Switch Status', level: 2 },
+    { id: 'how-to-verify-future-announcements', label: 'How to Verify Future Announcements', level: 2 },
+  ],
+  sources: [
+    { label: 'Steam full game listing', url: 'https://store.steampowered.com/app/1368140/Corsair_Cove/' },
+    { label: 'Microsoft Store listing', url: 'https://www.xbox.com/en-us/games/store/corsair-cove/9phs0189k408' },
+    { label: 'Xbox Wire Game Pass announcement', url: 'https://news.xbox.com/en-us/2026/07/21/xbox-game-pass-july-2026-wave-2/' },
+  ],
+  related: ['/release-date/', '/price/', '/system-requirements/'],
+})
+
+const parsedReleaseDateMeta = guideMetadataSchema.parse({
+  slug: 'release-date',
+  href: '/release-date/',
+  title: 'Corsair Cove Release Date and Demo Timeline',
+  description: 'See the verified Corsair Cove full-game and free demo release dates without speculative console timelines.',
+  primaryKeyword: 'corsair cove release date',
+  category: 'Game Info',
+  directAnswer: 'Corsair Cove released for Windows PC on July 31, 2026. Its free Steam demo released on May 28, 2026 and remains a separate download.',
+  verifiedOn: '2026-08-11',
+  applicableVersion: 'Full release; dates checked 2026-08-11',
+  toc: [
+    { id: 'current-release-status', label: 'Current Release Status', level: 2 },
+    { id: 'release-timeline', label: 'Release Timeline', level: 2 },
+    { id: 'demo-and-full-game', label: 'Demo and Full Game', level: 2 },
+    { id: 'platform-specific-timing', label: 'Platform-Specific Timing', level: 2 },
+    { id: 'where-to-verify-updates', label: 'Where to Verify Updates', level: 2 },
+  ],
+  sources: [
+    { label: 'Steam full game listing', url: 'https://store.steampowered.com/app/1368140/Corsair_Cove/' },
+    { label: 'Steam demo listing', url: 'https://store.steampowered.com/app/3858730/Corsair_Cove/' },
+  ],
+  related: ['/platforms/', '/price/', '/system-requirements/'],
+})
+
+const parsedPriceMeta = guideMetadataSchema.parse({
+  slug: 'price',
+  href: '/price/',
+  title: 'Corsair Cove Price: Current Steam Region Snapshot',
+  description: 'Check the dated Corsair Cove France price snapshot and use official stores for your current region and sale status.',
+  primaryKeyword: 'corsair cove price',
+  category: 'Game Info',
+  directAnswer: 'Steam listed Corsair Cove at a €9.99 base price in France when checked on August 11, 2026, with a temporary €9.99 launch price through August 14. Store prices vary by region and sale, so check the official listing for your current local price.',
+  verifiedOn: '2026-08-11',
+  applicableVersion: 'Full release; France store snapshot checked 2026-08-11',
+  toc: [
+    { id: 'current-verified-price', label: 'Current Verified Price', level: 2 },
+    { id: 'base-game-and-bundles', label: 'Base Game and Bundles', level: 2 },
+    { id: 'regional-prices-and-sales', label: 'Regional Prices and Sales', level: 2 },
+    { id: 'pc-game-pass-availability', label: 'PC Game Pass Availability', level: 2 },
+    { id: 'official-purchase-links', label: 'Official Purchase Links', level: 2 },
+  ],
+  sources: [
+    { label: 'Steam full game listing', url: 'https://store.steampowered.com/app/1368140/Corsair_Cove/' },
+    { label: 'Xbox Wire Game Pass announcement', url: 'https://news.xbox.com/en-us/2026/07/21/xbox-game-pass-july-2026-wave-2/' },
+  ],
+  related: ['/platforms/', '/release-date/', '/system-requirements/'],
+})
+
+const parsedSystemRequirementsMeta = guideMetadataSchema.parse({
+  slug: 'system-requirements',
+  href: '/system-requirements/',
+  title: 'Corsair Cove System Requirements for Windows PC',
+  description: 'Compare the official Corsair Cove minimum and recommended Windows PC specifications before buying or troubleshooting.',
+  primaryKeyword: 'corsair cove system requirements',
+  category: 'Game Info',
+  directAnswer: 'Corsair Cove requires a 64-bit Windows PC. The official minimum lists Windows 10, 8 GB RAM, DirectX 12, 30 GB available storage, and an SSD recommendation; compare the full CPU and GPU requirements below.',
+  verifiedOn: '2026-08-11',
+  applicableVersion: 'Full release; requirements checked 2026-08-11',
+  toc: [
+    { id: 'supported-operating-system', label: 'Supported Operating System', level: 2 },
+    { id: 'minimum-requirements', label: 'Minimum Requirements', level: 2 },
+    { id: 'recommended-requirements', label: 'Recommended Requirements', level: 2 },
+    { id: 'storage-and-hardware-notes', label: 'Storage and Hardware Notes', level: 2 },
+    { id: 'check-your-pc-before-buying', label: 'Check Your PC Before Buying', level: 2 },
+    { id: 'fix-startup-or-performance-problems', label: 'Fix Startup or Performance Problems', level: 2 },
+  ],
+  sources: [
+    { label: 'Steam full game listing', url: 'https://store.steampowered.com/app/1368140/Corsair_Cove/' },
+    { label: 'Microsoft Store listing', url: 'https://www.xbox.com/en-us/games/store/corsair-cove/9phs0189k408' },
+  ],
+  related: ['/platforms/', '/troubleshooting/', '/how-to-build-ship/'],
+})
+
+const parsedTroubleshootingMeta = guideMetadataSchema.parse({
+  slug: 'troubleshooting',
+  href: '/troubleshooting/',
+  title: 'Corsair Cove Troubleshooting: Crashes, Performance, and Reports',
+  description: 'Use a safe Corsair Cove diagnostic checklist for startup, crash, performance, save, and store issues before reporting a bug.',
+  primaryKeyword: 'corsair cove crash',
+  category: 'Support',
+  directAnswer: 'Start with a restart and updates, then use Steam file verification or Windows app Repair for the store you installed from. If the problem continues, collect the game version, hardware, reproduction steps, screenshots, and save evidence before reporting it.',
+  verifiedOn: '2026-08-11',
+  applicableVersion: 'Full release; support steps checked 2026-08-11',
+  toc: [
+    { id: 'fast-diagnostic-checklist', label: 'Fast Diagnostic Checklist', level: 2 },
+    { id: 'startup-and-crash-problems', label: 'Startup and Crash Problems', level: 2 },
+    { id: 'performance-and-graphics-problems', label: 'Performance and Graphics Problems', level: 2 },
+    { id: 'save-and-settings-problems', label: 'Save and Settings Problems', level: 2 },
+    { id: 'microsoft-store-and-pc-game-pass-problems', label: 'Microsoft Store and PC Game Pass Problems', level: 2 },
+    { id: 'collect-a-useful-bug-report', label: 'Collect a Useful Bug Report', level: 2 },
+    { id: 'official-support-and-known-issues', label: 'Official Support and Known Issues', level: 2 },
+  ],
+  sources: [
+    { label: 'Steam file verification support', url: 'https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB' },
+    { label: 'Microsoft app repair support', url: 'https://support.microsoft.com/en-us/windows/apps/repair-apps-and-programs-in-windows' },
+    { label: 'Steam discussions and reporting hub', url: 'https://steamcommunity.com/app/1368140/discussions/' },
+    { label: 'Developer reporting guidance', url: 'https://steamcommunity.com/app/1368140/discussions/0/570414055657832894/' },
+  ],
+  related: ['/system-requirements/', '/platforms/', '/tips/'],
+})
+
 type ParsedGuideEntry = {
   meta: ReadonlyGuideMetadata
 }
@@ -182,8 +314,13 @@ export const driftersMeta: ReadonlyGuideMetadata = freezeRecursively(parsedDrift
 export const shipMeta: ReadonlyGuideMetadata = freezeRecursively(parsedShipMeta)
 export const connectionsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedConnectionsMeta)
 export const discoveryEventsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedDiscoveryEventsMeta)
+export const platformsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedPlatformsMeta)
+export const releaseDateMeta: ReadonlyGuideMetadata = freezeRecursively(parsedReleaseDateMeta)
+export const priceMeta: ReadonlyGuideMetadata = freezeRecursively(parsedPriceMeta)
+export const systemRequirementsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedSystemRequirementsMeta)
+export const troubleshootingMeta: ReadonlyGuideMetadata = freezeRecursively(parsedTroubleshootingMeta)
 
-const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta] as const
+const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta, platformsMeta, releaseDateMeta, priceMeta, systemRequirementsMeta, troubleshootingMeta] as const
 
 export function createGuideRegistry(entries: readonly GuideRegistryInput[]): GuideRegistry {
   const parsedGuideEntries = entries.map(({ meta }) => {
@@ -204,6 +341,11 @@ export const guideEntries = createGuideRegistry([
   { meta: shipMeta },
   { meta: connectionsMeta },
   { meta: discoveryEventsMeta },
+  { meta: platformsMeta },
+  { meta: releaseDateMeta },
+  { meta: priceMeta },
+  { meta: systemRequirementsMeta },
+  { meta: troubleshootingMeta },
 ])
 
 export const guideGroups = freezeRecursively(

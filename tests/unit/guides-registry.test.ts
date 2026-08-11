@@ -7,6 +7,7 @@ import {
   driftersMeta,
   GUIDE_SLUGS,
   getGuideMeta,
+  guideGroups,
   guideEntries,
   tipsMeta,
 } from '@/content/guides'
@@ -17,6 +18,11 @@ const metadataExportBySlug = {
   'how-to-build-ship': 'shipMeta',
   'connect-high-buildings': 'connectionsMeta',
   'discovery-events': 'discoveryEventsMeta',
+  platforms: 'platformsMeta',
+  'release-date': 'releaseDateMeta',
+  price: 'priceMeta',
+  'system-requirements': 'systemRequirementsMeta',
+  troubleshooting: 'troubleshootingMeta',
 } as const
 
 describe('published guide registry', () => {
@@ -27,7 +33,13 @@ describe('published guide registry', () => {
       'how-to-build-ship',
       'connect-high-buildings',
       'discovery-events',
+      'platforms',
+      'release-date',
+      'price',
+      'system-requirements',
+      'troubleshooting',
     ])
+    expect(guideGroups).toEqual(expect.arrayContaining(['Game Info', 'Support']))
     expect(guideEntries.map(({ meta }) => meta.href)).not.toContain('/mods/')
   })
 
