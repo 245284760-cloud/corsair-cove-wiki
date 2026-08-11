@@ -6,7 +6,7 @@ Verified: 2026-08-11
 |---|---|---|---|
 | Platforms | Windows PC on Steam and Microsoft Store; PC Game Pass/Game Pass Ultimate | [Microsoft Store](https://www.xbox.com/en-us/games/store/corsair-cove/9phs0189k408); [Xbox Wire](https://news.xbox.com/en-us/2026/07/21/xbox-game-pass-july-2026-wave-2/) | Do not imply an Xbox console build |
 | Release | Full game July 31, 2026; free demo May 28, 2026 | [Full Steam product](https://store.steampowered.com/app/1368140/Corsair_Cove/); [Steam demo](https://store.steampowered.com/app/3858730/Corsair_Cove/) | Do not infer future console dates |
-| Price | France: €39.99 base; €29.99 launch sale through August 14 | [Full Steam product](https://store.steampowered.com/app/1368140/Corsair_Cove/) | Identify region/date; link current local price |
+| Price | France: EUR 39.99 base; EUR 29.99 launch sale through August 14 | [Full Steam product](https://store.steampowered.com/app/1368140/Corsair_Cove/) | Identify region/date; link current local price |
 | Requirements | Copy the official minimum and recommended Windows requirements | [Full Steam product](https://store.steampowered.com/app/1368140/Corsair_Cove/) | Do not invent FPS/resolution targets |
 | Troubleshooting | Restart, update, Steam verify or Windows Repair, then collect evidence and report | [Steam file verification](https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB); [Microsoft app repair](https://support.microsoft.com/en-us/windows/apps/repair-apps-and-programs-in-windows); [Steam discussions](https://steamcommunity.com/app/1368140/discussions/); [Developer reporting evidence](https://steamcommunity.com/app/1368140/discussions/0/570414055657832894/) | Backup before Reset or file removal |
 
