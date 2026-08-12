@@ -12,6 +12,8 @@ import {
   shipsMeta,
   explorationMeta,
   updatesMeta,
+  tobaccoMeta,
+  ropeMeta,
 } from '@/content/guides'
 import SystemRequirementsContent, { guideMeta as systemRequirementsGuideMeta } from '@/content/guides/system-requirements.mdx'
 import PlatformsContent, { guideMeta as platformsGuideMeta } from '@/content/guides/platforms.mdx'
@@ -23,6 +25,8 @@ import ProductionChainsContent, { guideMeta as productionChainsGuideMeta } from 
 import ShipsContent, { guideMeta as shipsGuideMeta } from '@/content/guides/ships.mdx'
 import ExplorationContent, { guideMeta as explorationGuideMeta } from '@/content/guides/exploration.mdx'
 import UpdatesContent, { guideMeta as updatesGuideMeta } from '@/content/guides/updates.mdx'
+import TobaccoContent, { guideMeta as tobaccoGuideMeta } from '@/content/guides/tobacco.mdx'
+import RopeContent, { guideMeta as ropeGuideMeta } from '@/content/guides/rope.mdx'
 import { ArticleLayout } from '@/components/site/article-layout'
 
 const coreInformationMeta = [
@@ -36,6 +40,8 @@ const coreInformationMeta = [
   shipsMeta,
   explorationMeta,
   updatesMeta,
+  tobaccoMeta,
+  ropeMeta,
 ]
 
 const coreInformationArticles = [
@@ -49,6 +55,8 @@ const coreInformationArticles = [
   [shipsGuideMeta, ShipsContent],
   [explorationGuideMeta, ExplorationContent],
   [updatesGuideMeta, UpdatesContent],
+  [tobaccoGuideMeta, TobaccoContent],
+  [ropeGuideMeta, RopeContent],
 ] as const
 
 describe('core information content contracts', () => {

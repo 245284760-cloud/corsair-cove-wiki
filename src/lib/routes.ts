@@ -16,6 +16,8 @@ export const PUBLIC_ROUTES = [
   '/ships/',
   '/exploration/',
   '/updates/',
+  '/tobacco/',
+  '/rope/',
   '/search/',
 ] as const
 
@@ -37,6 +39,8 @@ export const GUIDE_ROUTES = [
   '/ships/',
   '/exploration/',
   '/updates/',
+  '/tobacco/',
+  '/rope/',
 ] as const
 
 export type GuideRoute = Exclude<PublicRoute, '/' | '/guides/'>

@@ -20,6 +20,8 @@ const guideCardLabels = {
   '/ships/': 'Ships',
   '/exploration/': 'Exploration',
   '/updates/': 'Updates and Known Issues',
+  '/tobacco/': 'Tobacco',
+  '/rope/': 'Rope',
 } as const
 
 export const metadata: Metadata = createPageMetadata(

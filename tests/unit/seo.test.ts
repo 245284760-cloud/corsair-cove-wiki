@@ -29,11 +29,11 @@ describe('production SEO routes', () => {
     )
   })
 
-  it('keeps all fourteen published routes on unique canonical URLs', async () => {
+  it('keeps all twenty published routes on unique canonical URLs', async () => {
     const urls = (await sitemap()).map((item) => item.url)
 
-    expect(PUBLIC_ROUTES).toHaveLength(18)
-    expect(urls).toHaveLength(18)
+    expect(PUBLIC_ROUTES).toHaveLength(20)
+    expect(urls).toHaveLength(20)
     expect(new Set(urls).size).toBe(urls.length)
     expect(urls.every((url) => url.startsWith(`${CANONICAL_ORIGIN}/`))).toBe(true)
   })

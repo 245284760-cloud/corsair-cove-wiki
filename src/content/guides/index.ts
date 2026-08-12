@@ -17,6 +17,8 @@ export const GUIDE_SLUGS = [
   'ships',
   'exploration',
   'updates',
+  'tobacco',
+  'rope',
 ] as const
 
 export type GuideSlug = (typeof GUIDE_SLUGS)[number]
@@ -369,6 +371,43 @@ const parsedUpdatesMeta = guideMetadataSchema.parse({
   ], related: ['/troubleshooting/', '/system-requirements/', '/release-date/'],
 })
 
+const parsedTobaccoMeta = guideMetadataSchema.parse({
+  slug: 'tobacco', href: '/tobacco/', title: 'Corsair Cove Tobacco: Verified Marketplace Facts',
+  description: 'See what the official Corsair Cove references confirm about Tobacco consumption and what remains unverified about acquisition.',
+  primaryKeyword: 'corsair cove tobacco', category: 'Resources',
+  directAnswer: 'The official Resources page lists Tobacco as having no island production building, while the Pirates page lists Tobacco as upkeep for Buccaneers. The official sources checked do not confirm a first acquisition event or location.',
+  verifiedOn: '2026-08-12', applicableVersion: 'Full release; official Resources, Buildings, and Pirates pages checked 2026-08-12',
+  toc: [
+    { id: 'confirmed-tobacco-facts', label: 'Confirmed Tobacco Facts', level: 2 },
+    { id: 'buccaneer-upkeep', label: 'Buccaneer Upkeep', level: 2 },
+    { id: 'what-the-sources-do-not-confirm', label: 'What the Sources Do Not Confirm', level: 2 },
+    { id: 'safe-verification-path', label: 'Safe Verification Path', level: 2 },
+  ],
+  sources: [
+    { label: 'Official Wiki Resources', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Resources' },
+    { label: 'Official Wiki Buildings', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Buildings' },
+    { label: 'Official Wiki Pirates', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Pirates' },
+  ], related: ['/resources/', '/production-chains/', '/ships/'],
+})
+
+const parsedRopeMeta = guideMetadataSchema.parse({
+  slug: 'rope', href: '/rope/', title: 'Corsair Cove Rope: Rope Maker and Fibre Inputs',
+  description: 'Use the official Corsair Cove building and resource tables to verify Rope Maker inputs, workers, construction cost, and output.',
+  primaryKeyword: 'corsair cove rope', category: 'Resources',
+  directAnswer: 'The official tables list Rope Maker as a Ships production building using Fibre, staffed by 2 Greenhands, costing 25 Planks, and producing 4 Rope per minute from 8 Fabric. The sources do not establish a complete island route or placement map.',
+  verifiedOn: '2026-08-12', applicableVersion: 'Full release; official Resources and Buildings pages checked 2026-08-12',
+  toc: [
+    { id: 'verified-rope-maker-facts', label: 'Verified Rope Maker Facts', level: 2 },
+    { id: 'fibre-input-boundary', label: 'Fibre Input Boundary', level: 2 },
+    { id: 'production-and-transport-checks', label: 'Production and Transport Checks', level: 2 },
+    { id: 'what-is-not-published', label: 'What Is Not Published', level: 2 },
+  ],
+  sources: [
+    { label: 'Official Wiki Resources', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Resources' },
+    { label: 'Official Wiki Buildings', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Buildings' },
+  ], related: ['/resources/', '/production-chains/', '/ships/'],
+})
+
 type ParsedGuideEntry = {
   meta: ReadonlyGuideMetadata
 }
@@ -416,8 +455,10 @@ export const productionChainsMeta: ReadonlyGuideMetadata = freezeRecursively(par
 export const shipsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedShipsMeta)
 export const explorationMeta: ReadonlyGuideMetadata = freezeRecursively(parsedExplorationMeta)
 export const updatesMeta: ReadonlyGuideMetadata = freezeRecursively(parsedUpdatesMeta)
+export const tobaccoMeta: ReadonlyGuideMetadata = freezeRecursively(parsedTobaccoMeta)
+export const ropeMeta: ReadonlyGuideMetadata = freezeRecursively(parsedRopeMeta)
 
-const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta, platformsMeta, releaseDateMeta, priceMeta, systemRequirementsMeta, troubleshootingMeta, resourcesMeta, productionChainsMeta, shipsMeta, explorationMeta, updatesMeta] as const
+const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta, platformsMeta, releaseDateMeta, priceMeta, systemRequirementsMeta, troubleshootingMeta, resourcesMeta, productionChainsMeta, shipsMeta, explorationMeta, updatesMeta, tobaccoMeta, ropeMeta] as const
 
 export function createGuideRegistry(entries: readonly GuideRegistryInput[]): GuideRegistry {
   const parsedGuideEntries = entries.map(({ meta }) => {
@@ -448,6 +489,8 @@ export const guideEntries = createGuideRegistry([
   { meta: shipsMeta },
   { meta: explorationMeta },
   { meta: updatesMeta },
+  { meta: tobaccoMeta },
+  { meta: ropeMeta },
 ])
 
 export const guideGroups = freezeRecursively(

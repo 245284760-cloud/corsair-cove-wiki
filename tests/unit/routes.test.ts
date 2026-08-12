@@ -21,6 +21,8 @@ describe('published routes', () => {
       '/ships/',
       '/exploration/',
       '/updates/',
+      '/tobacco/',
+      '/rope/',
       '/search/',
     ])
 
@@ -44,6 +46,8 @@ describe('published routes', () => {
       '/ships/',
       '/exploration/',
       '/updates/',
+      '/tobacco/',
+      '/rope/',
     ])
   })
 
@@ -52,5 +56,10 @@ describe('published routes', () => {
     expect(PUBLIC_ROUTES).toContain('/production-chains/')
     expect(GUIDE_ROUTES).toContain('/resources/')
     expect(GUIDE_ROUTES).toContain('/production-chains/')
+  })
+
+  it('publishes the evidence-bounded Tobacco and Rope resource pages', () => {
+    expect(PUBLIC_ROUTES).toContain('/tobacco/')
+    expect(PUBLIC_ROUTES).toContain('/rope/')
   })
 })

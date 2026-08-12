@@ -15,7 +15,7 @@ type SafetyRule = {
 }
 
 const safetyRules: readonly SafetyRule[] = [
-  { label: 'unpublished route', pattern: /\/(?:privacy|terms|mods|golden-city-maze|tobacco|rope)\//i },
+  { label: 'unpublished route', pattern: /\/(?:privacy|terms|mods|golden-city-maze)\//i },
   { label: 'unapproved game reference', pattern: /\bOSRS\b|second pirate camp/i },
   { label: 'cheat or piracy term', pattern: /cheat engine|\bcrack\b|\btorrent\b/i },
   { label: 'fabricated Codes heading', pattern: /^#{1,6}\s+.*\bcodes?\b/im },
