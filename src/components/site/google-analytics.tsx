@@ -5,7 +5,7 @@ export const googleAnalyticsSrc = `https://www.googletagmanager.com/gtag/js?id=$
 export const googleAnalyticsInlineScript = `window.dataLayer = window.dataLayer || [];
 function gtag(){window.dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${googleAnalyticsMeasurementId}');`
+gtag('config', '${googleAnalyticsMeasurementId}', { page_path: window.location.pathname });`
 
 export default function GoogleAnalytics() {
   return (

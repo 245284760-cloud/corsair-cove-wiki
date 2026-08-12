@@ -1,0 +1,25 @@
+export { resourcesMeta as guideMeta } from '@/content/guides'
+
+## Resource Categories
+
+The official resource guide separates goods into construction, upkeep, and intermediate resources. Use the category to decide whether a shortage blocks building, continuously drains pirate or ship upkeep, or feeds another production step.
+
+## Construction Resources
+
+Construction resources are used for buildings and ships. Keep a reserve of Planks and other construction goods before expanding, because a new building or ship can consume stock faster than a single producer replaces it.
+
+## Upkeep Resources
+
+Upkeep resources are consumed by pirates and ship crews. Watch the island's net production rather than only the amount in storage: a positive balance can grow a reserve, while a negative balance will eventually stop meeting upkeep needs.
+
+## Intermediate Resources
+
+Intermediate resources sit between a source and a final consumer. Hardwood, for example, can feed both construction and upkeep chains. Treat an intermediate shortage as a chain problem and inspect its upstream producer before adding downstream buildings.
+
+## How to Read a Resource Chain
+
+Open the production overview to see the producers, inputs, outputs, and required deposits or fertile areas for a chain. The overview is the source of truth for the current chain shown by the game; do not infer a recipe from a similarly named resource.
+
+## Stockpile and Net Production Checks
+
+Before expanding, check storage space, current net production, worker availability, and whether a source and consumer are connected. If the net number is negative, solve the upstream shortage or reduce consumption before committing to another downstream building.

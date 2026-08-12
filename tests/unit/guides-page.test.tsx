@@ -22,6 +22,8 @@ describe('guides page', () => {
       discoveryEventsMeta.href,
     )
     expect(screen.getByRole('link', { name: /^Platforms:/ })).toBeTruthy()
+    expect(screen.getByRole('link', { name: /^Resources:/ })).toBeTruthy()
+    expect(screen.getByRole('link', { name: /^Production Chains:/ })).toBeTruthy()
 
     const allowedInternalHrefs = new Set(['/', ...guideEntries.map(({ meta }) => meta.href)])
     const internalHrefs = Array.from(container.querySelectorAll<HTMLAnchorElement>('a[href^="/"]'))

@@ -1,6 +1,15 @@
 import { guideMetadataSchema } from '@/lib/content-schema'
 import type { ReadonlyGuideMetadata } from '@/content/guides'
 
+export const priceSaleEndsOn = '2026-08-14'
+
+export type PriceSnapshotStatus = 'sale-active' | 'sale-ended'
+
+export function getPriceSnapshotStatus(now = new Date()): PriceSnapshotStatus {
+  const saleEnd = new Date(`${priceSaleEndsOn}T23:59:59Z`)
+  return now <= saleEnd ? 'sale-active' : 'sale-ended'
+}
+
 export const priceMeta: ReadonlyGuideMetadata = guideMetadataSchema.parse({
   slug: 'price',
   href: '/price/',
@@ -8,9 +17,9 @@ export const priceMeta: ReadonlyGuideMetadata = guideMetadataSchema.parse({
   description: 'Check the dated Corsair Cove France price snapshot and use official stores for your current region and sale status.',
   primaryKeyword: 'corsair cove price',
   category: 'Game Info',
-  directAnswer: 'Steam listed Corsair Cove at a €39.99 base price in France when checked on August 11, 2026, with a temporary €29.99 launch price through August 14. Store prices vary by region and sale, so check the official listing for your current local price.',
+  directAnswer: 'Steam listed Corsair Cove at a EUR 39.99 base price in France when checked on August 11, 2026, with a temporary EUR 29.99 launch price through August 14. Store prices vary by region and sale, so check the official listing for your current local price.',
   verifiedOn: '2026-08-11',
-  applicableVersion: 'Full release; France store snapshot checked 2026-08-11',
+  applicableVersion: 'Full release; France store snapshot checked 2026-08-11; sale status ends 2026-08-14',
   toc: [
     { id: 'current-verified-price', label: 'Current Verified Price', level: 2 },
     { id: 'base-game-and-bundles', label: 'Base Game and Bundles', level: 2 },

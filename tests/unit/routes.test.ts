@@ -16,6 +16,8 @@ describe('published routes', () => {
       '/price/',
       '/system-requirements/',
       '/troubleshooting/',
+      '/resources/',
+      '/production-chains/',
     ])
 
     expect(PUBLIC_ROUTES).not.toContain('/mods/')
@@ -33,6 +35,15 @@ describe('published routes', () => {
       '/price/',
       '/system-requirements/',
       '/troubleshooting/',
+      '/resources/',
+      '/production-chains/',
     ])
+  })
+
+  it('publishes the resource and production-chain hubs', () => {
+    expect(PUBLIC_ROUTES).toContain('/resources/')
+    expect(PUBLIC_ROUTES).toContain('/production-chains/')
+    expect(GUIDE_ROUTES).toContain('/resources/')
+    expect(GUIDE_ROUTES).toContain('/production-chains/')
   })
 })

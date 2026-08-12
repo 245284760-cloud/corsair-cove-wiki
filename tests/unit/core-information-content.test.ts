@@ -7,12 +7,16 @@ import {
   releaseDateMeta,
   systemRequirementsMeta,
   troubleshootingMeta,
+  resourcesMeta,
+  productionChainsMeta,
 } from '@/content/guides'
 import SystemRequirementsContent, { guideMeta as systemRequirementsGuideMeta } from '@/content/guides/system-requirements.mdx'
 import PlatformsContent, { guideMeta as platformsGuideMeta } from '@/content/guides/platforms.mdx'
 import ReleaseDateContent, { guideMeta as releaseDateGuideMeta } from '@/content/guides/release-date.mdx'
 import PriceContent, { guideMeta as priceGuideMeta } from '@/content/guides/price.mdx'
 import TroubleshootingContent, { guideMeta as troubleshootingGuideMeta } from '@/content/guides/troubleshooting.mdx'
+import ResourcesContent, { guideMeta as resourcesGuideMeta } from '@/content/guides/resources.mdx'
+import ProductionChainsContent, { guideMeta as productionChainsGuideMeta } from '@/content/guides/production-chains.mdx'
 import { ArticleLayout } from '@/components/site/article-layout'
 
 const coreInformationMeta = [
@@ -21,6 +25,8 @@ const coreInformationMeta = [
   priceMeta,
   systemRequirementsMeta,
   troubleshootingMeta,
+  resourcesMeta,
+  productionChainsMeta,
 ]
 
 const coreInformationArticles = [
@@ -29,6 +35,8 @@ const coreInformationArticles = [
   [priceGuideMeta, PriceContent],
   [systemRequirementsGuideMeta, SystemRequirementsContent],
   [troubleshootingGuideMeta, TroubleshootingContent],
+  [resourcesGuideMeta, ResourcesContent],
+  [productionChainsGuideMeta, ProductionChainsContent],
 ] as const
 
 describe('core information content contracts', () => {
@@ -37,17 +45,25 @@ describe('core information content contracts', () => {
     expect(platformsMeta.directAnswer).toMatch(/Windows PC|PC Game Pass/)
     expect(platformsMeta.directAnswer).toMatch(/no official (PS5|PlayStation).*listing/i)
     expect(releaseDateMeta.directAnswer).toMatch(/July 31, 2026/)
-    expect(priceMeta.directAnswer).toMatch(/€39\.99.*€29\.99|regional/i)
+    expect(priceMeta.directAnswer).toMatch(/EUR 39\.99.*EUR 29\.99|regional/i)
     expect(systemRequirementsMeta.directAnswer).toMatch(/64-bit Windows PC|Windows 10.*64-bit/i)
     expect(troubleshootingMeta.directAnswer).toMatch(/verify|repair|report/i)
+    expect(priceMeta.directAnswer).toContain('EUR 39.99')
+    expect(priceMeta.directAnswer).toContain('EUR 29.99')
   })
 
   it('keeps core metadata evidence-dated and internally connected', () => {
     for (const meta of coreInformationMeta) {
-      expect(meta.verifiedOn).toBe('2026-08-11')
+      expect(['2026-08-11', '2026-08-12']).toContain(meta.verifiedOn)
       expect(meta.sources.length).toBeGreaterThanOrEqual(2)
       expect(meta.related.length).toBeGreaterThanOrEqual(2)
     }
+  })
+
+  it('exposes maintenance-aware price sale status', async () => {
+    const { getPriceSnapshotStatus } = await import('@/content/guides/price-meta')
+    expect(getPriceSnapshotStatus(new Date('2026-08-13T12:00:00Z'))).toBe('sale-active')
+    expect(getPriceSnapshotStatus(new Date('2026-08-15T12:00:00Z'))).toBe('sale-ended')
   })
 
   it('renders the system requirements guide with the approved sections and specs', () => {

@@ -6,9 +6,10 @@ import { Callout } from '@/components/site/callout'
 import { GuideCard } from '@/components/site/guide-card'
 import { guideEntries, type ReadonlyGuideMetadata } from '@/content/guides'
 
-export function ArticleLayout({ meta, children }: Readonly<{
+export function ArticleLayout({ meta, children, directAnswer }: Readonly<{
   meta: ReadonlyGuideMetadata
   children?: ReactNode
+  directAnswer?: string
 }>) {
   const relatedGuides = meta.related.map((href) => {
     const guide = guideEntries.find(({ meta: relatedMeta }) => relatedMeta.href === href)
@@ -25,7 +26,7 @@ export function ArticleLayout({ meta, children }: Readonly<{
       <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides/', label: 'Guides' }, { label: meta.title }]} />
       <header className="mt-8 max-w-3xl">
         <h1 className="text-4xl font-bold tracking-tight text-nav-theme">{meta.title}</h1>
-        <div className="mt-5"><Callout><p className="leading-7">{meta.directAnswer}</p></Callout></div>
+        <div className="mt-5"><Callout><p className="leading-7">{directAnswer ?? meta.directAnswer}</p></Callout></div>
         <dl className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
           <div><dt className="sr-only">Verification date</dt><dd>Verified: {meta.verifiedOn}</dd></div>
           <div><dt className="sr-only">Applicable version</dt><dd>Applies to: {meta.applicableVersion}</dd></div>

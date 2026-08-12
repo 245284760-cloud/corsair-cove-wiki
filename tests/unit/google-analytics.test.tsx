@@ -11,7 +11,11 @@ describe('Google Analytics', () => {
     expect(googleAnalyticsSrc).toBe(
       'https://www.googletagmanager.com/gtag/js?id=G-YSGBPS7G81',
     )
-    expect(googleAnalyticsInlineScript).toContain("gtag('config', 'G-YSGBPS7G81')")
+    expect(googleAnalyticsInlineScript).toContain("gtag('config', 'G-YSGBPS7G81'")
     expect(googleAnalyticsInlineScript).toContain('window.dataLayer = window.dataLayer || []')
+  })
+
+  it('sends the current route as the GA4 page path', () => {
+    expect(googleAnalyticsInlineScript).toContain("page_path: window.location.pathname")
   })
 })

@@ -15,6 +15,8 @@ const guideCardLabels = {
   '/price/': 'Price',
   '/system-requirements/': 'System Requirements',
   '/troubleshooting/': 'Troubleshooting',
+  '/resources/': 'Resources',
+  '/production-chains/': 'Production Chains',
 } as const
 
 export const metadata: Metadata = createPageMetadata(

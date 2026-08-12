@@ -12,6 +12,8 @@ export const GUIDE_SLUGS = [
   'price',
   'system-requirements',
   'troubleshooting',
+  'resources',
+  'production-chains',
 ] as const
 
 export type GuideSlug = (typeof GUIDE_SLUGS)[number]
@@ -254,6 +256,57 @@ const parsedTroubleshootingMeta = guideMetadataSchema.parse({
   related: ['/system-requirements/', '/platforms/', '/tips/'],
 })
 
+const parsedResourcesMeta = guideMetadataSchema.parse({
+  slug: 'resources',
+  href: '/resources/',
+  title: 'Corsair Cove Resources: Construction, Upkeep, and Intermediate Goods',
+  description: 'Understand Corsair Cove resource categories, stockpiles, production inputs, and consumption without guessing hidden values.',
+  primaryKeyword: 'corsair cove resources',
+  category: 'Resources',
+  directAnswer: 'Corsair Cove resources fall into construction, upkeep, and intermediate categories. Keep construction stockpiles ready, watch net upkeep production, and trace intermediate inputs through the production chain overview.',
+  verifiedOn: '2026-08-12',
+  applicableVersion: 'Full release; official resource guide checked 2026-08-12',
+  toc: [
+    { id: 'resource-categories', label: 'Resource Categories', level: 2 },
+    { id: 'construction-resources', label: 'Construction Resources', level: 2 },
+    { id: 'upkeep-resources', label: 'Upkeep Resources', level: 2 },
+    { id: 'intermediate-resources', label: 'Intermediate Resources', level: 2 },
+    { id: 'how-to-read-a-resource-chain', label: 'How to Read a Resource Chain', level: 2 },
+    { id: 'stockpile-and-net-production-checks', label: 'Stockpile and Net Production Checks', level: 2 },
+  ],
+  sources: [
+    { label: 'Official Wiki Resources', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Resources' },
+    { label: 'Official Wiki Buildings', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Buildings' },
+  ],
+  related: ['/production-chains/', '/how-to-build-ship/', '/tips/'],
+})
+
+const parsedProductionChainsMeta = guideMetadataSchema.parse({
+  slug: 'production-chains',
+  href: '/production-chains/',
+  title: 'Corsair Cove Production Chains: Inputs, Outputs, and Fetchers',
+  description: 'Trace Corsair Cove production chains, assign Fetchers, and diagnose stalled inputs and outputs using the official chain rules.',
+  primaryKeyword: 'corsair cove production chains',
+  category: 'Resources',
+  directAnswer: 'A Corsair Cove production chain works only when each building has its required input, output storage room, workers, and Fetcher routes. Use the production overview to trace missing links before adding more buildings.',
+  verifiedOn: '2026-08-12',
+  applicableVersion: 'Full release; official production guidance checked 2026-08-12',
+  toc: [
+    { id: 'start-with-the-chain-overview', label: 'Start with the Chain Overview', level: 2 },
+    { id: 'inputs-outputs-and-ratios', label: 'Inputs, Outputs, and Ratios', level: 2 },
+    { id: 'assign-fetchers-per-route', label: 'Assign Fetchers per Route', level: 2 },
+    { id: 'diagnose-a-stalled-building', label: 'Diagnose a Stalled Building', level: 2 },
+    { id: 'route-efficiency-and-layout', label: 'Route Efficiency and Layout', level: 2 },
+    { id: 'safe-expansion-order', label: 'Safe Expansion Order', level: 2 },
+  ],
+  sources: [
+    { label: 'Official Wiki Resources', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Resources' },
+    { label: 'Official Wiki Buildings', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Buildings' },
+    { label: 'Official Wiki Pirates', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Pirates' },
+  ],
+  related: ['/resources/', '/tips/', '/connect-high-buildings/'],
+})
+
 type ParsedGuideEntry = {
   meta: ReadonlyGuideMetadata
 }
@@ -296,8 +349,10 @@ export const releaseDateMeta: ReadonlyGuideMetadata = freezeRecursively(parsedRe
 export const priceMeta: ReadonlyGuideMetadata = freezeRecursively(parsedPriceMeta)
 export const systemRequirementsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedSystemRequirementsMeta)
 export const troubleshootingMeta: ReadonlyGuideMetadata = freezeRecursively(parsedTroubleshootingMeta)
+export const resourcesMeta: ReadonlyGuideMetadata = freezeRecursively(parsedResourcesMeta)
+export const productionChainsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedProductionChainsMeta)
 
-const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta, platformsMeta, releaseDateMeta, priceMeta, systemRequirementsMeta, troubleshootingMeta] as const
+const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta, platformsMeta, releaseDateMeta, priceMeta, systemRequirementsMeta, troubleshootingMeta, resourcesMeta, productionChainsMeta] as const
 
 export function createGuideRegistry(entries: readonly GuideRegistryInput[]): GuideRegistry {
   const parsedGuideEntries = entries.map(({ meta }) => {
@@ -323,6 +378,8 @@ export const guideEntries = createGuideRegistry([
   { meta: priceMeta },
   { meta: systemRequirementsMeta },
   { meta: troubleshootingMeta },
+  { meta: resourcesMeta },
+  { meta: productionChainsMeta },
 ])
 
 export const guideGroups = freezeRecursively(
