@@ -15,6 +15,9 @@ import { metadata as systemRequirementsMetadata } from '@/app/system-requirement
 import { metadata as troubleshootingMetadata } from '@/app/troubleshooting/page'
 import { metadata as resourcesMetadata } from '@/app/resources/page'
 import { metadata as productionChainsMetadata } from '@/app/production-chains/page'
+import { metadata as shipsMetadata } from '@/app/ships/page'
+import { metadata as explorationMetadata } from '@/app/exploration/page'
+import { metadata as updatesMetadata } from '@/app/updates/page'
 
 describe('production SEO routes', () => {
   it('publishes every canonical public URL in the sitemap, including discovery events', async () => {
@@ -29,8 +32,8 @@ describe('production SEO routes', () => {
   it('keeps all fourteen published routes on unique canonical URLs', async () => {
     const urls = (await sitemap()).map((item) => item.url)
 
-    expect(PUBLIC_ROUTES).toHaveLength(14)
-    expect(urls).toHaveLength(14)
+    expect(PUBLIC_ROUTES).toHaveLength(18)
+    expect(urls).toHaveLength(18)
     expect(new Set(urls).size).toBe(urls.length)
     expect(urls.every((url) => url.startsWith(`${CANONICAL_ORIGIN}/`))).toBe(true)
   })
@@ -44,6 +47,9 @@ describe('production SEO routes', () => {
       troubleshootingMetadata,
       resourcesMetadata,
       productionChainsMetadata,
+      shipsMetadata,
+      explorationMetadata,
+      updatesMetadata,
     ]
 
     const canonicals = metadata.map((item) => item.alternates?.canonical)
@@ -55,6 +61,9 @@ describe('production SEO routes', () => {
       'https://corsaircovewiki.com/troubleshooting/',
       'https://corsaircovewiki.com/resources/',
       'https://corsaircovewiki.com/production-chains/',
+      'https://corsaircovewiki.com/ships/',
+      'https://corsaircovewiki.com/exploration/',
+      'https://corsaircovewiki.com/updates/',
     ])
     expect(new Set(canonicals).size).toBe(canonicals.length)
   })

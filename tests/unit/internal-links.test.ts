@@ -139,7 +139,7 @@ describe('published internal links', () => {
     })
   })
 
-  it('normalizes every discovered runtime link to the fourteen-route public allowlist', () => {
+  it('normalizes every discovered runtime link to the eighteen-route public allowlist', () => {
     const inspectedLinks = discoveredLinks().map(inspectLink)
     const violations = inspectedLinks.flatMap(({ violation }) => violation ? [violation] : [])
     const discoveredInternalLinks = inspectedLinks.flatMap(({ normalized }) => normalized ? [normalized] : [])

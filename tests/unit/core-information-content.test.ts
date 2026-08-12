@@ -9,6 +9,9 @@ import {
   troubleshootingMeta,
   resourcesMeta,
   productionChainsMeta,
+  shipsMeta,
+  explorationMeta,
+  updatesMeta,
 } from '@/content/guides'
 import SystemRequirementsContent, { guideMeta as systemRequirementsGuideMeta } from '@/content/guides/system-requirements.mdx'
 import PlatformsContent, { guideMeta as platformsGuideMeta } from '@/content/guides/platforms.mdx'
@@ -17,6 +20,9 @@ import PriceContent, { guideMeta as priceGuideMeta } from '@/content/guides/pric
 import TroubleshootingContent, { guideMeta as troubleshootingGuideMeta } from '@/content/guides/troubleshooting.mdx'
 import ResourcesContent, { guideMeta as resourcesGuideMeta } from '@/content/guides/resources.mdx'
 import ProductionChainsContent, { guideMeta as productionChainsGuideMeta } from '@/content/guides/production-chains.mdx'
+import ShipsContent, { guideMeta as shipsGuideMeta } from '@/content/guides/ships.mdx'
+import ExplorationContent, { guideMeta as explorationGuideMeta } from '@/content/guides/exploration.mdx'
+import UpdatesContent, { guideMeta as updatesGuideMeta } from '@/content/guides/updates.mdx'
 import { ArticleLayout } from '@/components/site/article-layout'
 
 const coreInformationMeta = [
@@ -27,6 +33,9 @@ const coreInformationMeta = [
   troubleshootingMeta,
   resourcesMeta,
   productionChainsMeta,
+  shipsMeta,
+  explorationMeta,
+  updatesMeta,
 ]
 
 const coreInformationArticles = [
@@ -37,6 +46,9 @@ const coreInformationArticles = [
   [troubleshootingGuideMeta, TroubleshootingContent],
   [resourcesGuideMeta, ResourcesContent],
   [productionChainsGuideMeta, ProductionChainsContent],
+  [shipsGuideMeta, ShipsContent],
+  [explorationGuideMeta, ExplorationContent],
+  [updatesGuideMeta, UpdatesContent],
 ] as const
 
 describe('core information content contracts', () => {

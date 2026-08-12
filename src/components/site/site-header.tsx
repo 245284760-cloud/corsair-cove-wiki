@@ -6,6 +6,7 @@ import { ThemeToggle } from './theme-toggle'
 const navigation: ReadonlyArray<{ href: PublicRoute; label: string }> = [
   { href: '/', label: strings.nav.home },
   { href: '/guides/', label: strings.nav.guides },
+  { href: '/search/', label: 'Search' },
 ]
 
 export default function SiteHeader() {

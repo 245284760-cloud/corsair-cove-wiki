@@ -14,6 +14,9 @@ export const GUIDE_SLUGS = [
   'troubleshooting',
   'resources',
   'production-chains',
+  'ships',
+  'exploration',
+  'updates',
 ] as const
 
 export type GuideSlug = (typeof GUIDE_SLUGS)[number]
@@ -307,6 +310,65 @@ const parsedProductionChainsMeta = guideMetadataSchema.parse({
   related: ['/resources/', '/tips/', '/connect-high-buildings/'],
 })
 
+const parsedShipsMeta = guideMetadataSchema.parse({
+  slug: 'ships', href: '/ships/', title: 'Corsair Cove Ships: Tiers, Paths, and Crew',
+  description: 'Use the official Corsair Cove ship rules to understand tiers, Principle Paths, crew, stats, and construction requirements.',
+  primaryKeyword: 'corsair cove ships', category: 'Ships',
+  directAnswer: 'Corsair Cove ships run from Tier 1 through Tier 6. Higher tiers require more investment, while Principle Path classes specialize in different stats; Health and Crew reaching zero loses the battle.',
+  verifiedOn: '2026-08-12', applicableVersion: 'Full release; official Ships page checked 2026-08-12',
+  toc: [
+    { id: 'ship-tiers-and-investment', label: 'Ship Tiers and Investment', level: 2 },
+    { id: 'principle-path-classes', label: 'Principle Path Classes', level: 2 },
+    { id: 'crew-and-core-stats', label: 'Crew and Core Stats', level: 2 },
+    { id: 'construction-and-piers', label: 'Construction and Piers', level: 2 },
+    { id: 'choose-by-quest-recommendation', label: 'Choose by Quest Recommendation', level: 2 },
+  ],
+  sources: [
+    { label: 'Official Wiki Ships', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Ships' },
+    { label: 'Official Wiki Compass', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Compass' },
+    { label: 'Official Wiki Events', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Events' },
+  ], related: ['/exploration/', '/how-to-build-ship/', '/resources/'],
+})
+
+const parsedExplorationMeta = guideMetadataSchema.parse({
+  slug: 'exploration', href: '/exploration/', title: 'Corsair Cove Exploration: Seven Seas and Events',
+  description: 'Understand Discovery Points, regional fog, event travel, quest lines, and ship recommendations from the official Corsair Cove references.',
+  primaryKeyword: 'corsair cove exploration', category: 'Ships',
+  directAnswer: 'Explore the Seven Seas by sending a built and crewed ship to Discovery Points. Regions reveal events and quest lines, travel takes real time, and event pages recommend a ship class and tier without exposing every objective in advance.',
+  verifiedOn: '2026-08-12', applicableVersion: 'Full release; official Seven Seas and Events pages checked 2026-08-12',
+  toc: [
+    { id: 'discover-regions', label: 'Discover Regions', level: 2 },
+    { id: 'travel-and-embarking', label: 'Travel and Embarking', level: 2 },
+    { id: 'regional-quest-lines', label: 'Regional Quest Lines', level: 2 },
+    { id: 'event-objectives-and-loss', label: 'Event Objectives and Loss', level: 2 },
+    { id: 'where-the-official-map-stops', label: 'Where the Official Map Stops', level: 2 },
+  ],
+  sources: [
+    { label: 'Official Wiki Seven Seas', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Seven_Seas' },
+    { label: 'Official Wiki Events', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Events' },
+    { label: 'Official Wiki Quests', url: 'https://wiki.hoodedhorse.com/Corsair_Cove/Quests' },
+  ], related: ['/ships/', '/discovery-events/', '/how-to-build-ship/'],
+})
+
+const parsedUpdatesMeta = guideMetadataSchema.parse({
+  slug: 'updates', href: '/updates/', title: 'Corsair Cove Updates and Known Issues',
+  description: 'Track official Corsair Cove announcements, pinned crash fixes, bug-report guidance, and the boundary between confirmed issues and community reports.',
+  primaryKeyword: 'corsair cove updates known issues', category: 'Support',
+  directAnswer: 'Use the official Steam discussion hub and Hooded Horse pinned posts for current fixes and known issues. This page links the official reporting paths and does not convert unconfirmed community topics into bug facts.',
+  verifiedOn: '2026-08-12', applicableVersion: 'Full release; official Steam discussion hub checked 2026-08-12',
+  toc: [
+    { id: 'official-update-sources', label: 'Official Update Sources', level: 2 },
+    { id: 'currently-pinned-support-topics', label: 'Currently Pinned Support Topics', level: 2 },
+    { id: 'how-to-separate-confirmed-issues', label: 'How to Separate Confirmed Issues', level: 2 },
+    { id: 'reporting-paths', label: 'Reporting Paths', level: 2 },
+  ],
+  sources: [
+    { label: 'Official Steam Discussions', url: 'https://steamcommunity.com/app/1368140/discussions/' },
+    { label: 'Steam bug and crash reports forum', url: 'https://steamcommunity.com/app/1368140/discussions/23/' },
+    { label: 'Steam developer reporting thread', url: 'https://steamcommunity.com/app/1368140/discussions/0/570414055657832894/' },
+  ], related: ['/troubleshooting/', '/system-requirements/', '/release-date/'],
+})
+
 type ParsedGuideEntry = {
   meta: ReadonlyGuideMetadata
 }
@@ -351,8 +413,11 @@ export const systemRequirementsMeta: ReadonlyGuideMetadata = freezeRecursively(p
 export const troubleshootingMeta: ReadonlyGuideMetadata = freezeRecursively(parsedTroubleshootingMeta)
 export const resourcesMeta: ReadonlyGuideMetadata = freezeRecursively(parsedResourcesMeta)
 export const productionChainsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedProductionChainsMeta)
+export const shipsMeta: ReadonlyGuideMetadata = freezeRecursively(parsedShipsMeta)
+export const explorationMeta: ReadonlyGuideMetadata = freezeRecursively(parsedExplorationMeta)
+export const updatesMeta: ReadonlyGuideMetadata = freezeRecursively(parsedUpdatesMeta)
 
-const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta, platformsMeta, releaseDateMeta, priceMeta, systemRequirementsMeta, troubleshootingMeta, resourcesMeta, productionChainsMeta] as const
+const canonicalGuideMetadata = [tipsMeta, driftersMeta, shipMeta, connectionsMeta, discoveryEventsMeta, platformsMeta, releaseDateMeta, priceMeta, systemRequirementsMeta, troubleshootingMeta, resourcesMeta, productionChainsMeta, shipsMeta, explorationMeta, updatesMeta] as const
 
 export function createGuideRegistry(entries: readonly GuideRegistryInput[]): GuideRegistry {
   const parsedGuideEntries = entries.map(({ meta }) => {
@@ -380,6 +445,9 @@ export const guideEntries = createGuideRegistry([
   { meta: troubleshootingMeta },
   { meta: resourcesMeta },
   { meta: productionChainsMeta },
+  { meta: shipsMeta },
+  { meta: explorationMeta },
+  { meta: updatesMeta },
 ])
 
 export const guideGroups = freezeRecursively(

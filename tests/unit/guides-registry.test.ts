@@ -25,6 +25,9 @@ const metadataExportBySlug = {
   troubleshooting: 'troubleshootingMeta',
   resources: 'resourcesMeta',
   'production-chains': 'productionChainsMeta',
+  ships: 'shipsMeta',
+  exploration: 'explorationMeta',
+  updates: 'updatesMeta',
 } as const
 
 describe('published guide registry', () => {
@@ -42,6 +45,9 @@ describe('published guide registry', () => {
       'troubleshooting',
       'resources',
       'production-chains',
+      'ships',
+      'exploration',
+      'updates',
     ])
     expect(guideGroups).toEqual(expect.arrayContaining(['Game Info', 'Support']))
     expect(guideEntries.map(({ meta }) => meta.href)).not.toContain('/mods/')

@@ -18,6 +18,10 @@ describe('published routes', () => {
       '/troubleshooting/',
       '/resources/',
       '/production-chains/',
+      '/ships/',
+      '/exploration/',
+      '/updates/',
+      '/search/',
     ])
 
     expect(PUBLIC_ROUTES).not.toContain('/mods/')
@@ -37,6 +41,9 @@ describe('published routes', () => {
       '/troubleshooting/',
       '/resources/',
       '/production-chains/',
+      '/ships/',
+      '/exploration/',
+      '/updates/',
     ])
   })
 

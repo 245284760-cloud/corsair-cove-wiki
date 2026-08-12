@@ -17,6 +17,9 @@ const guideCardLabels = {
   '/troubleshooting/': 'Troubleshooting',
   '/resources/': 'Resources',
   '/production-chains/': 'Production Chains',
+  '/ships/': 'Ships',
+  '/exploration/': 'Exploration',
+  '/updates/': 'Updates and Known Issues',
 } as const
 
 export const metadata: Metadata = createPageMetadata(
