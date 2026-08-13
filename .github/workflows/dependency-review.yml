@@ -1,0 +1,23 @@
+name: Dependency review
+
+on:
+  pull_request:
+    paths:
+      - package.json
+      - package-lock.json
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4
+        # GitHub Advanced Security is not enabled for this repository. Keep the
+        # workflow visible without blocking PRs until the repository capability
+        # is enabled by an owner.
+        continue-on-error: true
+        with:
+          fail-on-severity: high

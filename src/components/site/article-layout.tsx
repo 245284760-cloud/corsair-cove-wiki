@@ -4,7 +4,10 @@ import { AdsterraNativeBanner } from '@/components/site/adsterra-native-banner'
 import { Breadcrumbs } from '@/components/site/breadcrumbs'
 import { Callout } from '@/components/site/callout'
 import { GuideCard } from '@/components/site/guide-card'
+import { StructuredData } from '@/components/site/structured-data'
+import { TrackedLink } from '@/components/site/tracked-link'
 import { guideEntries, type ReadonlyGuideMetadata } from '@/content/guides'
+import { createArticleJsonLd, createBreadcrumbJsonLd } from '@/lib/structured-data'
 
 export function ArticleLayout({ meta, children, directAnswer }: Readonly<{
   meta: ReadonlyGuideMetadata
@@ -23,6 +26,8 @@ export function ArticleLayout({ meta, children, directAnswer }: Readonly<{
 
   return (
     <article className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      <StructuredData value={createArticleJsonLd(meta)} />
+      <StructuredData value={createBreadcrumbJsonLd(meta)} />
       <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides/', label: 'Guides' }, { label: meta.title }]} />
       <header className="mt-8 max-w-3xl">
         <h1 className="text-4xl font-bold tracking-tight text-nav-theme">{meta.title}</h1>
@@ -46,7 +51,16 @@ export function ArticleLayout({ meta, children, directAnswer }: Readonly<{
         <ul className="mt-4 list-disc space-y-2 pl-5">
           {meta.sources.map((source) => (
             <li key={source.url}>
-              <a className="underline underline-offset-4 hover:text-highlight" href={source.url} rel="noopener noreferrer" target="_blank">{source.label}</a>
+              <TrackedLink
+                className="underline underline-offset-4 hover:text-highlight"
+                eventName="source_click"
+                eventParams={{ article_slug: meta.slug, link_url: source.url }}
+                href={source.url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {source.label}
+              </TrackedLink>
             </li>
           ))}
         </ul>

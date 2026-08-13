@@ -25,6 +25,16 @@ describe('ArticleLayout', () => {
     expect(screen.getByRole('heading', { name: 'Sources' })).toBeTruthy()
     expect(screen.getByText(/Sources are linked so you can verify the guidance/i)).toBeTruthy()
 
+    const scripts = document.querySelectorAll('script[type="application/ld+json"]')
+    expect(scripts).toHaveLength(2)
+    expect(JSON.parse(scripts[0].textContent ?? '{}')).toMatchObject({
+      '@type': 'Article',
+      headline: guideMeta.title,
+    })
+    expect(JSON.parse(scripts[1].textContent ?? '{}')).toMatchObject({
+      '@type': 'BreadcrumbList',
+    })
+
     const sourceLinks = guideMeta.sources.map(({ url }) => document.querySelector(`a[href="${url}"]`))
     expect(sourceLinks).toHaveLength(guideMeta.sources.length)
     expect(sourceLinks.every((link) => link?.getAttribute('rel') === 'noopener noreferrer')).toBe(true)

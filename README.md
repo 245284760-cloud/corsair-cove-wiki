@@ -48,3 +48,10 @@ Start from a green local checkout. In one reviewed change, add the guide MDX met
 ## Authorization boundary
 
 This repository intentionally stops before external delivery. Git initialization/checkpoint reconstruction, GitHub repository connection or push, Vercel deployment, and Cloudflare DNS configuration are later stages that require separate authorization. Cloudflare values must come from the Vercel deployment selected by the user.
+
+## Production operations
+
+- [Production runbook](docs/operations/production-runbook.md)
+- [Content maintenance](docs/operations/content-maintenance.md)
+
+Use `npm run smoke:production` for a read-only production check and `npm run content:freshness` for the guide review contract. Production account changes remain manual and must use the values shown by Vercel, Cloudflare, GA4, and Search Console rather than copied examples.

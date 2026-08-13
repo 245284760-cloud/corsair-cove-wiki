@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+      day: monday
+      time: '02:00'
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 5
+    groups:
+      next-react:
+        patterns: ['next', 'react', 'react-dom', 'eslint-config-next', '@next/*']
+      tests:
+        patterns: ['vitest', '@vitejs/*', '@testing-library/*', '@playwright/*', 'jsdom']
+      content-tooling:
+        patterns: ['@mdx-js/*', 'remark-*', 'rehype-*', 'zod']

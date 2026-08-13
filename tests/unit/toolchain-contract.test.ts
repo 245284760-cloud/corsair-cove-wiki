@@ -30,4 +30,15 @@ describe('toolchain contract', () => {
     expect(packageLock.packages[''].devDependencies.postcss).toBe('8.5.26')
     expect(packageLock.packages['node_modules/postcss'].version).toBe('8.5.26')
   })
+
+  it('uses warning-free PostCSS and native Vite tsconfig path resolution', () => {
+    const postcssConfig = readFileSync(join(root, 'postcss.config.mjs'), 'utf8')
+    const vitestConfig = readFileSync(join(root, 'vitest.config.mts'), 'utf8')
+
+    expect(postcssConfig).toContain('const config =')
+    expect(postcssConfig).toContain('export default config')
+    expect(vitestConfig).toContain('tsconfigPaths: true')
+    expect(vitestConfig).not.toContain("from 'vite-tsconfig-paths'")
+    expect(packageJson.devDependencies).not.toHaveProperty('vite-tsconfig-paths')
+  })
 })
