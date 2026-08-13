@@ -21,12 +21,21 @@ import { metadata as updatesMetadata } from '@/app/updates/page'
 
 describe('production SEO routes', () => {
   it('publishes every canonical public URL in the sitemap, including discovery events', async () => {
-    const urls = (await sitemap()).map((item) => item.url)
+    const entries = await sitemap()
+    const urls = entries.map((item) => item.url)
+    const updates = entries.find((item) => item.url.endsWith('/updates/'))
+    const home = entries.find((item) => item.url === `${CANONICAL_ORIGIN}/`)
 
     expect(urls).toContain('https://corsaircovewiki.com/discovery-events/')
     expect(urls).toEqual(
       PUBLIC_ROUTES.map((route) => new URL(route, CANONICAL_ORIGIN).href),
     )
+    expect(updates).toMatchObject({
+      lastModified: new Date('2026-08-12T00:00:00.000Z'),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    })
+    expect(home).toMatchObject({ changeFrequency: 'weekly', priority: 1 })
   })
 
   it('keeps all twenty published routes on unique canonical URLs', async () => {

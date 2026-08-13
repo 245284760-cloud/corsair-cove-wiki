@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "content:freshness": "vitest run tests/unit/content-freshness.test.ts",
     "check": "npm run lint && npm test && npm run build && npm run test:e2e"
   },
   "dependencies": {
