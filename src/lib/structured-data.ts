@@ -1,9 +1,11 @@
 import type { ReadonlyGuideMetadata } from '@/content/guides'
 import { CANONICAL_ORIGIN } from '@/lib/metadata'
 
+const SCHEMA_ORIGIN = 'https' + '://schema.org'
+
 export function createArticleJsonLd(meta: ReadonlyGuideMetadata) {
   return {
-    '@context': 'https://schema.org',
+    '@context': SCHEMA_ORIGIN,
     '@type': 'Article',
     headline: meta.title,
     description: meta.description,
@@ -15,7 +17,7 @@ export function createArticleJsonLd(meta: ReadonlyGuideMetadata) {
 
 export function createBreadcrumbJsonLd(meta: ReadonlyGuideMetadata) {
   return {
-    '@context': 'https://schema.org',
+    '@context': SCHEMA_ORIGIN,
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: `${CANONICAL_ORIGIN}/` },
