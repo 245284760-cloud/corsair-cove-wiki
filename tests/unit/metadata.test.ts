@@ -15,6 +15,12 @@ describe('page metadata', () => {
       description: 'Verified beginner guidance for Corsair Cove logistics.',
       url: 'https://corsaircovewiki.com/tips/',
       type: 'article',
+      images: [{ url: 'https://corsaircovewiki.com/opengraph-image', width: 1200, height: 630 }],
+    })
+    expect(metadata.twitter).toMatchObject({
+      card: 'summary_large_image',
+      title: 'Corsair Cove Tips',
+      images: ['https://corsaircovewiki.com/twitter-image'],
     })
   })
 
