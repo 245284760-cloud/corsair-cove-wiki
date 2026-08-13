@@ -3,11 +3,11 @@ import { fileURLToPath, URL } from 'node:url'
 import react from '@vitejs/plugin-react'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   resolve: {
+    tsconfigPaths: true,
     alias: [
       {
         find: /^@\/content\/guides$/,
@@ -17,7 +17,6 @@ export default defineConfig({
   },
   plugins: [
     { enforce: 'pre', ...mdx({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] }) },
-    tsconfigPaths(),
     react({ include: /\.(js|jsx|ts|tsx|md|mdx)$/ }),
   ],
   test: {
