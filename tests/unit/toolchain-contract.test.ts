@@ -41,4 +41,12 @@ describe('toolchain contract', () => {
     expect(vitestConfig).not.toContain("from 'vite-tsconfig-paths'")
     expect(packageJson.devDependencies).not.toHaveProperty('vite-tsconfig-paths')
   })
+
+  it('runs the production smoke monitor every six hours and supports manual dispatch', () => {
+    const workflow = readFileSync(join(root, '.github/workflows/production-smoke.yml'), 'utf8')
+
+    expect(workflow).toContain("cron: '17 */6 * * *'")
+    expect(workflow).toContain('workflow_dispatch:')
+    expect(workflow).not.toContain("cron: '7,37 * * * *'")
+  })
 })
