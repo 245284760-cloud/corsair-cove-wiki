@@ -62,6 +62,7 @@ export function GuideEngagementTracker({ articleSlug }: Readonly<{ articleSlug: 
     }
     const checkScrollDepth = () => {
       animationFrameId = null
+      if (document.visibilityState !== 'visible') return
       if (hasReachedScrollDepth()) trackEngagement('scroll')
     }
     function scheduleDepthCheck() {
@@ -93,8 +94,12 @@ export function GuideEngagementTracker({ articleSlug }: Readonly<{ articleSlug: 
       }, remainingVisibleTime)
     }
     function handleVisibilityChange() {
-      if (document.visibilityState === 'visible') startVisibleTimer()
-      else pauseVisibleTimer()
+      if (document.visibilityState === 'visible') {
+        startVisibleTimer()
+        scheduleDepthCheck()
+      } else {
+        pauseVisibleTimer()
+      }
     }
 
     window.addEventListener('scroll', scheduleDepthCheck, { passive: true })

@@ -42,6 +42,36 @@ describe('GuideEngagementTracker', () => {
     expect(vi.getTimerCount()).toBe(0)
   })
 
+  it.each([
+    { caseName: '75% viewed', documentHeight: 1_000, viewportHeight: 500, scrollTop: 250 },
+    { caseName: 'non-scrollable', documentHeight: 500, viewportHeight: 700, scrollTop: 0 },
+  ])('defers $caseName scroll engagement while initially hidden until visible', ({
+    documentHeight,
+    viewportHeight,
+    scrollTop,
+  }) => {
+    const gtag = installGtag()
+    visibilityState = 'hidden'
+    setScrollMetrics({ documentHeight, viewportHeight, scrollTop })
+
+    render(<GuideEngagementTracker articleSlug="tips" />)
+
+    expect(gtag).not.toHaveBeenCalled()
+    expect(requestAnimationFrame).not.toHaveBeenCalled()
+
+    setVisibility('visible')
+    expect(gtag).not.toHaveBeenCalled()
+    expect(requestAnimationFrame).toHaveBeenCalledTimes(1)
+    flushAnimationFrames()
+
+    expectGuideEngaged(gtag, 'tips', 'scroll')
+
+    setVisibility('visible')
+    act(() => window.dispatchEvent(new Event('scroll')))
+    flushAnimationFrames()
+    expectGuideEngaged(gtag, 'tips', 'scroll')
+  })
+
   it.each(['resize', 'pageshow'] as const)('checks scroll depth after %s in a coalesced animation frame', (eventName) => {
     const gtag = installGtag()
     render(<GuideEngagementTracker articleSlug="tips" />)
