@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { GuideSearch } from '@/components/site/guide-search'
 
 const entries = [
@@ -8,6 +8,10 @@ const entries = [
 ]
 
 describe('guide search', () => {
+  afterEach(() => {
+    delete (window as Window & { gtag?: unknown }).gtag
+  })
+
   it('filters the verified guide index by title and reports result count', async () => {
     const { container } = render(<GuideSearch entries={entries} />)
     expect(screen.getByText('2 results')).toBeTruthy()
@@ -17,4 +21,50 @@ describe('guide search', () => {
     expect(container.textContent).toContain('Corsair Cove Ships')
     expect(container.textContent).not.toContain('Corsair Cove Resources')
   })
+
+  it('tracks the normalized search term, visible result count, and selected URL', () => {
+    const gtag = vi.fn()
+    ;(window as Window & { gtag?: typeof gtag }).gtag = gtag
+    render(<GuideSearch entries={entries} />)
+
+    fireEvent.change(screen.getByRole('textbox', { name: 'Search guides' }), { target: { value: '  ShIpS  ' } })
+    expect(clickWithoutNavigation(screen.getByRole('link', { name: 'Corsair Cove Ships' }))).toBe(false)
+
+    expect(gtag).toHaveBeenCalledWith('event', 'internal_search', {
+      search_term: 'ships',
+      result_count: 1,
+      link_url: '/ships/',
+    })
+  })
+
+  it('keeps a progressively enhanced link when analytics is unavailable or throws', () => {
+    const { rerender } = render(<GuideSearch entries={entries} />)
+    fireEvent.change(screen.getByRole('textbox', { name: 'Search guides' }), { target: { value: 'ships' } })
+    let link = screen.getByRole('link', { name: 'Corsair Cove Ships' })
+
+    expect(() => clickWithoutNavigation(link)).not.toThrow()
+    expect(link.getAttribute('href')).toBe('/ships/')
+
+    ;(window as Window & { gtag?: () => never }).gtag = () => {
+      throw new Error('analytics unavailable')
+    }
+    rerender(<GuideSearch entries={entries} />)
+    link = screen.getByRole('link', { name: 'Corsair Cove Ships' })
+
+    expect(() => clickWithoutNavigation(link)).not.toThrow()
+    expect(link.getAttribute('href')).toBe('/ships/')
+  })
 })
+
+function clickWithoutNavigation(link: HTMLElement) {
+  let defaultPreventedByComponent = true
+  const stopNavigation = (event: MouseEvent) => {
+    defaultPreventedByComponent = event.defaultPrevented
+    event.preventDefault()
+  }
+
+  document.addEventListener('click', stopNavigation, { once: true })
+  fireEvent.click(link)
+
+  return defaultPreventedByComponent
+}

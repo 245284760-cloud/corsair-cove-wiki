@@ -1,4 +1,9 @@
-export type AnalyticsEventName = 'guide_click' | 'source_click'
+export type AnalyticsEventName =
+  | 'guide_click'
+  | 'source_click'
+  | 'internal_search'
+  | 'guide_engaged'
+  | 'related_guide_click'
 export type AnalyticsEventParams = Record<string, string | number | boolean>
 
 type AnalyticsWindow = Window & {
@@ -7,5 +12,10 @@ type AnalyticsWindow = Window & {
 
 export function trackEvent(eventName: AnalyticsEventName, params: AnalyticsEventParams = {}): void {
   if (typeof window === 'undefined') return
-  ;(window as AnalyticsWindow).gtag?.('event', eventName, params)
+
+  try {
+    ;(window as AnalyticsWindow).gtag?.('event', eventName, params)
+  } catch {
+    // Analytics must never interfere with the user's action.
+  }
 }

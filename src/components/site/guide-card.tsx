@@ -1,4 +1,5 @@
 import { TrackedLink } from '@/components/site/tracked-link'
+import type { AnalyticsEventName } from '@/lib/analytics'
 
 type GuideCardContent = {
   description: string
@@ -6,13 +7,17 @@ type GuideCardContent = {
   title: string
 }
 
-export function GuideCard({ card, label = card.title }: Readonly<{ card: GuideCardContent; label?: string }>) {
+export function GuideCard({ card, eventName = 'guide_click', label = card.title }: Readonly<{
+  card: GuideCardContent
+  eventName?: AnalyticsEventName
+  label?: string
+}>) {
   return (
     <article className="rounded-lg border border-border bg-surface p-6 shadow-sm">
       <h3 className="text-xl font-bold text-nav-theme">
         <TrackedLink
           className="underline decoration-border underline-offset-4 hover:text-highlight"
-          eventName="guide_click"
+          eventName={eventName}
           eventParams={{ link_url: card.href, link_title: card.title }}
           href={card.href}
         >

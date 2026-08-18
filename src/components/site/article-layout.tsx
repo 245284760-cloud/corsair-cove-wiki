@@ -4,6 +4,7 @@ import { AdsterraNativeBanner } from '@/components/site/adsterra-native-banner'
 import { Breadcrumbs } from '@/components/site/breadcrumbs'
 import { Callout } from '@/components/site/callout'
 import { GuideCard } from '@/components/site/guide-card'
+import { GuideEngagementTracker } from '@/components/site/guide-engagement-tracker'
 import { StructuredData } from '@/components/site/structured-data'
 import { TrackedLink } from '@/components/site/tracked-link'
 import { guideEntries, type ReadonlyGuideMetadata } from '@/content/guides'
@@ -26,6 +27,7 @@ export function ArticleLayout({ meta, children, directAnswer }: Readonly<{
 
   return (
     <article className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      <GuideEngagementTracker articleSlug={meta.slug} />
       <StructuredData value={createArticleJsonLd(meta)} />
       <StructuredData value={createBreadcrumbJsonLd(meta)} />
       <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides/', label: 'Guides' }, { label: meta.title }]} />
@@ -43,7 +45,7 @@ export function ArticleLayout({ meta, children, directAnswer }: Readonly<{
       <section className="mt-14" aria-labelledby="related-guides-heading">
         <h2 className="text-2xl font-bold tracking-tight text-nav-theme" id="related-guides-heading">Related guides</h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedGuides.map((guide) => <GuideCard card={guide} key={guide.href} />)}
+          {relatedGuides.map((guide) => <GuideCard card={guide} eventName="related_guide_click" key={guide.href} />)}
         </div>
       </section>
       <section className="mt-14 max-w-3xl" aria-labelledby="sources-heading">
