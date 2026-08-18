@@ -1,6 +1,17 @@
+import type { ComponentProps } from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { GuideSearch } from '@/components/site/guide-search'
+
+vi.mock('@/components/site/tracked-link', async () => {
+  const actual = await vi.importActual<typeof import('@/components/site/tracked-link')>('@/components/site/tracked-link')
+
+  return {
+    TrackedLink: (props: ComponentProps<typeof actual.TrackedLink>) => (
+      <actual.TrackedLink data-shared-tracked-link="true" {...props} />
+    ),
+  }
+})
 
 const entries = [
   { href: '/resources/', title: 'Corsair Cove Resources', description: 'Resource categories and stockpiles', category: 'Resources' },
@@ -28,7 +39,9 @@ describe('guide search', () => {
     render(<GuideSearch entries={entries} />)
 
     fireEvent.change(screen.getByRole('textbox', { name: 'Search guides' }), { target: { value: '  ShIpS  ' } })
-    expect(clickWithoutNavigation(screen.getByRole('link', { name: 'Corsair Cove Ships' }))).toBe(false)
+    const resultLink = screen.getByRole('link', { name: 'Corsair Cove Ships' })
+    expect(resultLink.getAttribute('data-shared-tracked-link')).toBe('true')
+    expect(clickWithoutNavigation(resultLink)).toBe(false)
 
     expect(gtag).toHaveBeenCalledWith('event', 'internal_search', {
       search_term: 'ships',
