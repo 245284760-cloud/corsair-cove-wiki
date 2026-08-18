@@ -44,9 +44,11 @@ describe('toolchain contract', () => {
 
   it('runs the production smoke monitor every six hours and supports manual dispatch', () => {
     const workflow = readFileSync(join(root, '.github/workflows/production-smoke.yml'), 'utf8')
+    const scheduledCrons = [...workflow.matchAll(/^\s*-\s*cron:\s*['"]([^'"]+)['"]\s*$/gm)].map(
+      (match) => match[1],
+    )
 
-    expect(workflow).toContain("cron: '17 */6 * * *'")
+    expect(scheduledCrons).toEqual(['17 */6 * * *'])
     expect(workflow).toContain('workflow_dispatch:')
-    expect(workflow).not.toContain("cron: '7,37 * * * *'")
   })
 })
