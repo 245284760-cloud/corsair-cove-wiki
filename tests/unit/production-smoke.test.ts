@@ -4,6 +4,9 @@ import { checkProduction } from '../../scripts/production-smoke.mjs'
 const origin = 'https://corsaircovewiki.com'
 const criticalPaths = ['/', '/guides/', '/tips/', '/search/'] as const
 const measurementId = 'G-YSGBPS7G81'
+const htmlLimit = 1024 * 1024
+const robotsLimit = 64 * 1024
+const sitemapLimit = 2 * 1024 * 1024
 
 type CriticalPath = (typeof criticalPaths)[number]
 type PageOverride = {
@@ -78,10 +81,24 @@ describe('production smoke check', () => {
   })
 
   it('accepts a gtag configuration after an escaped script newline', async () => {
-    const serializedConfig = `<html><title>Corsair Cove</title><link rel="canonical" href="${origin}/"><script>window.dataLayer = [];\\ngtag('config', '${measurementId}')</script>`
+    const serializedConfig = `<html><title>Corsair Cove</title><link rel="canonical" href="${origin}/"><script>self.__next_f.push([1,"window.dataLayer = [];\\ngtag('config', '${measurementId}')"])</script>`
     const fetcher = createFetcher({ pageOverrides: { '/': { html: serializedConfig } } })
 
     await expect(checkProduction(fetcher)).resolves.toEqual({ checked: 6, sitemapUrls: 4 })
+  })
+
+  it('ignores a title that exists only inside an HTML comment', async () => {
+    const html = `<html><!-- <title>Commented title</title> --><link rel="canonical" href="${origin}/"><script>gtag('config', '${measurementId}')</script>`
+    const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow('/ is missing a non-empty title')
+  })
+
+  it('ignores a canonical link that exists only inside an HTML comment', async () => {
+    const html = `<html><title>Corsair Cove</title><!-- <link rel="canonical" href="${origin}/"> --><script>gtag('config', '${measurementId}')</script>`
+    const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow('/ is missing a canonical link')
   })
 
   describe.each(criticalPaths)('%s page', (path) => {
@@ -178,6 +195,33 @@ describe('production smoke check', () => {
     )
   })
 
+  it('rejects a gtag configuration inside a script line comment', async () => {
+    const html = `<html><title>Corsair Cove</title><link rel="canonical" href="${origin}/"><script>// gtag('config', '${measurementId}')</script>`
+    const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(
+      `/ is missing GA configuration for ${measurementId}`,
+    )
+  })
+
+  it('rejects a gtag configuration inside a script block comment', async () => {
+    const html = `<html><title>Corsair Cove</title><link rel="canonical" href="${origin}/"><script>/* gtag('config', '${measurementId}') */</script>`
+    const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(
+      `/ is missing GA configuration for ${measurementId}`,
+    )
+  })
+
+  it('rejects an oversized HTML response body', async () => {
+    const html = `${healthyHtml('/')}${'x'.repeat(htmlLimit)}`
+    const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(
+      `/ exceeds the ${htmlLimit}-byte response limit`,
+    )
+  })
+
   it('rejects a homepage without the nosniff response header', async () => {
     const fetcher = createFetcher({ homepageHeader: null })
 
@@ -198,11 +242,44 @@ describe('production smoke check', () => {
     )
   })
 
+  it('rejects an oversized robots response body', async () => {
+    const robots = `Sitemap: ${origin}/sitemap.xml\n${'x'.repeat(robotsLimit)}`
+    const fetcher = createFetcher({ robots })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(
+      `/robots.txt exceeds the ${robotsLimit}-byte response limit`,
+    )
+  })
+
   it('rejects malformed sitemap XML even when it contains every critical URL', async () => {
     const locations = criticalPaths.map((path) => `<loc>${origin}${path}</loc>`).join('')
     const fetcher = createFetcher({ sitemap: `<urlset>${locations}</urlset>` })
 
     await expect(checkProduction(fetcher)).rejects.toThrow('sitemap is malformed')
+  })
+
+  it('ignores a sitemap URL entry inside an XML comment', async () => {
+    const visiblePaths = criticalPaths.filter((path) => path !== '/search/')
+    const visibleUrls = visiblePaths.map((path) => `<url><loc>${origin}${path}</loc></url>`).join('')
+    const commentedUrl = `<!-- <url><loc>${origin}/search/</loc></url> -->`
+    const sitemap = `<urlset>${visibleUrls}${commentedUrl}</urlset>`
+    const fetcher = createFetcher({ sitemap })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(
+      `sitemap is missing ${origin}/search/`,
+    )
+  })
+
+  it('rejects an oversized sitemap response body', async () => {
+    const sitemap = renderSitemap(criticalPaths).replace(
+      '</urlset>',
+      `${' '.repeat(sitemapLimit)}</urlset>`,
+    )
+    const fetcher = createFetcher({ sitemap })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(
+      `/sitemap.xml exceeds the ${sitemapLimit}-byte response limit`,
+    )
   })
 
   describe.each(criticalPaths)('sitemap without %s', (missingPath) => {
