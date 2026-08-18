@@ -4,6 +4,8 @@ import { checkProduction } from '../../scripts/production-smoke.mjs'
 const origin = 'https://corsaircovewiki.com'
 const criticalPaths = ['/', '/guides/', '/tips/', '/search/'] as const
 const measurementId = 'G-YSGBPS7G81'
+const googleTagUrl = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`
+const googleTagReference = `<link rel="preload" href="${googleTagUrl}" as="script">`
 const htmlLimit = 1024 * 1024
 const robotsLimit = 64 * 1024
 const sitemapLimit = 2 * 1024 * 1024
@@ -17,7 +19,12 @@ type PageOverride = {
 }
 
 function healthyHtml(path: CriticalPath) {
-  return `<html><title>Corsair Cove</title><link href="${origin}${path}" rel="canonical"><script>gtag('config', '${measurementId}')</script>`
+  return `<html>${googleTagReference}<title>Corsair Cove</title><link href="${origin}${path}" rel="canonical"><script>gtag('config', '${measurementId}')</script>`
+}
+
+function rscScript(children: string) {
+  const row = `0:${JSON.stringify({ children, id: 'google-analytics' })}\n`
+  return `<script>self.__next_f.push(${JSON.stringify([1, row])})</script>`
 }
 
 function renderSitemap(paths: readonly string[]) {
@@ -29,6 +36,19 @@ function responseAt(url: string, body: string, init?: ResponseInit) {
   const response = new Response(body, init)
   Object.defineProperty(response, 'url', { value: url })
   return response
+}
+
+function cancellableResponseAt(url: string, init?: ResponseInit) {
+  const cancel = vi.fn()
+  const body = new ReadableStream({
+    cancel,
+    start(controller) {
+      controller.enqueue(new TextEncoder().encode('pending'))
+    },
+  })
+  const response = new Response(body, init)
+  Object.defineProperty(response, 'url', { value: url })
+  return { cancel, response }
 }
 
 function createFetcher({
@@ -74,14 +94,14 @@ function createFetcher({
 
 describe('production smoke check', () => {
   it('accepts healthy pages, case-insensitive canonical attributes, and valid sitemap XML', async () => {
-    const uppercaseCanonical = `<html><title>Corsair Cove</title><LINK HREF="${origin}/" REL="CANONICAL"><script>gtag('config', '${measurementId}')</script>`
+    const uppercaseCanonical = `<html>${googleTagReference}<title>Corsair Cove</title><LINK HREF="${origin}/" REL="CANONICAL"><script>gtag('config', '${measurementId}')</script>`
     const fetcher = createFetcher({ pageOverrides: { '/': { html: uppercaseCanonical } } })
 
     await expect(checkProduction(fetcher)).resolves.toEqual({ checked: 6, sitemapUrls: 4 })
   })
 
   it('accepts a gtag configuration after an escaped script newline', async () => {
-    const serializedConfig = `<html><title>Corsair Cove</title><link rel="canonical" href="${origin}/"><script>self.__next_f.push([1,"window.dataLayer = [];\\ngtag('config', '${measurementId}')"])</script>`
+    const serializedConfig = `<html>${googleTagReference}<title>Corsair Cove</title><link rel="canonical" href="${origin}/">${rscScript(`window.dataLayer = [];\ngtag('config', '${measurementId}')`)}`
     const fetcher = createFetcher({ pageOverrides: { '/': { html: serializedConfig } } })
 
     await expect(checkProduction(fetcher)).resolves.toEqual({ checked: 6, sitemapUrls: 4 })
@@ -99,6 +119,13 @@ describe('production smoke check', () => {
     const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
 
     await expect(checkProduction(fetcher)).rejects.toThrow('/ is missing a canonical link')
+  })
+
+  it('rejects whitespace between the opening bracket and HTML tag name', async () => {
+    const html = `<html>${googleTagReference}< title>Corsair Cove</title>< link rel="canonical" href="${origin}/"><script>gtag('config', '${measurementId}')</script>`
+    const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow('/ is missing a non-empty title')
   })
 
   describe.each(criticalPaths)('%s page', (path) => {
@@ -213,6 +240,25 @@ describe('production smoke check', () => {
     )
   })
 
+  it.each([
+    `// gtag('config', '${measurementId}')`,
+    `/* gtag('config', '${measurementId}') */`,
+  ])('rejects a commented gtag configuration in RSC children: %s', async (children) => {
+    const html = `<html>${googleTagReference}<title>Corsair Cove</title><link rel="canonical" href="${origin}/">${rscScript(children)}`
+    const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(
+      `/ is missing GA configuration for ${measurementId}`,
+    )
+  })
+
+  it('fails a large sequence of unterminated tags without rescanning later brackets', async () => {
+    const html = '<title'.repeat(10_000)
+    const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow('/ is missing a non-empty title')
+  })
+
   it('rejects an oversized HTML response body', async () => {
     const html = `${healthyHtml('/')}${'x'.repeat(htmlLimit)}`
     const fetcher = createFetcher({ pageOverrides: { '/': { html } } })
@@ -220,6 +266,35 @@ describe('production smoke check', () => {
     await expect(checkProduction(fetcher)).rejects.toThrow(
       `/ exceeds the ${htmlLimit}-byte response limit`,
     )
+  })
+
+  it('cancels the response body before rejecting a non-success response', async () => {
+    const { cancel, response } = cancellableResponseAt(`${origin}/`, { status: 503 })
+    const fetcher = vi.fn(async () => response)
+
+    await expect(checkProduction(fetcher)).rejects.toThrow('/ returned 503')
+    expect(cancel).toHaveBeenCalledOnce()
+  })
+
+  it('cancels the response body before rejecting an unexpected final URL', async () => {
+    const { cancel, response } = cancellableResponseAt(`${origin}/guides/`)
+    const fetcher = vi.fn(async () => response)
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(`expected ${origin}/`)
+    expect(cancel).toHaveBeenCalledOnce()
+  })
+
+  it('cancels the response body when Content-Length exceeds the limit', async () => {
+    const { cancel, response } = cancellableResponseAt(`${origin}/`, {
+      headers: {
+        'Content-Length': String(htmlLimit + 1),
+        'Content-Type': 'text/html; charset=utf-8',
+      },
+    })
+    const fetcher = vi.fn(async () => response)
+
+    await expect(checkProduction(fetcher)).rejects.toThrow(`${htmlLimit}-byte response limit`)
+    expect(cancel).toHaveBeenCalledOnce()
   })
 
   it('rejects a homepage without the nosniff response header', async () => {
@@ -254,6 +329,13 @@ describe('production smoke check', () => {
   it('rejects malformed sitemap XML even when it contains every critical URL', async () => {
     const locations = criticalPaths.map((path) => `<loc>${origin}${path}</loc>`).join('')
     const fetcher = createFetcher({ sitemap: `<urlset>${locations}</urlset>` })
+
+    await expect(checkProduction(fetcher)).rejects.toThrow('sitemap is malformed')
+  })
+
+  it('rejects whitespace between the opening bracket and sitemap root name', async () => {
+    const urls = criticalPaths.map((path) => `<url><loc>${origin}${path}</loc></url>`).join('')
+    const fetcher = createFetcher({ sitemap: `< urlset>${urls}</urlset>` })
 
     await expect(checkProduction(fetcher)).rejects.toThrow('sitemap is malformed')
   })

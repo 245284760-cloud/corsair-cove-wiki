@@ -3,6 +3,7 @@ import { pathToFileURL } from 'node:url'
 const origin = 'https://corsaircovewiki.com'
 const pagePaths = ['/', '/guides/', '/tips/', '/search/']
 const measurementId = 'G-YSGBPS7G81'
+const googleTagUrl = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`
 const responseLimits = new Map([
   ['/robots.txt', 64 * 1024],
   ['/sitemap.xml', 2 * 1024 * 1024],
@@ -11,13 +12,10 @@ const htmlResponseLimit = 1024 * 1024
 
 function readTag(source, start) {
   let cursor = start + 1
-  while (/\s/.test(source[cursor] ?? '')) cursor += 1
-
   const closing = source[cursor] === '/'
-  if (closing) {
-    cursor += 1
-    while (/\s/.test(source[cursor] ?? '')) cursor += 1
-  }
+  if (closing) cursor += 1
+
+  if (/\s/.test(source[cursor] ?? '')) return null
 
   const nameStart = cursor
   while (/[A-Za-z0-9:-]/.test(source[cursor] ?? '')) cursor += 1
@@ -48,7 +46,7 @@ function readTag(source, start) {
       }
     }
   }
-  return null
+  return { start, unterminated: true }
 }
 
 function parseAttributes(tag) {
@@ -78,7 +76,7 @@ function findClosingTag(source, lowerSource, name, from) {
 }
 
 function scanHtml(html) {
-  const metadata = { canonicals: [], scripts: [], titles: [] }
+  const metadata = { canonicals: [], googleTagReferences: 0, scripts: [], titles: [] }
   const lowerHtml = html.toLowerCase()
   let cursor = 0
 
@@ -94,6 +92,7 @@ function scanHtml(html) {
     }
 
     const tag = readTag(html, start)
+    if (tag?.unterminated) break
     if (!tag) {
       cursor = start + 1
       continue
@@ -103,6 +102,12 @@ function scanHtml(html) {
 
     if (tag.name === 'link') {
       const attributes = parseAttributes(tag.source)
+      if (
+        attributes.get('href') === googleTagUrl &&
+        attributes.get('as')?.toLowerCase() === 'script'
+      ) {
+        metadata.googleTagReferences += 1
+      }
       const isCanonical = (attributes.get('rel') ?? '')
         .split(/\s+/)
         .some((value) => value.toLowerCase() === 'canonical')
@@ -110,6 +115,10 @@ function scanHtml(html) {
       continue
     }
 
+    if (tag.name === 'script') {
+      const attributes = parseAttributes(tag.source)
+      if (attributes.get('src') === googleTagUrl) metadata.googleTagReferences += 1
+    }
     if (tag.name !== 'script' && tag.name !== 'title') continue
     const closingTag = findClosingTag(html, lowerHtml, tag.name, cursor)
     if (!closingTag) break
@@ -122,8 +131,12 @@ function scanHtml(html) {
   return metadata
 }
 
-function withoutJavaScriptComments(source) {
-  const output = []
+function hasExecutableGaConfiguration(source) {
+  const escapedId = measurementId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const configPattern = new RegExp(
+    `^gtag\\s*\\(\\s*(['"])config\\1\\s*,\\s*(['"])${escapedId}\\2(?:\\s*[,\\)])`,
+    'i',
+  )
   let cursor = 0
   let quote = null
 
@@ -131,9 +144,7 @@ function withoutJavaScriptComments(source) {
     const character = source[cursor]
     const next = source[cursor + 1]
     if (quote) {
-      output.push(character)
       if (character === '\\' && next) {
-        output.push(next)
         cursor += 2
         continue
       }
@@ -144,7 +155,6 @@ function withoutJavaScriptComments(source) {
 
     if (character === '"' || character === "'" || character === '`') {
       quote = character
-      output.push(character)
       cursor += 1
       continue
     }
@@ -161,23 +171,84 @@ function withoutJavaScriptComments(source) {
       cursor = commentEnd + 2
       continue
     }
-    output.push(character)
+    const previous = source[cursor - 1]
+    if (
+      source.slice(cursor, cursor + 4).toLowerCase() === 'gtag' &&
+      (!previous || !/[A-Za-z0-9_$]/.test(previous)) &&
+      configPattern.test(source.slice(cursor))
+    ) {
+      return true
+    }
     cursor += 1
   }
-
-  return output.join('')
+  return false
 }
 
-function hasGaConfiguration(scripts) {
-  const escapedId = measurementId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const configPattern = new RegExp(
-    `(?:^|[^A-Za-z0-9_$]|\\\\n)gtag\\s*\\(\\s*(['"])config\\1\\s*,\\s*(['"])${escapedId}\\2(?:\\s*[,\\)])`,
-    'i',
-  )
+function findJsonArrayEnd(source, start) {
+  let depth = 0
+  let quote = null
+  for (let cursor = start; cursor < source.length; cursor += 1) {
+    const character = source[cursor]
+    if (quote) {
+      if (character === '\\') cursor += 1
+      else if (character === quote) quote = null
+      continue
+    }
+    if (character === '"') quote = character
+    else if (character === '[') depth += 1
+    else if (character === ']' && --depth === 0) return cursor
+  }
+  return -1
+}
+
+function rscInlineScripts(script) {
+  const children = []
+  let cursor = 0
+  while ((cursor = script.indexOf('self.__next_f.push(', cursor)) !== -1) {
+    const arrayStart = script.indexOf('[', cursor)
+    const arrayEnd = arrayStart === -1 ? -1 : findJsonArrayEnd(script, arrayStart)
+    if (arrayEnd === -1) break
+    try {
+      const payload = JSON.parse(script.slice(arrayStart, arrayEnd + 1))[1]
+      if (typeof payload === 'string') {
+        for (const line of payload.split('\n')) {
+          const separator = line.indexOf(':')
+          if (separator === -1) continue
+          let value
+          try {
+            value = JSON.parse(line.slice(separator + 1))
+          } catch {
+            continue
+          }
+          const stack = [value]
+          while (stack.length) {
+            const current = stack.pop()
+            if (!current || typeof current !== 'object') continue
+            if (current.id === 'google-analytics' && typeof current.children === 'string') {
+              children.push(current.children)
+            }
+            stack.push(...Object.values(current))
+          }
+        }
+      }
+    } catch {
+      // Ignore unrelated or incomplete push payloads.
+    }
+    cursor = arrayEnd + 1
+  }
+  return children
+}
+
+function hasGaConfiguration(metadata) {
+  if (metadata.googleTagReferences === 0) return false
 
   // Next may serialize inline script source inside an RSC <script> element. This verifies that
   // deployed markup declares the GA config; it does not prove browser execution or data delivery.
-  return scripts.some((script) => configPattern.test(withoutJavaScriptComments(script)))
+  return metadata.scripts.some(
+    (script) =>
+      hasExecutableGaConfiguration(script) ||
+      rscInlineScripts(script).some((children) => hasExecutableGaConfiguration(children)),
+  )
 }
 
 function removeMarkupComments(source) {
@@ -277,6 +348,7 @@ function sitemapLocations(xml) {
 async function readTextWithinLimit(response, path, limit) {
   const contentLength = Number(response.headers.get('content-length'))
   if (Number.isFinite(contentLength) && contentLength > limit) {
+    await cancelResponseBody(response)
     throw new Error(`${path} exceeds the ${limit}-byte response limit`)
   }
   if (!response.body) return ''
@@ -303,15 +375,27 @@ async function readTextWithinLimit(response, path, limit) {
   }
 }
 
+async function cancelResponseBody(response) {
+  try {
+    await response.body?.cancel()
+  } catch {
+    // Cancellation is best-effort; preserve the original validation error.
+  }
+}
+
 async function get(fetcher, path) {
   const requestedUrl = `${origin}${path}`
   const response = await fetcher(requestedUrl, {
     headers: { 'user-agent': 'corsair-cove-production-monitor/1.0' },
     signal: AbortSignal.timeout(10_000),
   })
-  if (!response.ok) throw new Error(`${path} returned ${response.status}`)
+  if (!response.ok) {
+    await cancelResponseBody(response)
+    throw new Error(`${path} returned ${response.status}`)
+  }
   const finalUrl = response.url ? new URL(response.url).href : response.url
   if (finalUrl !== requestedUrl) {
+    await cancelResponseBody(response)
     throw new Error(`${path} resolved to ${finalUrl || 'an unknown URL'}; expected ${requestedUrl}`)
   }
 
@@ -339,7 +423,7 @@ export async function checkProduction(fetcher = fetch) {
         `${path} canonical is ${metadata.canonicals[0] || 'missing'}; expected ${expectedCanonical}`,
       )
     }
-    if (!hasGaConfiguration(metadata.scripts)) {
+    if (!hasGaConfiguration(metadata)) {
       throw new Error(`${path} is missing GA configuration for ${measurementId}`)
     }
     if (path === '/' && response.headers.get('x-content-type-options')?.trim().toLowerCase() !== 'nosniff') {
